@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Saira:400,500|Work+Sans:300,400&display=swap');
+
+/*COLORS*/
+$dark-color: #04090d;
+$light-color: #f8f8f8;
+$text-color: #6b6f70;
+$primary-color: #1ac69e;
+
+/*TYPOGRAPHY*/
+$display:'Saira', sans-serif;
+$text: 'Work Sans', sans-serif;
+
+body {
+  margin: 0;
+  font: 400 100%/1.375 $text;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: $light-color;
+  color: $text-color;
+}
+
+* { 
+  box-sizing: border-box;
+}
