@@ -23,12 +23,12 @@ const theme = {
     s: 576
   },
   columns: {
-    xl: 12,
+    xl: 24,
     l: 10,
     m: 8,
     s: 6,
     gap: {
-      xl: 15,
+      xl: 5,
       l: 12,
       m: 10,
       s: 7
@@ -97,7 +97,7 @@ const Header = styled.header`
   overflow:hidden;
   
   grid-column: 1 / span ${theme.columns.s};
-  grid-row: 2 / span 2;
+  grid-row: 2 / span 4;
   justify-self: center;
   align-self: center;
 

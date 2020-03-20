@@ -35,15 +35,15 @@ const Image = styled.img`
   height: 100%;
 `;
 
-const Media = (props) => {
+const Card = (props) => {
   
   let theme = { ...props.theme, y:props.y, scale:props.scale };
 
   return (
-    <ImageWrapper className="Media" theme={theme}>
+    <ImageWrapper className="Card" theme={theme}>
       <Image src={props.src} />
     </ImageWrapper>
   );
 }
 
-export default withTheme(Media);
+export default withTheme(Card);
