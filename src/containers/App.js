@@ -123,21 +123,20 @@ class App extends Component {
   state = {
     loading: false,
     tweets: [],
-    currentTweet: null,
-    images: []
+    currentTweet: null
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
 
-    console.log(data.tweetsList.length)
+    //console.log(data.tweetsList.length)
 
-    let images = [];
-    images = data.tweetsList.map((tweet) => {
-      return (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : null;
-    })
+    // let images = [];
+    // images = data.tweetsList.map((tweet) => {
+    //   return (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : null;
+    // })
 
-    this.setState({ tweets: data.tweetsList, images });
+    this.setState({ tweets: data.tweetsList });
 
     // axios.get('https://dev.nayra.coop/tweets.json').then((response) => {
     //   console.log(response);
@@ -155,19 +154,19 @@ class App extends Component {
     let scrollTop = window.scrollY;
 
     if(scrollHeight - viewportHeight - scrollTop < 200) {
-      let images = [ ...this.state.images, ...this.state.images ];
-      this.setState({ images });
+      let tweets = [ ...this.state.tweets, ...this.state.tweets ];
+      this.setState({ tweets });
     }
   }
 
   clickHandler = (e, tweet) => {
-    console.log(tweet);
+    console.log(e.target, tweet);
     this.setState({ currentTweet: tweet });
   }
 
   render() {
 
-    let gallery = this.state.images.map((img) => { return <Media key={Math.random()} src={img} tweet={img} alt="" click={this.clickHandler} /> })
+    let gallery = this.state.tweets.map((tweet) => { return <Media key={Math.random()} tweet={tweet} alt="" click={this.clickHandler} /> })
     let tweetCard = (this.state.currentTweet) ? <Card tweet={this.state.currentTweet} /> : null;
 
     return (
