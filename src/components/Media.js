@@ -21,6 +21,18 @@ const ImageWrapper = styled.div`
     // border-color: ${props => props.theme.colors.dark};
     filter: none;
   }
+  :hover {
+
+    position:relative;
+    z-index:2;
+    transform: scale(3);
+  }
+
+  transform: scale(.9);
+  :nth-child(odd) {
+    transform: scale(1) translateY(-10px);
+  }
+
 `;
 
 const Image = styled.img`
@@ -31,9 +43,11 @@ const Image = styled.img`
 `;
 
 const Media = (props) => {
+  
+  let theme = { ...props.theme, y:props.y, scale:props.scale };
 
   return (
-    <ImageWrapper className="Media">
+    <ImageWrapper className="Media" theme={theme}>
       <Image src={props.src} />
     </ImageWrapper>
   );

@@ -24,9 +24,15 @@ const theme = {
   },
   columns: {
     xl: 12,
-    l: 15,
-    m: 10,
-    s: 5
+    l: 10,
+    m: 8,
+    s: 6,
+    gap: {
+      xl: 15,
+      l: 12,
+      m: 10,
+      s: 7
+    }
   }
 }
 
@@ -50,10 +56,31 @@ const Container = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.xl).replace(/-/gi, '1fr '))};
-  grid-column-gap: 15px;
-  grid-row-gap: 30px;
+  grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.s).replace(/-/gi, '1fr '))};
+  grid-column-gap: ${theme.columns.gap.s}px;
+  grid-row-gap: ${2*theme.columns.gap.s}px;
   margin: 30px 0;
+
+  @media (min-width: ${theme.pageWidth.s}px) {
+    grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.s).replace(/-/gi, '1fr '))};
+    grid-column-gap: ${theme.columns.gap.s}px;
+    grid-row-gap: ${2*theme.columns.gap.s}px;
+  }
+  @media (min-width: ${theme.pageWidth.m}px) {
+    grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.m).replace(/-/gi, '1fr '))};
+    grid-column-gap: ${theme.columns.gap.m}px;
+    grid-row-gap: ${2*theme.columns.gap.m}px;
+  }
+  @media (min-width: ${theme.pageWidth.l}px) {
+    grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.l).replace(/-/gi, '1fr '))};
+    grid-column-gap: ${theme.columns.gap.l}px;
+    grid-row-gap: ${2*theme.columns.gap.l}px;
+  }
+  @media (min-width: ${theme.pageWidth.xl}px) {
+    grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.xl).replace(/-/gi, '1fr '))};
+    grid-column-gap: ${theme.columns.gap.xl}px;
+    grid-row-gap: ${2*theme.columns.gap.xl}px;
+  }
 `;
   
 const Title = styled.h1`
@@ -69,10 +96,24 @@ const Header = styled.header`
   border-radius: 3px;
   overflow:hidden;
   
-  grid-column: 3 / span ${theme.columns.xl-4};
+  grid-column: 1 / span ${theme.columns.s};
   grid-row: 2 / span 2;
   justify-self: center;
   align-self: center;
+
+  @media (min-width: ${theme.pageWidth.s}px) {
+    grid-column: 1 / span ${theme.columns.s};
+  }
+  @media (min-width: ${theme.pageWidth.m}px) {
+    grid-column: 2 / span ${theme.columns.m-2};
+  }
+  @media (min-width: ${theme.pageWidth.l}px) {
+    grid-column: 3 / span ${theme.columns.l-4};
+  }
+  @media (min-width: ${theme.pageWidth.xl}px) {
+    grid-column: 3 / span ${theme.columns.xl-4};
+  }
+
 `;
 
 
