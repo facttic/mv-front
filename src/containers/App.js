@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import data from '../assets/data/tweets.json';
 
+import Media from '../components/Media';
+
 const theme = {
   colors: {
     dark: '#04090d',
@@ -46,75 +48,84 @@ const Container = styled.div`
   }
 `;
 
-const Gallery = styled.div`
+const Grid = styled.div`
   display: grid;
   grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.xl).replace(/-/gi, '1fr '))};
   grid-column-gap: 15px;
   grid-row-gap: 30px;
+  margin: 30px 0;
 `;
   
-const PictureWrapper = styled.div`
-  // border: 3px solid ${theme.colors.light};
-  // border-bottom-width: 6px;
-  transition: all 100ms ease-in-out;
-  filter: grayscale(50%);
-  // box-shadow: 0 3px 4px -1px rgba(0,0,0,.35);
-  overflow:hidden;
-
-  &:nth-child(8n+5) {
-    
-  }
-
-  :hover {
-    // border-color: ${theme.colors.dark};
-    filter: none;
-  }
-`;
-
-const Picture = styled.img`
-  display:block;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-`;
-
 const Title = styled.h1`
   text-align: center;
   color: #000;
   font-family: ${theme.fonts.display};
-  font-size: 3.5em;
+  font-size: 2em;
   font-weight: 500;
-  margin: 2em 0;
+  // margin: 2em 0;
 `;
 
-let images = [];
-let imageCount = 150;
-
-images = data.tweetsList.map((tweet) => {
-  return (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : null;
-})
+const Header = styled.header`
+  border-radius: 3px;
+  overflow:hidden;
+  
+  grid-column: 3 / span ${theme.columns.xl-4};
+  grid-row: 2 / span 2;
+  justify-self: center;
+  align-self: center;
+`;
 
 
 class App extends Component {
 
+  state = {
+    loading: false,
+    tweets: [],
+    images: []
+  }
+
   componentDidMount() {
-    axios.get(require('../assets/data/tweets.json')).then((response) => {
-      console.log(response);
+    window.addEventListener('scroll', this.handleScroll);
+
+    let images = [];
+    images = data.tweetsList.map((tweet) => {
+      return (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : null;
     })
-    console.log(data)
+
+    this.setState({ tweets: data.tweetsList, images });
+
+    // axios.get('https://dev.nayra.coop/tweets.json').then((response) => {
+    //   console.log(response);
+    // })
+    // console.log(data)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = (e) => {
+    let scrollHeight = document.body.scrollHeight;
+    let viewportHeight = window.innerHeight;
+    let scrollTop = window.scrollY;
+
+    if(scrollHeight - viewportHeight - scrollTop < 200) {
+      let images = [ ...this.state.images, ...this.state.images ];
+      this.setState({ images });
+    }
   }
 
   render() {
 
-    let gallery = <Gallery>{images.map((img) => {
-      return <PictureWrapper key={Math.random()}><Picture src={img} alt="" /></PictureWrapper>;
-    })}</Gallery>
+    let gallery = this.state.images.map((img) => { return <Media key={Math.random()} src={img} alt="" /> });
 
     return (
       <Container className="App">
         <ThemeProvider theme={theme}>
-          <Title>#MarchemosEnInternet</Title>
-          {gallery}
+          <Grid>
+            <Header><Title>#PañuelosConMemoria</Title></Header>
+            {gallery}
+          </Grid>
         </ThemeProvider>
       </Container>
     );
