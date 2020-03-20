@@ -5,6 +5,7 @@ import axios from 'axios';
 import data from '../assets/data/tweets.json';
 
 import Media from '../components/Media';
+import Card from '../components/Card';
 
 const theme = {
   colors: {
@@ -122,11 +123,14 @@ class App extends Component {
   state = {
     loading: false,
     tweets: [],
+    currentTweet: null,
     images: []
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+
+    console.log(data.tweetsList.length)
 
     let images = [];
     images = data.tweetsList.map((tweet) => {
@@ -156,9 +160,15 @@ class App extends Component {
     }
   }
 
+  clickHandler = (e, tweet) => {
+    console.log(tweet);
+    this.setState({ currentTweet: tweet });
+  }
+
   render() {
 
-    let gallery = this.state.images.map((img) => { return <Media key={Math.random()} src={img} alt="" /> });
+    let gallery = this.state.images.map((img) => { return <Media key={Math.random()} src={img} tweet={img} alt="" click={this.clickHandler} /> })
+    let tweetCard = (this.state.currentTweet) ? <Card tweet={this.state.currentTweet} /> : null;
 
     return (
       <Container className="App">
@@ -167,6 +177,7 @@ class App extends Component {
             <Header><Title>#PañuelosConMemoria</Title></Header>
             {gallery}
           </Grid>
+          {tweetCard}
         </ThemeProvider>
       </Container>
     );

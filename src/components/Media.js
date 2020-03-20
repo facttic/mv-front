@@ -4,11 +4,13 @@ import styled, { withTheme } from 'styled-components';
 const ImageWrapper = styled.div`
   // border: 3px solid ${props => props.theme.colors.light};
   // border-bottom-width: 6px;
-  transition: all 100ms ease-in-out;
+  // transition: all 50ms ease-in-out;
   // filter: grayscale(50%);
   // box-shadow: 0 3px 4px -1px rgba(0,0,0,.35);
   border-radius: 3px;
   overflow:hidden;
+  cursor: pointer;
+  // opacity: 0.65;
 
   // &:first-child {
   //   grid-column: 3 / span 8;
@@ -26,6 +28,14 @@ const ImageWrapper = styled.div`
     transform: scale(.9) translateX(-5px);
   }
 
+  :hover {
+    transform: scale(2.5);
+    position:relative;
+    z-index: 2;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,.75);
+    // opacity: 1;
+  }
+
 `;
 
 const Image = styled.img`
@@ -36,14 +46,14 @@ const Image = styled.img`
 `;
 
 const Media = (props) => {
-  
-  let theme = { ...props.theme, y:props.y, scale:props.scale };
 
   return (
-    <ImageWrapper className="Media" theme={theme}>
-      <Image src={props.src} />
+    <ImageWrapper className="Media">
+      <div onClick={(e) => props.click(e, props.tweet)}>
+        <Image src={props.src} />
+      </div>
     </ImageWrapper>
   );
 }
 
-export default withTheme(Media);
+export default withTheme(React.memo(Media));
