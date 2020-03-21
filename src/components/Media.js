@@ -35,9 +35,9 @@ const ImageWrapper = styled.div`
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 2px;
+    height: 1px;
     width: 0;
-    background: rgba(255,255,255,.65);
+    background: rgba(29, 161, 242, .75);
     pointer-events: none;
   }
   
@@ -54,9 +54,7 @@ const ImageWrapper = styled.div`
       width: 100%;
     }
   }
-
   
-
 `;
 
 const Image = styled.img`

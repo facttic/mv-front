@@ -99,7 +99,7 @@ const Title = styled.h1`
 const Header = styled.header`
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 1;
   overflow:hidden;
   padding: 5px 15px;
   background-color: #7d7d7d;

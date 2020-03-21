@@ -24,6 +24,15 @@ body {
   box-sizing: border-box;
 }
 
+a {
+  color: rgb(29, 161, 242);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 @keyframes in {
   0% { opacity: 0; }
   100% { opacity: 1; }
