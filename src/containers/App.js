@@ -5,8 +5,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Media from '../components/Media';
 import Card from '../components/Card';
-
-import data from '../assets/data/tweets.json'
+import Constants from '../constants'
 
 const theme = {
   colors: {
@@ -151,6 +150,8 @@ const Overlay = styled.div`
   animation: in 500ms ease-in-out;
 `;
 
+const { REACT_APP_API_URL: API_URL } = process.env
+
 class App extends Component {
 
   state = {
@@ -158,37 +159,43 @@ class App extends Component {
     tweets: [],
     currentTweet: null,
     currentPage: 1,
+    perPage: Constants.initialAmount,
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
     this.container = React.createRef();
     this.timer = null;
-    this.fetchTweets()
+    const { currentPage: _currentPage, perPage } = this.state
+    const endpoint = 'tweets'
+    const params = `page=${_currentPage}&perPage=${perPage}`
+    const url = `${API_URL}/${endpoint}?${params}`
+    this.fetchTweets(url)
   }
 
-  fetchTweets() {
-    // const { currentPage: _currentPage, tweets: _tweets } = this.state
-    // const hostUrl = 'http://localhost:3333'
-    // const endpoint = 'api/tweets'
-    // const params = `page=${_currentPage}&perPage=50`
-    // axios.get(`${hostUrl}/${endpoint}?${params}`)
-    //   .then(res => {
-    //     const { list: newTweets } = res.data
-    //     const currentPage = _currentPage + 1
-    //     const tweets = _tweets.concat(newTweets)
-    //     this.setState({ tweets, currentPage })
-    //   })
-    let unique_id_data = data.tweetsList.map(tweet => {
-      let tw = { ...tweet };
-      tw.tweet_id_str += Math.random();
-      return tw;
-    })
+  fetchTweets(url) {
+    const { currentPage: _currentPage, tweets: _tweets } = this.state
+    axios.get(url)
+      .then(res => {
+        const { list: newTweets } = res.data
+        const currentPage = _currentPage + 1
+        const tweets = _tweets.concat(newTweets)
 
-    let tweets = [ ...this.state.tweets, ...unique_id_data ];
-    this.setState({ tweets });
+        this.setState({ tweets, currentPage })
+      })
   }
 
+  onEndReached() {
+    const { perPage, tweets } = this.state
+    const endpoint = 'tweets'
+    const _perPage = Constants.perPage
+    const page = Math.round(tweets.length / _perPage) + 1
+    const params = `page=${page}&perPage=${perPage}`
+    const url = `${API_URL}/${endpoint}?${params}`
+
+    this.setState({ currentPage: page, perPage: _perPage })
+    this.fetchTweets(url)
+  }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -200,7 +207,7 @@ class App extends Component {
     let scrollTop = window.scrollY;
 
     if(scrollHeight - viewportHeight - scrollTop < 200) {
-      this.fetchTweets()
+      this.onEndReached()
     }
   }
 
@@ -221,7 +228,7 @@ class App extends Component {
 
   render() {
 
-    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
+    let gallery = this.state.tweets.map((tweet) => { return <Media key={`${Math.random() * tweet.tweet_id_str}`} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
     
     let tweetCard = null;
     if(this.state.currentTweet) {
