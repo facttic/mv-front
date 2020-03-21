@@ -37,14 +37,6 @@ const Card = (props) => {
     <CardWrapper className="Card">
       <CardImage media={props.tweet.media} />
       <CardInfo date={props.tweet.tweet_created_at} text={props.tweet.full_text} author={props.tweet.user} />
-      {/* <div>
-        <time datetime={formattedDate}>{strDate}</time>
-        <p>{props.tweet.full_text}</p>
-        <div>
-          <img src={props.tweet.user.profile_image_url_https} alt="" />
-          <p class="author">{props.tweet.user.name} - @{props.tweet.user.screen_name}</p>
-        </div>
-      </div> */}
     </CardWrapper>
   );
 }

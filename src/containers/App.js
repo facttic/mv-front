@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 
+import Header from '../components/Header';
 import Media from '../components/Media';
 import Card from '../components/Card';
 
@@ -85,47 +86,11 @@ const Grid = styled.div`
     grid-row-gap: ${2*theme.columns.gap.xl}px;
   }
 `;
-  
-const Title = styled.h1`
-  text-align: center;
-  color: ${theme.colors.light};
-  background-color: ${theme.colors.primary};
-  font-family: ${theme.fonts.display};
-  font-size: 2.7em;
-  font-weight: 600;
-  padding:.1em .5em;
-  border-radius:.1em;
 
-  @media (max-width: ${theme.pageWidth.m}px) {
-    font-size: 1.5em;
-  }
-`;
-
-const SubTitle = styled.h2`
-  text-align: center;
-  color: ${theme.colors.primary};
-  font-family: ${theme.fonts.display};
-  font-size: 1.3em;
-  font-weight: 600;
-  //background-color:${theme.colors.primary};
-  border-radius: .1em;
-  margin-top:-10px;
-
-  @media (max-width: ${theme.pageWidth.m}px) {
-    font-size: .9em;
-  }
-`;
-
-const Header = styled.header`
-  position: relative;
-  z-index: 3;
-  overflow:hidden;
-  padding: .5em;
-  border-radius: 3px;
-  z-index:0;
+const HeaderWrapper = styled.header`
   
   grid-column: 1 / span ${theme.columns.s};
-  grid-row: 2 / span 4;
+  grid-row: 2 / span 5;
   justify-self: center;
   align-self: center;
 
@@ -258,7 +223,7 @@ class App extends Component {
           offsetY   = elemRect.top - containerRect.top;
           let x = offsetX + (elemRect.right - elemRect.left)/2 - 180;
           let y = offsetY - 30;
-          if(x + 360 > (containerRect.right - containerRect.left) + 15) x = (containerRect.right - containerRect.left) - 15 - 360;
+          if(x + 360 > (containerRect.right - containerRect.left) + 15) x = (containerRect.right - containerRect.left) + 15 - 360;
           if(x < 15) x = 15;
           if(y < -25) y = -25;
           tweetCard = <div style={{ position:'absolute', top: y, left: x, zIndex: 2, animation: 'in 400ms ease-out' }} onMouseLeave={this.closeCard}>
@@ -271,7 +236,11 @@ class App extends Component {
       <Container ref={this.container} className="App">
         <ThemeProvider theme={theme}>
           <Grid>
-            <Header><Title>#PañuelosConMemoria</Title><SubTitle>Nos unimos en una gran marcha con los tweets del 24 de marzo</SubTitle></Header>
+            <HeaderWrapper>
+              <Header title="#PañuelosConMemoria" info="Este 24 de marzo construimos memoria activa desde Marcha Virtual.">
+                Subí tu foto a Twitter con el hashtag <a href="https://twitter.com/search?q=%23PañuelosConMemoria" target="_blank">#PañuelosConMemoria</a> y sumate. <span>¡La marcha la hacemos entre todxs!</span>
+              </Header>
+            </HeaderWrapper>
             {gallery}
           </Grid>
           {tweetCard}
