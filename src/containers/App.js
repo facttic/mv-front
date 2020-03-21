@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Media from '../components/Media';
 import Card from '../components/Card';
+import Constants from '../constants'
 
 const theme = {
   colors: {
@@ -158,7 +159,7 @@ class App extends Component {
     tweets: [],
     currentTweet: null,
     currentPage: 1,
-    perPage: 200,
+    perPage: Constants.initialAmount,
   }
 
   componentDidMount() {
@@ -179,16 +180,20 @@ class App extends Component {
         const { list: newTweets } = res.data
         const currentPage = _currentPage + 1
         const tweets = _tweets.concat(newTweets)
+
         this.setState({ tweets, currentPage })
       })
   }
 
   onEndReached() {
-    const { currentPage, perPage } = this.state
+    const { perPage, tweets } = this.state
     const endpoint = 'tweets'
-
-    const params = `page=${currentPage}&perPage=${perPage}`
+    const _perPage = Constants.perPage
+    const page = Math.round(tweets.length / _perPage) + 1
+    const params = `page=${page}&perPage=${perPage}`
     const url = `${API_URL}/${endpoint}?${params}`
+
+    this.setState({ currentPage: page, perPage: _perPage })
     this.fetchTweets(url)
   }
 
@@ -223,7 +228,7 @@ class App extends Component {
 
   render() {
 
-    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
+    let gallery = this.state.tweets.map((tweet) => { return <Media key={`${Math.random() * tweet.tweet_id_str}`} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
     
     let tweetCard = null;
     if(this.state.currentTweet) {
