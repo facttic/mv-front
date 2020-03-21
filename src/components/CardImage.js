@@ -3,15 +3,22 @@ import styled, { withTheme } from 'styled-components';
 
 const Wrapper = styled.div`
   background-color: #ccc;
+  min-height: 50px;
 `;
 
-const Image = styled.div`
+const BGImage = styled.div`
   display:block;
   margin: 0 auto;
-  height: 225px;
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
+`;
+
+const Image = styled.img`
+  display:block;
+  margin: 0;
+  width: 100%;
+  height: auto;
 `;
 
 const CardImage = (props) => {
@@ -20,7 +27,8 @@ const CardImage = (props) => {
 
   return (
     <Wrapper className="CardImage">
-      <Image style={ { backgroundImage: 'url(' + imageSrc + ')'} } />
+      {/* <BGImage style={ { backgroundImage: 'url(' + imageSrc + ')'} } /> */}
+      <Image alt="" src={imageSrc} />
     </Wrapper>
   );
 }

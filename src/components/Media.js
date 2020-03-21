@@ -66,17 +66,13 @@ const Image = styled.img`
 
 const Media = (props) => {
 
-  useEffect(() => {
-    console.log("pic")
-  })
-
   let { tweet } = props;
   let imageSrc = (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : '';
 
   return (
     <ImageWrapper className="Media">
       <div onMouseEnter={(e) => props.enter(e, props.tweet)} onMouseLeave={props.leave}>
-        <Image src={imageSrc} />
+        <Image src={imageSrc} alt="" width="150" height="150" />
       </div>
     </ImageWrapper>
   );
