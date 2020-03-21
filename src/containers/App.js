@@ -122,6 +122,7 @@ const Header = styled.header`
   overflow:hidden;
   padding: .5em;
   border-radius: 3px;
+  z-index:0;
   
   grid-column: 1 / span ${theme.columns.s};
   grid-row: 2 / span 4;
@@ -265,7 +266,7 @@ class App extends Component {
       <Container ref={this.container} className="App">
         <ThemeProvider theme={theme}>
           <Grid>
-            <Header><Title>#PañuelosConMemoria</Title><SubTitle>Unimos en una gran marcha los tweets del 24 de Marzo</SubTitle></Header>
+            <Header><Title>#PañuelosConMemoria</Title><SubTitle>Nos unimos en una gran marcha con los tweets del 24 de marzo</SubTitle></Header>
             {gallery}
           </Grid>
           {tweetCard}
