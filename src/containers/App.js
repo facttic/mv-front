@@ -256,7 +256,12 @@ class App extends Component {
           elemRect = this.state.currentTweet.el.getBoundingClientRect(),
           offsetX   = elemRect.left - containerRect.left,
           offsetY   = elemRect.top - containerRect.top;
-          tweetCard = <div style={{ position:'absolute', top: offsetY, left: offsetX, zIndex: 2, animation: 'in 400ms ease-out' }} onMouseLeave={this.closeCard}>
+          let x = offsetX + (elemRect.right - elemRect.left)/2 - 180;
+          let y = offsetY - 30;
+          if(x + 360 > (containerRect.right - containerRect.left) + 15) x = (containerRect.right - containerRect.left) - 15 - 360;
+          if(x < 15) x = 15;
+          if(y < -25) y = -25;
+          tweetCard = <div style={{ position:'absolute', top: y, left: x, zIndex: 2, animation: 'in 400ms ease-out' }} onMouseLeave={this.closeCard}>
                     <Layer />
                     <Card tweet={this.state.currentTweet.tweet} />
                   </div>;
