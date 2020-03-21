@@ -47,10 +47,13 @@ const Image = styled.img`
 
 const Media = (props) => {
 
+  let { tweet } = props;
+  let imageSrc = (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : '';
+
   return (
     <ImageWrapper className="Media">
       <div onClick={(e) => props.click(e, props.tweet)}>
-        <Image src={props.src} />
+        <Image src={imageSrc} />
       </div>
     </ImageWrapper>
   );
