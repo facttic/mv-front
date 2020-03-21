@@ -14,7 +14,7 @@ const theme = {
     primary: '#1ac69e'
   },
   fonts: {
-    display: "'Saira', sans-serif",
+    display: "'Roboto Mono', monotype",
     text: "'Work Sans', sans-serif"
   },
   pageWidth: {
@@ -86,17 +86,23 @@ const Grid = styled.div`
   
 const Title = styled.h1`
   text-align: center;
-  color: #000;
+  color: #FFF;
   font-family: ${theme.fonts.display};
   font-size: 2em;
-  font-weight: 500;
+  font-weight: 300;
+  margin: 0;
   // margin: 2em 0;
 `;
 
 const Header = styled.header`
-  border-radius: 3px;
+  position: sticky;
+  top: 0;
+  z-index: 3;
   overflow:hidden;
-  
+  padding: 5px 15px;
+  background-color: #7d7d7d;
+  border-radius: 3px;
+
   grid-column: 1 / span ${theme.columns.s};
   grid-row: 2 / span 4;
   justify-self: center;
@@ -116,6 +122,26 @@ const Header = styled.header`
   }
 
 `;
+
+const Footer = styled.footer`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 175px;
+  padding: 3px 0;
+  border-top-left-radius: 3px;
+  background-color: #7d7d7d;
+  text-align: center;
+`;
+
+const Link = styled.a`
+  color: #FFF;
+  font-family: ${theme.fonts.display};
+  text-decoration: none;
+  font-size: .81rem;
+  display: block;
+`;
+
 
 
 class App extends Component {
@@ -178,6 +204,7 @@ class App extends Component {
             {gallery}
           </Grid>
           {tweetCard}
+          <Footer><Link href="https://facttic.org.ar/" target="_blank">&lt;/&gt; por FACTTIC</Link></Footer>
         </ThemeProvider>
       </Container>
     );
