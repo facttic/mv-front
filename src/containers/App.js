@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 
-import data from '../assets/data/tweets.json';
-
 import Media from '../components/Media';
 import Card from '../components/Card';
 
@@ -149,7 +147,8 @@ class App extends Component {
   state = {
     loading: false,
     tweets: [],
-    currentTweet: null
+    currentTweet: null,
+    currentPage: 1,
   }
 
   componentDidMount() {
@@ -161,14 +160,23 @@ class App extends Component {
     // images = data.tweetsList.map((tweet) => {
     //   return (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : null;
     // })
-
-    this.setState({ tweets: data.tweetsList });
-
-    // axios.get('https://dev.nayra.coop/tweets.json').then((response) => {
-    //   console.log(response);
-    // })
-    // console.log(data)
+    this.fetchTweets()
   }
+
+  fetchTweets() {
+    const { currentPage: _currentPage, tweets: _tweets } = this.state
+    const hostUrl = 'http://localhost:3333'
+    const endpoint = 'api/tweets'
+    const params = `page=${_currentPage}&perPage=50`
+    axios.get(`${hostUrl}/${endpoint}?${params}`)
+      .then(res => {
+        const { list: newTweets } = res.data
+        const currentPage = _currentPage + 1
+        const tweets = _tweets.concat(newTweets)
+        this.setState({ tweets, currentPage })
+      })
+  }
+
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -180,8 +188,7 @@ class App extends Component {
     let scrollTop = window.scrollY;
 
     if(scrollHeight - viewportHeight - scrollTop < 200) {
-      let tweets = [ ...this.state.tweets, ...this.state.tweets ];
-      this.setState({ tweets });
+      this.fetchTweets()
     }
   }
 
