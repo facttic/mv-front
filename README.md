@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Env variables
+
+You should create an `.env.local` and/or `.env.production.local` files to define or override the default environment variables:
+
++ `REACT_APP_API_URL`
++ `REACT_APP_PER_PAGE`
++ `REACT_APP_INITIAL_AMOUNT`
+
 ## Available Scripts
 
 In the project directory, you can run:
