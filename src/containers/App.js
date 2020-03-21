@@ -11,10 +11,10 @@ const theme = {
   colors: {
     dark: '#04090d',
     light: '#f8f8f8',
-    primary: '#1ac69e'
+    primary: '#243243'
   },
   fonts: {
-    display: "'Roboto Mono', monotype",
+    display: "'Roboto', sans-serif",
     text: "'Work Sans', sans-serif"
   },
   pageWidth: {
@@ -88,23 +88,41 @@ const Grid = styled.div`
   
 const Title = styled.h1`
   text-align: center;
-  color: #FFF;
+  color: ${theme.colors.light};
+  background-color: ${theme.colors.primary};
   font-family: ${theme.fonts.display};
-  font-size: 2em;
-  font-weight: 300;
-  margin: 0;
-  // margin: 2em 0;
+  font-size: 2.7em;
+  font-weight: 600;
+  padding:.1em .5em;
+  border-radius:.1em;
+
+  @media (max-width: ${theme.pageWidth.m}px) {
+    font-size: 1.5em;
+  }
+`;
+
+const SubTitle = styled.h2`
+  text-align: center;
+  color: ${theme.colors.primary};
+  font-family: ${theme.fonts.display};
+  font-size: 1.3em;
+  font-weight: 600;
+  //background-color:${theme.colors.primary};
+  border-radius: .1em;
+  margin-top:-10px;
+
+  @media (max-width: ${theme.pageWidth.m}px) {
+    font-size: .9em;
+  }
 `;
 
 const Header = styled.header`
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  position: relative;
+  z-index: 3;
   overflow:hidden;
-  padding: 5px 15px;
-  background-color: #7d7d7d;
+  padding: .5em;
   border-radius: 3px;
-
+  
   grid-column: 1 / span ${theme.columns.s};
   grid-row: 2 / span 4;
   justify-self: center;
@@ -247,7 +265,7 @@ class App extends Component {
       <Container ref={this.container} className="App">
         <ThemeProvider theme={theme}>
           <Grid>
-            <Header><Title>#PañuelosConMemoria</Title></Header>
+            <Header><Title>#PañuelosConMemoria</Title><SubTitle>Unimos en una gran marcha los tweets del 24 de Marzo</SubTitle></Header>
             {gallery}
           </Grid>
           {tweetCard}
