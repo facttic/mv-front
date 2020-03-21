@@ -38,6 +38,7 @@ const theme = {
 }
 
 const Container = styled.div`
+  position: relative;
   margin: 0 auto;
   padding: 0 30px;
   width: 100%;
@@ -61,6 +62,7 @@ const Grid = styled.div`
   grid-column-gap: ${theme.columns.gap.s}px;
   grid-row-gap: ${2*theme.columns.gap.s}px;
   margin: 30px 0;
+  transform: rotate3d(0deg,0deg,0deg);
 
   @media (min-width: ${theme.pageWidth.s}px) {
     grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.s).replace(/-/gi, '1fr '))};
@@ -142,6 +144,17 @@ const Link = styled.a`
   display: block;
 `;
 
+const Layer = styled.div`
+  // position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.3);
+  z-index: 2;
+  // display: none;
+`;
+
 
 
 class App extends Component {
@@ -162,7 +175,16 @@ class App extends Component {
     //   return (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : null;
     // })
 
-    this.setState({ tweets: data.tweetsList });
+    let unique_id_data = data.tweetsList.map(tweet => {
+      let tw = { ...tweet };
+      tw.tweet_id_str += Math.random();
+      return tw;
+    })
+
+    this.setState({ tweets: unique_id_data });
+
+    this.container = React.createRef();
+
 
     // axios.get('https://dev.nayra.coop/tweets.json').then((response) => {
     //   console.log(response);
@@ -180,29 +202,44 @@ class App extends Component {
     let scrollTop = window.scrollY;
 
     if(scrollHeight - viewportHeight - scrollTop < 200) {
-      let tweets = [ ...this.state.tweets, ...this.state.tweets ];
+      
+      let unique_id_data = data.tweetsList.map(tweet => {
+        let tw = { ...tweet };
+        tw.tweet_id_str += Math.random();
+        return tw;
+      })
+  
+      let tweets = [ ...this.state.tweets, ...unique_id_data ];
       this.setState({ tweets });
     }
   }
 
   clickHandler = (e, tweet) => {
-    console.log(e.target, tweet);
-    this.setState({ currentTweet: tweet });
+    this.setState({ currentTweet: { tweet, el: e.target } });
   }
 
   render() {
 
-    let gallery = this.state.tweets.map((tweet) => { return <Media key={Math.random()} tweet={tweet} alt="" click={this.clickHandler} /> })
-    let tweetCard = (this.state.currentTweet) ? <Card tweet={this.state.currentTweet} /> : null;
+    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" click={this.clickHandler} /> })
+    let tweetCard = null;
+    if(this.state.currentTweet) {
+
+      let containerRect = this.container.current.getBoundingClientRect(),
+          elemRect = this.state.currentTweet.el.getBoundingClientRect(),
+          offsetX   = elemRect.left - containerRect.left,
+          offsetY   = elemRect.top - containerRect.top;
+      console.log()
+      tweetCard = <div style={{ position:'absolute', gridArea: '3 / 2' }}><Card tweet={this.state.currentTweet.tweet} /></div>;
+    }
 
     return (
-      <Container className="App">
+      <Container ref={this.container} className="App">
         <ThemeProvider theme={theme}>
           <Grid>
             <Header><Title>#PañuelosConMemoria</Title></Header>
             {gallery}
-          </Grid>
           {tweetCard}
+          </Grid>
           <Footer><Link href="https://facttic.org.ar/" target="_blank">&lt;/&gt; por FACTTIC</Link></Footer>
         </ThemeProvider>
       </Container>
