@@ -16,7 +16,7 @@ const theme = {
   },
   fonts: {
     display: "'Roboto', sans-serif",
-    text: "'Work Sans', sans-serif"
+    text: "'Roboto Mono', sans-serif"
   },
   pageWidth: {
     xl: 1200,
@@ -90,12 +90,13 @@ const Grid = styled.div`
 const HeaderWrapper = styled.header`
   
   grid-column: 1 / span ${theme.columns.s};
-  grid-row: 2 / span 5;
+  grid-row: 3 / span 5;
   justify-self: center;
   align-self: center;
 
   @media (min-width: ${theme.pageWidth.s}px) {
     grid-column: 1 / span ${theme.columns.s};
+    grid-row: 2 / span 5;
   }
   @media (min-width: ${theme.pageWidth.m}px) {
     grid-column: 2 / span ${theme.columns.m-2};
@@ -113,22 +114,33 @@ const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 175px;
-  padding: 3px 0;
-  border-top-left-radius: 3px;
-  background-color: #7d7d7d;
-  text-align: center;
+  padding: 0.25em 30px 0.25em;
+  background: rgba(248,248,248,0);
+  background: -moz-linear-gradient(left, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(248,248,248,0)), color-stop(25%, rgba(248,248,248,0.95)), color-stop(100%, rgba(248,248,248,1)));
+  background: -webkit-linear-gradient(left, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
+  background: -o-linear-gradient(left, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
+  background: -ms-linear-gradient(left, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
+  background: linear-gradient(to right, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f8f8f8', GradientType=1 );
+  text-align: right;
 `;
 
 const Link = styled.a`
-  color: #FFF;
+  color: inherit;
   font-family: ${theme.fonts.display};
   text-decoration: none;
-  font-size: .81rem;
+  font-size: .625rem;
   display: block;
 `;
 
-const Layer = styled.div`
+const Modal = styled.div`
+  position: absolute;
+  z-index: 2;
+  animation: 'in 400ms ease-out';
+`;
+
+const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -136,11 +148,8 @@ const Layer = styled.div`
   bottom: 0;
   background-color: rgba(0,0,0,.3);
   z-index: 2;
-  pointer-events: none;
   animation: in 500ms ease-in-out;
 `;
-
-
 
 class App extends Component {
 
@@ -204,7 +213,6 @@ class App extends Component {
 
   mouseLeaveHandler = () => {
     clearTimeout(this.timer);
-    // this.setState({ currentTweet: null });
   }
 
   closeCard = () => {
@@ -214,22 +222,22 @@ class App extends Component {
   render() {
 
     let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
+    
     let tweetCard = null;
     if(this.state.currentTweet) {
+      let containerRect = this.container.current.getBoundingClientRect();
+      let elemRect = this.state.currentTweet.el.getBoundingClientRect();
+      let x = (elemRect.left - containerRect.left) + (elemRect.right - elemRect.left)/2 - 180;
+      let y = (elemRect.top - containerRect.top) - 30;
 
-      let containerRect = this.container.current.getBoundingClientRect(),
-          elemRect = this.state.currentTweet.el.getBoundingClientRect(),
-          offsetX   = elemRect.left - containerRect.left,
-          offsetY   = elemRect.top - containerRect.top;
-          let x = offsetX + (elemRect.right - elemRect.left)/2 - 180;
-          let y = offsetY - 30;
-          if(x + 360 > (containerRect.right - containerRect.left) + 15) x = (containerRect.right - containerRect.left) + 15 - 360;
-          if(x < 15) x = 15;
-          if(y < -25) y = -25;
-          tweetCard = <div style={{ position:'absolute', top: y, left: x, zIndex: 2, animation: 'in 400ms ease-out' }} onMouseLeave={this.closeCard}>
-                    <Layer />
-                    <Card tweet={this.state.currentTweet.tweet} />
-                  </div>;
+      if(x + 360 > (containerRect.right - containerRect.left) + 15) x = (containerRect.right - containerRect.left) + 15 - 360;
+      if(x < 15) x = 15;
+      if(y < -25) y = -25;
+
+      tweetCard = <Modal style={{ top: y, left: x }}>
+                    <Overlay onTouchStart={this.closeCard} />
+                    <Card tweet={this.state.currentTweet.tweet} close={this.closeCard} />
+                  </Modal>;
     }
 
     return (
@@ -244,7 +252,7 @@ class App extends Component {
             {gallery}
           </Grid>
           {tweetCard}
-          <Footer><Link href="https://facttic.org.ar/" target="_blank">&lt;/&gt; por FACTTIC</Link></Footer>
+          <Footer><Link href="https://facttic.org.ar/" target="_blank">Desarrollado por FACTTIC</Link></Footer>
         </ThemeProvider>
       </Container>
     );

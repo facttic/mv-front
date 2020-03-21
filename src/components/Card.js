@@ -34,7 +34,7 @@ const Card = (props) => {
   const strDate = date.getDate() + ' ' + months[date.getMonth()];
 
   return (
-    <CardWrapper className="Card">
+    <CardWrapper className="Card" onMouseLeave={props.close}>
       <CardImage media={props.tweet.media} />
       <CardInfo date={props.tweet.tweet_created_at} text={props.tweet.full_text} author={props.tweet.user} />
     </CardWrapper>
