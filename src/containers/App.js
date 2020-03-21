@@ -228,7 +228,7 @@ class App extends Component {
 
   render() {
 
-    let gallery = this.state.tweets.map((tweet) => { return <Media key={`${Math.random() * tweet.tweet_id_str}`} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
+    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
     
     let tweetCard = null;
     if(this.state.currentTweet) {
