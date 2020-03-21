@@ -5,7 +5,7 @@ import CardInfo from './CardInfo';
 
 const CardWrapper = styled.article`
   width: 360px;
-  max-width: 100%;
+  max-width: calc(100% - 30px);
   background-color: #fff;
   position: relative;
   z-index: 2;
@@ -23,7 +23,6 @@ const Image = styled.img`
 
 const Card = (props) => {
   
-  console.log(props.tweet)
   const months = [ 'ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.' ];
   const date = new Date(props.tweet.tweet_created_at);
   const formattedDate = date.getFullYear()
