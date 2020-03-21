@@ -11,6 +11,7 @@ const ImageWrapper = styled.div`
   overflow:hidden;
   cursor: pointer;
   // opacity: 0.65;
+  position: relative;
   
   // &:first-child {
     //   grid-column: 3 / span 8;
@@ -27,15 +28,34 @@ const ImageWrapper = styled.div`
   :nth-child(3n + 5) {
     transform: scale(.9) translateX(-5px);
   }
+
+  ::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: rgba(255,255,255,.65);
+    pointer-events: none;
+  }
   
   :hover {
     transition: all 150ms ease-in-out;
     transform: scale(2.5);
     position:relative;
     z-index: 2;
-    box-shadow: 0 4px 6px -2px rgba(0,0,0,.65);
-    // opacity: 1;
+    box-shadow: 0 4px 6px -2px rgba(0,0,0,.5);
+    
+    ::after {
+      transition: width 600ms linear;
+      transition-delay: 200ms;
+      width: 100%;
+    }
   }
+
+  
 
 `;
 
@@ -57,7 +77,7 @@ const Media = (props) => {
 
   return (
     <ImageWrapper className="Media">
-      <div onClick={(e) => props.click(e, props.tweet)}>
+      <div onMouseEnter={(e) => props.enter(e, props.tweet)} onMouseLeave={props.leave}>
         <Image src={imageSrc} />
       </div>
     </ImageWrapper>

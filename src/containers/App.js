@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 
-import data from '../assets/data/tweets.json';
-
 import Media from '../components/Media';
 import Card from '../components/Card';
+
+import data from '../assets/data/tweets.json'
 
 const theme = {
   colors: {
@@ -25,14 +25,14 @@ const theme = {
   },
   columns: {
     xl: 24,
-    l: 10,
-    m: 8,
-    s: 6,
+    l: 19,
+    m: 12,
+    s: 7,
     gap: {
       xl: 5,
       l: 12,
       m: 10,
-      s: 7
+      s: 5
     }
   }
 }
@@ -145,14 +145,15 @@ const Link = styled.a`
 `;
 
 const Layer = styled.div`
-  // position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,.3);
   z-index: 2;
-  // display: none;
+  pointer-events: none;
+  animation: in 500ms ease-in-out;
 `;
 
 
@@ -162,35 +163,39 @@ class App extends Component {
   state = {
     loading: false,
     tweets: [],
-    currentTweet: null
+    currentTweet: null,
+    currentPage: 1,
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+    this.container = React.createRef();
+    this.timer = null;
+    this.fetchTweets()
+  }
 
-    //console.log(data.tweetsList.length)
-
-    // let images = [];
-    // images = data.tweetsList.map((tweet) => {
-    //   return (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : null;
-    // })
-
+  fetchTweets() {
+    // const { currentPage: _currentPage, tweets: _tweets } = this.state
+    // const hostUrl = 'http://localhost:3333'
+    // const endpoint = 'api/tweets'
+    // const params = `page=${_currentPage}&perPage=50`
+    // axios.get(`${hostUrl}/${endpoint}?${params}`)
+    //   .then(res => {
+    //     const { list: newTweets } = res.data
+    //     const currentPage = _currentPage + 1
+    //     const tweets = _tweets.concat(newTweets)
+    //     this.setState({ tweets, currentPage })
+    //   })
     let unique_id_data = data.tweetsList.map(tweet => {
       let tw = { ...tweet };
       tw.tweet_id_str += Math.random();
       return tw;
     })
 
-    this.setState({ tweets: unique_id_data });
-
-    this.container = React.createRef();
-
-
-    // axios.get('https://dev.nayra.coop/tweets.json').then((response) => {
-    //   console.log(response);
-    // })
-    // console.log(data)
+    let tweets = [ ...this.state.tweets, ...unique_id_data ];
+    this.setState({ tweets });
   }
+
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -202,25 +207,29 @@ class App extends Component {
     let scrollTop = window.scrollY;
 
     if(scrollHeight - viewportHeight - scrollTop < 200) {
-      
-      let unique_id_data = data.tweetsList.map(tweet => {
-        let tw = { ...tweet };
-        tw.tweet_id_str += Math.random();
-        return tw;
-      })
-  
-      let tweets = [ ...this.state.tweets, ...unique_id_data ];
-      this.setState({ tweets });
+      this.fetchTweets()
     }
   }
 
-  clickHandler = (e, tweet) => {
-    this.setState({ currentTweet: { tweet, el: e.target } });
+  mouseEnterHandler = (e, tweet) => {
+    let ct = { tweet, el: e.target };
+    this.timer = setTimeout(() => {
+      this.setState({ currentTweet: ct });
+    }, 800);
+  }
+
+  mouseLeaveHandler = () => {
+    clearTimeout(this.timer);
+    // this.setState({ currentTweet: null });
+  }
+
+  closeCard = () => {
+    this.setState({ currentTweet: null });
   }
 
   render() {
 
-    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" click={this.clickHandler} /> })
+    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
     let tweetCard = null;
     if(this.state.currentTweet) {
 
@@ -228,8 +237,10 @@ class App extends Component {
           elemRect = this.state.currentTweet.el.getBoundingClientRect(),
           offsetX   = elemRect.left - containerRect.left,
           offsetY   = elemRect.top - containerRect.top;
-      console.log()
-      tweetCard = <div style={{ position:'absolute', gridArea: '3 / 2' }}><Card tweet={this.state.currentTweet.tweet} /></div>;
+          tweetCard = <div style={{ position:'absolute', top: offsetY, left: offsetX, zIndex: 2, animation: 'in 400ms ease-out' }} onMouseLeave={this.closeCard}>
+                    <Layer />
+                    <Card tweet={this.state.currentTweet.tweet} />
+                  </div>;
     }
 
     return (
@@ -238,8 +249,8 @@ class App extends Component {
           <Grid>
             <Header><Title>#PañuelosConMemoria</Title></Header>
             {gallery}
-          {tweetCard}
           </Grid>
+          {tweetCard}
           <Footer><Link href="https://facttic.org.ar/" target="_blank">&lt;/&gt; por FACTTIC</Link></Footer>
         </ThemeProvider>
       </Container>
