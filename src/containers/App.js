@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import Media from '../components/Media';
 import Card from '../components/Card';
 import Constants from '../constants'
+import Api from '../api'
 
 const theme = {
   colors: {
@@ -231,6 +232,17 @@ class App extends Component {
     this.setState({ currentTweet: null });
   }
 
+  login() {
+    Api.users.login('email', 'password')
+      .then(res => {
+        console.log(res)
+      })
+  }
+
+  logout() {
+    Api.users.logout()
+  }
+
   render() {
 
     let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
@@ -252,6 +264,8 @@ class App extends Component {
                   </Modal>;
     }
 
+    // <button onClick={this.login}>login</button>
+    // <button onClick={this.logout}>logout</button>
     return (
       <Container ref={this.container} className="App">
         <ThemeProvider theme={theme}>
