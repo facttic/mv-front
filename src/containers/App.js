@@ -160,6 +160,7 @@ class App extends Component {
     currentTweet: null,
     currentPage: 1,
     perPage: Constants.initialAmount,
+    total: 0,
   }
 
   componentDidMount() {
@@ -177,11 +178,11 @@ class App extends Component {
     const { currentPage: _currentPage, tweets: _tweets } = this.state
     axios.get(url)
       .then(res => {
-        const { list: newTweets } = res.data
+        const { list: newTweets, total } = res.data
         const currentPage = _currentPage + 1
         const tweets = _tweets.concat(newTweets)
 
-        this.setState({ tweets, currentPage })
+        this.setState({ tweets, currentPage, total })
       })
   }
 
@@ -201,12 +202,16 @@ class App extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll = (e) => {
-    let scrollHeight = document.body.scrollHeight;
-    let viewportHeight = window.innerHeight;
-    let scrollTop = window.scrollY;
+  isBottom(element) {
+    return document.getElementById('root')
+      .getBoundingClientRect().bottom <= window.innerHeight;
+  }
 
-    if(scrollHeight - viewportHeight - scrollTop < 200) {
+  handleScroll = (e) => {
+    const { total, tweets } = this.state
+    const shouldFetchMore = total > tweets.length
+    if (shouldFetchMore && this.isBottom()) {
+      document.removeEventListener('scroll', this.trackScrolling);
       this.onEndReached()
     }
   }
