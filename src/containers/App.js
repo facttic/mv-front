@@ -246,6 +246,14 @@ class App extends Component {
     this.setState({ currentTweet: null });
   }
 
+  deleteTweet = (tweetId) => {
+    console.log("delete" + tweetId)
+  }
+
+  blockUser = (tweetId) => {
+    console.log("bloack" + tweetId)
+  }
+
   render() {
 
     let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" click={this.mouseClickHandler} enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
@@ -263,7 +271,7 @@ class App extends Component {
 
       tweetCard = <Modal style={{ top: y, left: x }}>
                     <Overlay onTouchStart={this.closeCard} />
-                    <Card tweet={this.state.currentTweet.tweet} close={this.closeCard} />
+                    <Card tweet={this.state.currentTweet.tweet} close={this.closeCard} delete={this.deleteTweet} block={this.blockUser} />
                   </Modal>;
     }
 
@@ -275,14 +283,14 @@ class App extends Component {
           <Grid>
             <HeaderWrapper>
               <Header title="#PañuelosConMemoria" info="Este 24 de marzo construimos memoria activa desde Marcha Virtual.">
-                Subí tu foto a Twitter con el hashtag <a href="https://twitter.com/search?q=%23PañuelosConMemoria" target="_blank">#PañuelosConMemoria</a> y sumate. <span>¡La marcha la hacemos entre todxs!</span>
+                Subí tu foto a Twitter con el hashtag <a href="https://twitter.com/search?q=%23PañuelosConMemoria" target="_blank" rel="noopener noreferrer">#PañuelosConMemoria</a> y sumate. <span>¡La marcha la hacemos entre todxs!</span>
               </Header>
             </HeaderWrapper>
             {gallery}
           </Grid>
           {preloader}
           {tweetCard}
-          <Footer><Link href="https://facttic.org.ar/" target="_blank">Desarrollado por FACTTIC</Link></Footer>
+          <Footer><Link href="https://facttic.org.ar/" target="_blank" rel="noopener noreferrer">Desarrollado por FACTTIC</Link></Footer>
         </ThemeProvider>
       </Container>
     );

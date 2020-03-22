@@ -22,12 +22,14 @@ const Image = styled.img`
 
 const CardImage = (props) => {
   
-  const imageSrc = (props.media.length > 0) ? props.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=small') : '';
+  // const imageSrc = (props.media.length > 0) ? props.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=small') : '';
+  const image = (props.media.length > 0) ? <Image alt="" src={props.media[0].media_url_small} /> : null;
 
   return (
     <Wrapper className="CardImage">
-      {/* <BGImage style={ { backgroundImage: 'url(' + imageSrc + ')'} } /> */}
-      <Image alt="" src={imageSrc} />
+      {/* <BGImage style={ { backgroundImage: 'url(' + image + ')'} } /> */}
+      {/* <Image alt="" src={image} /> */}
+      {image}
     </Wrapper>
   );
 }
