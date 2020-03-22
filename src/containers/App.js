@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import axios from 'axios';
+import React, { Component } from "react";
+import styled, { ThemeProvider } from "styled-components";
+import axios from "axios";
 
-import Header from '../components/Header';
-import Media from '../components/Media';
-import Card from '../components/Card';
-import Constants from '../constants'
+import Header from "../components/Header";
+import Media from "../components/Media";
+import Card from "../components/Card";
+import Constants from "../constants";
 
 const theme = {
   colors: {
-    dark: '#04090d',
-    light: '#f8f8f8',
-    primary: '#243243'
+    dark: "#04090d",
+    light: "#f8f8f8",
+    primary: "#243243"
   },
   fonts: {
     display: "'Roboto', sans-serif",
@@ -35,7 +35,7 @@ const theme = {
       s: 5
     }
   }
-}
+};
 
 const Container = styled.div`
   position: relative;
@@ -58,36 +58,45 @@ const Container = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.s).replace(/-/gi, '1fr '))};
+  grid-template-columns: ${"----------------------------------------"
+    .substring(0, theme.columns.s)
+    .replace(/-/gi, "1fr ")};
   grid-column-gap: ${theme.columns.gap.s}px;
-  grid-row-gap: ${2*theme.columns.gap.s}px;
+  grid-row-gap: ${2 * theme.columns.gap.s}px;
   margin: 30px 0;
-  transform: rotate3d(0deg,0deg,0deg);
+  transform: rotate3d(0deg, 0deg, 0deg);
 
   @media (min-width: ${theme.pageWidth.s}px) {
-    grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.s).replace(/-/gi, '1fr '))};
+    grid-template-columns: ${"----------------------------------------"
+      .substring(0, theme.columns.s)
+      .replace(/-/gi, "1fr ")};
     grid-column-gap: ${theme.columns.gap.s}px;
-    grid-row-gap: ${2*theme.columns.gap.s}px;
+    grid-row-gap: ${2 * theme.columns.gap.s}px;
   }
   @media (min-width: ${theme.pageWidth.m}px) {
-    grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.m).replace(/-/gi, '1fr '))};
+    grid-template-columns: ${"----------------------------------------"
+      .substring(0, theme.columns.m)
+      .replace(/-/gi, "1fr ")};
     grid-column-gap: ${theme.columns.gap.m}px;
-    grid-row-gap: ${2*theme.columns.gap.m}px;
+    grid-row-gap: ${2 * theme.columns.gap.m}px;
   }
   @media (min-width: ${theme.pageWidth.l}px) {
-    grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.l).replace(/-/gi, '1fr '))};
+    grid-template-columns: ${"----------------------------------------"
+      .substring(0, theme.columns.l)
+      .replace(/-/gi, "1fr ")};
     grid-column-gap: ${theme.columns.gap.l}px;
-    grid-row-gap: ${2*theme.columns.gap.l}px;
+    grid-row-gap: ${2 * theme.columns.gap.l}px;
   }
   @media (min-width: ${theme.pageWidth.xl}px) {
-    grid-template-columns: ${(('----------------------------------------').substring(0, theme.columns.xl).replace(/-/gi, '1fr '))};
+    grid-template-columns: ${"----------------------------------------"
+      .substring(0, theme.columns.xl)
+      .replace(/-/gi, "1fr ")};
     grid-column-gap: ${theme.columns.gap.xl}px;
-    grid-row-gap: ${2*theme.columns.gap.xl}px;
+    grid-row-gap: ${2 * theme.columns.gap.xl}px;
   }
 `;
 
 const HeaderWrapper = styled.header`
-  
   grid-column: 1 / span ${theme.columns.s};
   grid-row: 3 / span 5;
   justify-self: center;
@@ -98,15 +107,14 @@ const HeaderWrapper = styled.header`
     grid-row: 2 / span 5;
   }
   @media (min-width: ${theme.pageWidth.m}px) {
-    grid-column: 2 / span ${theme.columns.m-2};
+    grid-column: 2 / span ${theme.columns.m - 2};
   }
   @media (min-width: ${theme.pageWidth.l}px) {
-    grid-column: 3 / span ${theme.columns.l-4};
+    grid-column: 3 / span ${theme.columns.l - 4};
   }
   @media (min-width: ${theme.pageWidth.xl}px) {
-    grid-column: 3 / span ${theme.columns.xl-4};
+    grid-column: 3 / span ${theme.columns.xl - 4};
   }
-
 `;
 
 const Footer = styled.footer`
@@ -114,13 +122,44 @@ const Footer = styled.footer`
   bottom: 0;
   right: 0;
   padding: 0.25em 30px 0.25em;
-  background: rgba(248,248,248,0);
-  background: -moz-linear-gradient(left, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
-  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(248,248,248,0)), color-stop(25%, rgba(248,248,248,0.95)), color-stop(100%, rgba(248,248,248,1)));
-  background: -webkit-linear-gradient(left, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
-  background: -o-linear-gradient(left, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
-  background: -ms-linear-gradient(left, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
-  background: linear-gradient(to right, rgba(248,248,248,0) 0%, rgba(248,248,248,0.95) 25%, rgba(248,248,248,1) 100%);
+  background: rgba(248, 248, 248, 0);
+  background: -moz-linear-gradient(
+    left,
+    rgba(248, 248, 248, 0) 0%,
+    rgba(248, 248, 248, 0.95) 25%,
+    rgba(248, 248, 248, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    right top,
+    color-stop(0%, rgba(248, 248, 248, 0)),
+    color-stop(25%, rgba(248, 248, 248, 0.95)),
+    color-stop(100%, rgba(248, 248, 248, 1))
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(248, 248, 248, 0) 0%,
+    rgba(248, 248, 248, 0.95) 25%,
+    rgba(248, 248, 248, 1) 100%
+  );
+  background: -o-linear-gradient(
+    left,
+    rgba(248, 248, 248, 0) 0%,
+    rgba(248, 248, 248, 0.95) 25%,
+    rgba(248, 248, 248, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    left,
+    rgba(248, 248, 248, 0) 0%,
+    rgba(248, 248, 248, 0.95) 25%,
+    rgba(248, 248, 248, 1) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(248, 248, 248, 0) 0%,
+    rgba(248, 248, 248, 0.95) 25%,
+    rgba(248, 248, 248, 1) 100%
+  );
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f8f8f8', GradientType=1 );
   text-align: right;
 `;
@@ -129,14 +168,14 @@ const Link = styled.a`
   color: inherit;
   font-family: ${theme.fonts.display};
   text-decoration: none;
-  font-size: .625rem;
+  font-size: 0.625rem;
   display: block;
 `;
 
 const Modal = styled.div`
   position: absolute;
   z-index: 2;
-  animation: 'in 400ms ease-out';
+  animation: "in 400ms ease-out";
 `;
 
 const Overlay = styled.div`
@@ -145,111 +184,127 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,.3);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 2;
   animation: in 500ms ease-in-out;
 `;
 
-const { REACT_APP_API_URL: API_URL } = process.env
+const { REACT_APP_API_URL: API_URL } = process.env;
 
 class App extends Component {
-
   state = {
     loading: false,
     tweets: [],
     currentTweet: null,
     currentPage: 1,
     perPage: Constants.initialAmount,
-    total: 0,
-  }
+    total: 0
+  };
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
     this.container = React.createRef();
     this.timer = null;
-    const { currentPage: _currentPage, perPage } = this.state
-    const endpoint = 'tweets'
-    const params = `page=${_currentPage}&perPage=${perPage}`
-    const url = `${API_URL}/${endpoint}?${params}`
-    this.fetchTweets(url)
+    const { currentPage: _currentPage, perPage } = this.state;
+    const endpoint = "tweets";
+    const params = `page=${_currentPage}&perPage=${perPage}`;
+    const url = `${API_URL}/${endpoint}?${params}`;
+    this.fetchTweets(url);
   }
 
   fetchTweets(url) {
-    const { currentPage: _currentPage, tweets: _tweets } = this.state
-    axios.get(url)
-      .then(res => {
-        const { list: newTweets, total } = res.data
-        const currentPage = _currentPage + 1
-        const tweets = _tweets.concat(newTweets)
+    const { currentPage: _currentPage, tweets: _tweets } = this.state;
+    axios.get(url).then(res => {
+      const { list: newTweets, total } = res.data;
+      const currentPage = _currentPage + 1;
+      const tweets = _tweets.concat(newTweets);
 
-        this.setState({ tweets, currentPage, total })
-      })
+      this.setState({ tweets, currentPage, total });
+    });
   }
 
   onEndReached() {
-    const { perPage, tweets } = this.state
-    const endpoint = 'tweets'
-    const _perPage = Constants.perPage
-    const page = Math.round(tweets.length / _perPage) + 1
-    const params = `page=${page}&perPage=${perPage}`
-    const url = `${API_URL}/${endpoint}?${params}`
+    const { perPage, tweets } = this.state;
+    const endpoint = "tweets";
+    const _perPage = Constants.perPage;
+    const page = Math.round(tweets.length / _perPage) + 1;
+    const params = `page=${page}&perPage=${perPage}`;
+    const url = `${API_URL}/${endpoint}?${params}`;
 
-    this.setState({ currentPage: page, perPage: _perPage })
-    this.fetchTweets(url)
+    this.setState({ currentPage: page, perPage: _perPage });
+    this.fetchTweets(url);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   isBottom(element) {
-    return document.getElementById('root')
-      .getBoundingClientRect().bottom <= window.innerHeight;
+    return (
+      document.getElementById("root").getBoundingClientRect().bottom <=
+      window.innerHeight
+    );
   }
 
-  handleScroll = (e) => {
-    const { total, tweets } = this.state
-    const shouldFetchMore = total > tweets.length
+  handleScroll = e => {
+    const { total, tweets } = this.state;
+    const shouldFetchMore = total > tweets.length;
     if (shouldFetchMore && this.isBottom()) {
-      document.removeEventListener('scroll', this.trackScrolling);
-      this.onEndReached()
+      document.removeEventListener("scroll", this.trackScrolling);
+      this.onEndReached();
     }
-  }
+  };
 
   mouseEnterHandler = (e, tweet) => {
     let ct = { tweet, el: e.target };
     this.timer = setTimeout(() => {
       this.setState({ currentTweet: ct });
     }, 800);
-  }
+  };
 
   mouseLeaveHandler = () => {
     clearTimeout(this.timer);
-  }
+  };
 
   closeCard = () => {
     this.setState({ currentTweet: null });
-  }
+  };
 
   render() {
+    let gallery = this.state.tweets.map(tweet => {
+      return (
+        <Media
+          key={tweet.tweet_id_str}
+          tweet={tweet}
+          alt=""
+          enter={this.mouseEnterHandler}
+          leave={this.mouseLeaveHandler}
+        />
+      );
+    });
 
-    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
-    
     let tweetCard = null;
-    if(this.state.currentTweet) {
+    if (this.state.currentTweet) {
       let containerRect = this.container.current.getBoundingClientRect();
       let elemRect = this.state.currentTweet.el.getBoundingClientRect();
-      let x = (elemRect.left - containerRect.left) + (elemRect.right - elemRect.left)/2 - 180;
-      let y = (elemRect.top - containerRect.top) - 30;
+      let x =
+        elemRect.left -
+        containerRect.left +
+        (elemRect.right - elemRect.left) / 2 -
+        180;
+      let y = elemRect.top - containerRect.top - 30;
 
-      if(x + 360 > (containerRect.right - containerRect.left) + 15) x = (containerRect.right - containerRect.left) + 15 - 360;
-      if(x < 15) x = 15;
-      if(y < -25) y = -25;
+      if (x + 360 > containerRect.right - containerRect.left + 15)
+        x = containerRect.right - containerRect.left + 15 - 360;
+      if (x < 15) x = 15;
+      if (y < -25) y = -25;
 
-      tweetCard = <Modal style={{ top: y, left: x }}>
-                    <Overlay onTouchStart={this.closeCard} />
-                    <Card tweet={this.state.currentTweet.tweet} close={this.closeCard} />
-                  </Modal>;
+      tweetCard = (
+        <Modal style={{ top: y, left: x }}>
+          <Overlay onTouchStart={this.closeCard} />
+          <Card tweet={this.state.currentTweet.tweet} close={this.closeCard} />
+        </Modal>
+      );
     }
 
     return (
@@ -257,14 +312,29 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <Grid>
             <HeaderWrapper>
-              <Header title="#PañuelosConMemoria" info="Este 24 de marzo construimos memoria activa desde Marcha Virtual.">
-                Subí tu foto a Twitter con el hashtag <a href="https://twitter.com/search?q=%23PañuelosConMemoria" target="_blank">#PañuelosConMemoria</a> y sumate. <span>¡La marcha la hacemos entre todxs!</span>
+              <Header
+                title="#PañuelosConMemoria"
+                info="Este 24 de marzo construimos memoria activa desde Marcha Virtual."
+              >
+                Subí tu foto a Twitter con el hashtag{" "}
+                <a
+                  href="https://twitter.com/search?q=%23PañuelosConMemoria"
+                  target="_blank"
+                >
+                  #PañuelosConMemoria
+                </a>{" "}
+                y sumate. <span>¡La marcha la hacemos entre todxs!</span>
               </Header>
             </HeaderWrapper>
             {gallery}
           </Grid>
           {tweetCard}
-          <Footer><Link href="https://facttic.org.ar/" target="_blank">Desarrollado por FACTTIC</Link></Footer>
+          <Footer>
+            <img src="/favicon.ico" width="70px" alt="marcha-virtual"></img>;
+            <Link href="https://facttic.org.ar/" target="_blank">
+              Desarrollado por FACTTIC
+            </Link>
+          </Footer>
         </ThemeProvider>
       </Container>
     );
