@@ -47,24 +47,22 @@ const CardInfo = props => {
     ":" +
     date.getSeconds();
   const strDate = date.getDate() + " " + months[date.getMonth()];
-  let text = props.text.replace(/\B(\#[a-zA-Z]+\b)(?!;)/gi, function(x) {
+  let text = props.text.replace(/\B(#[\wñ]+\b)(?!;)/gi, function(x) {
     return `<a href="https://twitter.com/search?q=${x.replace(
       "#",
       "%23"
     )}" target="_blank">${x}</a>`;
   });
 
-  text = text.replace(/\B(\@[a-zA-Z]+\b)(?!;)/gi, function(x) {
+  text = text.replace(/\B(@[_\w]+\b)(?!;)/gi, function(x) {
     return `<a href="https://twitter.com/${x.replace(
       "@",
       ""
     )}" target="_blank">${x}</a>`;
   });
 
-  text = text.replace(/(^|[^'"])(https?:\/\/t\.co\/([a-zA-Z\d]{10}))/, function(
-    x
-  ) {
-    return `<h5 style={{ color: 'red' }}>Link al tweet: <a href="${x}" target="_blank">${x}</a></h6>`;
+  text = text.replace(/(^|[^'"])(https?:\/\/t\.co\/([a-zA-Z\d]{10}))/gi, function(x) {
+    return `<a href="${x}" target="_blank">${x}</a>`;
   });
 
   return (
