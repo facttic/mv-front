@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 
 import Header from '../components/Header';
 import Media from '../components/Media';
 import Card from '../components/Card';
-import Constants from '../constants'
+import Login from '../components/Login';
+import Constants from '../constants';
 
 const theme = {
   colors: {
@@ -188,9 +190,9 @@ class App extends Component {
         .then(res => {
           const { list: newTweets, total } = res.data
           const currentPage = _currentPage + 1
-          const tweets = _tweets.concat(newTweets)
+          const tweets = new Set(_tweets.concat(newTweets))
 
-          this.setState({ tweets, currentPage, total, loading: false })
+          this.setState({ tweets: Array.from(tweets), currentPage, total, loading: false })
         })
     }
   }
@@ -291,6 +293,10 @@ class App extends Component {
           {preloader}
           {tweetCard}
           <Footer><Link href="https://facttic.org.ar/" target="_blank" rel="noopener noreferrer">Desarrollado por FACTTIC</Link></Footer>
+          <Route path="/moderar">
+            <Overlay/>
+            <Login />
+          </Route>
         </ThemeProvider>
       </Container>
     );
