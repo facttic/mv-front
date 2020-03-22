@@ -3,16 +3,15 @@ import styled, { withTheme } from 'styled-components';
 
 const Wrapper = styled.div`
   background-color: #ccc;
-  min-height: 50px;
 `;
 
-const BGImage = styled.div`
-  display:block;
-  margin: 0 auto;
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
-`;
+// const BGImage = styled.div`
+//   display:block;
+//   margin: 0 auto;
+//   background-size: contain;
+//   background-position: center center;
+//   background-repeat: no-repeat;
+// `;
 
 const Image = styled.img`
   display:block;

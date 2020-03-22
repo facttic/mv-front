@@ -150,6 +150,12 @@ const Overlay = styled.div`
   animation: in 500ms ease-in-out;
 `;
 
+const Preloader = styled.div`
+  text-align: center;
+  padding: 3em;
+`;
+
+
 const { REACT_APP_API_URL: API_URL } = process.env
 
 class App extends Component {
@@ -175,15 +181,18 @@ class App extends Component {
   }
 
   fetchTweets(url) {
-    const { currentPage: _currentPage, tweets: _tweets } = this.state
-    axios.get(url)
-      .then(res => {
-        const { list: newTweets, total } = res.data
-        const currentPage = _currentPage + 1
-        const tweets = _tweets.concat(newTweets)
+    if(!this.state.loading) {
+      const { currentPage: _currentPage, tweets: _tweets } = this.state
+      this.setState({ loading: true })
+      axios.get(url)
+        .then(res => {
+          const { list: newTweets, total } = res.data
+          const currentPage = _currentPage + 1
+          const tweets = _tweets.concat(newTweets)
 
-        this.setState({ tweets, currentPage, total })
-      })
+          this.setState({ tweets, currentPage, total, loading: false })
+        })
+    }
   }
 
   onEndReached() {
@@ -216,6 +225,12 @@ class App extends Component {
     }
   }
 
+  mouseClickHandler = (e, tweet) => {
+    clearTimeout(this.timer);
+    let ct = { tweet, el: e.target };
+    this.setState({ currentTweet: ct });
+  }
+
   mouseEnterHandler = (e, tweet) => {
     let ct = { tweet, el: e.target };
     this.timer = setTimeout(() => {
@@ -233,7 +248,7 @@ class App extends Component {
 
   render() {
 
-    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
+    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" click={this.mouseClickHandler} enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
     
     let tweetCard = null;
     if(this.state.currentTweet) {
@@ -252,6 +267,8 @@ class App extends Component {
                   </Modal>;
     }
 
+    let preloader = (this.state.loading) ? <Preloader><img src={require( '../assets/spinner.gif')} alt="Cargando" /></Preloader> : null;
+
     return (
       <Container ref={this.container} className="App">
         <ThemeProvider theme={theme}>
@@ -263,6 +280,7 @@ class App extends Component {
             </HeaderWrapper>
             {gallery}
           </Grid>
+          {preloader}
           {tweetCard}
           <Footer><Link href="https://facttic.org.ar/" target="_blank">Desarrollado por FACTTIC</Link></Footer>
         </ThemeProvider>

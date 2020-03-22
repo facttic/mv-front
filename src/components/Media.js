@@ -12,6 +12,9 @@ const ImageWrapper = styled.div`
   cursor: pointer;
   // opacity: 0.65;
   position: relative;
+
+  background-color: #eee;
+  animation: in 500ms ease-in-out;
   
   // &:first-child {
     //   grid-column: 3 / span 8;
@@ -71,7 +74,7 @@ const Media = (props) => {
 
   return (
     <ImageWrapper className="Media">
-      <div onMouseEnter={(e) => props.enter(e, props.tweet)} onMouseLeave={props.leave}>
+      <div onMouseEnter={(e) => props.enter(e, props.tweet)} onClick={(e) => props.click(e, props.tweet)} onMouseLeave={props.leave}>
         <Image src={imageSrc} alt="" width="150" height="150" />
       </div>
     </ImageWrapper>
