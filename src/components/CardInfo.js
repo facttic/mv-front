@@ -64,7 +64,7 @@ const CardInfo = props => {
   text = text.replace(/(^|[^'"])(https?:\/\/t\.co\/([a-zA-Z\d]{10}))/, function(
     x
   ) {
-    return `<h5 style={{ color: 'red' }}>Link al tweet: <a href="${x}" target="_blank">${x}</a></h6>`;
+    return `<a href="${x}" target="_blank"><h5>Link al tweet</h6></a>`;
   });
 
   return (
