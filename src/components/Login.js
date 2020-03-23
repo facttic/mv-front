@@ -3,6 +3,8 @@ import styled, { withTheme } from 'styled-components';
 import CardImage from './CardImage';
 import CardInfo from './CardInfo';
 import CardModeration from './CardModeration';
+import Api from '../api'
+import { withRouter } from 'react-router-dom'
 
 const Wrapper = styled.div`
   width: 300px;
@@ -62,16 +64,48 @@ const Button = styled.button`
 
 const Login = (props) => {
 
+  const [userState, setUserState] = React.useState({
+    username: '',
+    password: '',
+  })
+
+  React.useEffect(() => {
+  })
+
+  function login() {
+    const { username, password } = userState
+    Api.users.login(username, password)
+      .then(res => {
+        props.history.push('/')
+      })
+  }
+
+  function handleOnChange(prop, value) {
+    setUserState({ ...userState, [prop]: value })
+  }
+
   return (
     <Wrapper className="Login" onMouseLeave={props.close}>
       <Title>Ingreso de moderadorxs</Title>
       <Label for="user">Usuario</Label>
-      <Input type="text" />
-      <Label for="password">Contraseña</Label>
-      <Input type="text" />
-      <Button>Ingresar</Button>
+      <Input
+        type="text"
+        value={userState.username}
+        onChange={(e) => handleOnChange('username', e.target.value)}
+      />
+      <Label htmlFor="password">
+        Contraseña
+      </Label>
+      <Input
+        type="password"
+        value={userState.password}
+        onChange={(e) => handleOnChange('password', e.target.value)}
+      />
+      <Button onClick={login}>
+        Ingresar
+      </Button>
     </Wrapper>
   );
 }
 
-export default withTheme(React.memo(Login));
+export default withRouter(withTheme(React.memo(Login)));
