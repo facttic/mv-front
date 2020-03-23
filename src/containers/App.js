@@ -303,7 +303,10 @@ class FeedComponent extends Component {
         </Grid>
         {preloader}
         {tweetCard}
-        <Footer><Link href="https://facttic.org.ar/" target="_blank" rel="noopener noreferrer">Desarrollado por FACTTIC</Link></Footer>
+        <Footer>
+          {/* <img src="/favicon.png" width="48" alt="Marcha Virtual" /> */}
+          <Link href="https://facttic.org.ar/" target="_blank" rel="noopener noreferrer">Desarrollado por FACTTIC</Link>
+        </Footer>
       </Container>
     );
   }

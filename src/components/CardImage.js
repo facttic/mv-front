@@ -23,7 +23,9 @@ const Image = styled.img`
 const CardImage = (props) => {
   
   // const imageSrc = (props.media.length > 0) ? props.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=small') : '';
-  const image = (props.media.length > 0) ? <Image alt="" src={props.media[0].media_url_small} /> : null;
+  const w = (props.media.length > 0 && props.media[0].sizes) ? props.media[0].sizes.small.w : '';
+  const h = (props.media.length > 0 && props.media[0].sizes) ? props.media[0].sizes.small.h : '';
+  const image = (props.media.length > 0) ? <Image alt="" src={props.media[0].media_url_small} width={w} height={h} /> : null;
 
   return (
     <Wrapper className="CardImage">
