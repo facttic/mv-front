@@ -107,12 +107,13 @@ export default (client, options = {}) => {
         return new Promise((resolve, reject) => {
           const token = localStorage.getItem(tokenStorageKey)
           const headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
             token,
           }
           const method = 'post'
-          const url = `${authUrl}/blacklists/${params.tweetId}`
-          client({ url, headers, method })
+          const data = { "user_id_str": params.userTwitterId }
+          const url = `${authUrl}/blacklists`
+          client({ url, data, headers, method })
             .then(res => {
               resolve(res)
             })
