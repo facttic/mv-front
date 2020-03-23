@@ -6,20 +6,23 @@ export default (client, options = {}) => {
       AUTH_LOGIN_REQUEST,
       AUTH_LOGOUT_REQUEST,
       AUTH_CHECK_REQUEST,
-      USERS_ADD_TO_BLACKLIST_REQUEST
+      USERS_BAN_REQUEST,
+      USERS_DELETE_TWEET_REQUEST,
     } = UserTypes
 
     const {
       authFields,
       authUrl,
+      tokenField,
       tokenStorageKey,
-      userStorageKey,
       userField,
+      userStorageKey,
     } = Object.assign({
       authFields: { username: 'username', password: 'password' },
+      tokenField: 'token',
       tokenStorageKey: 'token',
-      userStorageKey: 'user',
       userField: 'user',
+      userStorageKey: 'user',
     }, options);
 
     switch (type) {
@@ -41,10 +44,11 @@ export default (client, options = {}) => {
           client({ url, headers, data, method })
             .then(response => {
               const { data } = response
-              const { [tokenStorageKey]: token, [userField]: user } = data
+              const { [tokenField]: token, [userField]: user } = data
               localStorage.setItem(tokenStorageKey, token)
               localStorage.setItem(userStorageKey, JSON.stringify(user))
               client.defaults.headers.common['Authorization'] = token
+              console.log(user)
               resolve(user)
             })
             .catch(error => {
@@ -55,10 +59,11 @@ export default (client, options = {}) => {
 
       case AUTH_LOGOUT_REQUEST:
         return new Promise(resolve => {
+          const token = localStorage.getItem(tokenStorageKey)
           const headers = {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            token,
           }
-          const user = JSON.parse(localStorage.getItem(userStorageKey))
           const method = 'post'
           const url = `${authUrl}/users/me/logout`
           client({ url, headers, method })
@@ -97,16 +102,36 @@ export default (client, options = {}) => {
       /**
        * Other network resources. This could be moved elsewhere - @sgobotta
        */
-      case USERS_ADD_TO_BLACKLIST_REQUEST:
+
+      case USERS_BAN_REQUEST:
         return new Promise((resolve, reject) => {
+          const token = localStorage.getItem(tokenStorageKey)
           const headers = {
             'Content-Type': 'application/json',
+            token,
           }
-          const user = JSON.parse(localStorage.getItem(userStorageKey))
           const method = 'post'
-          const data = { user, twitterId: params.twitterId }
-          const url = `${authUrl}/users/blacklist`
+          const data = { "user_id_str": params.userTwitterId }
+          const url = `${authUrl}/blacklists`
           client({ url, data, headers, method })
+            .then(res => {
+              resolve(res)
+            })
+            .catch(error => {
+              reject(error)
+            })
+        })
+
+      case USERS_DELETE_TWEET_REQUEST:
+        return new Promise((resolve, reject) => {
+          const token = localStorage.getItem(tokenStorageKey)
+          const headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            token,
+          }
+          const method = 'delete'
+          const url = `${authUrl}/tweets/${params.tweetId}`
+          client({ url, headers, method })
             .then(res => {
               resolve(res)
             })
