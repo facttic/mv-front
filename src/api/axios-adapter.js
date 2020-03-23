@@ -111,9 +111,8 @@ export default (client, options = {}) => {
             token,
           }
           const method = 'post'
-          const data = { tweetId: params.tweetId }
-          const url = `${authUrl}/users/blacklist`
-          client({ url, data, headers, method })
+          const url = `${authUrl}/blacklists/${params.tweetId}`
+          client({ url, headers, method })
             .then(res => {
               resolve(res)
             })
@@ -130,9 +129,8 @@ export default (client, options = {}) => {
             token,
           }
           const method = 'delete'
-          const _params = { tweetId: params.tweetId }
-          const url = `${authUrl}/tweets`
-          client({ url, params: _params, headers, method })
+          const url = `${authUrl}/tweets/${params.tweetId}`
+          client({ url, headers, method })
             .then(res => {
               resolve(res)
             })

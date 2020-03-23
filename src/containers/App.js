@@ -260,11 +260,17 @@ class FeedComponent extends Component {
   }
 
   deleteTweet = (tweetId) => {
-    Api.users.banUser(tweetId)
+    Api.users.deleteTweet(tweetId)
+      .then(res => {
+        console.log(res)
+      })
   }
 
-  blockUser = (tweetId) => {
-    Api.users.deleteTweet(tweetId)
+  banUser = (tweetId) => {
+    Api.users.banUser(tweetId)
+      .then(res => {
+        console.log(res)
+      })
   }
 
   render() {
@@ -285,7 +291,7 @@ class FeedComponent extends Component {
 
       tweetCard = <Modal style={{ top: y, left: x }}>
                     <Overlay onTouchStart={this.closeCard} />
-                    <Card show={isAuthenticated} tweet={this.state.currentTweet.tweet} close={this.closeCard} delete={this.deleteTweet} block={this.blockUser} />
+                    <Card show={isAuthenticated} tweet={this.state.currentTweet.tweet} close={this.closeCard} delete={this.deleteTweet} block={this.banUser} />
                   </Modal>;
     }
 
