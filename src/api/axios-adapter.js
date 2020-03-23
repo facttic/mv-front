@@ -12,14 +12,16 @@ export default (client, options = {}) => {
     const {
       authFields,
       authUrl,
+      tokenField,
       tokenStorageKey,
-      userStorageKey,
       userField,
+      userStorageKey,
     } = Object.assign({
       authFields: { username: 'username', password: 'password' },
+      tokenField: 'token',
       tokenStorageKey: 'token',
-      userStorageKey: 'user',
       userField: 'user',
+      userStorageKey: 'user',
     }, options);
 
     switch (type) {
@@ -41,7 +43,7 @@ export default (client, options = {}) => {
           client({ url, headers, data, method })
             .then(response => {
               const { data } = response
-              const { [tokenStorageKey]: token, [userField]: user } = data
+              const { [tokenField]: token, [userField]: user } = data
               localStorage.setItem(tokenStorageKey, token)
               localStorage.setItem(userStorageKey, JSON.stringify(user))
               client.defaults.headers.common['Authorization'] = token

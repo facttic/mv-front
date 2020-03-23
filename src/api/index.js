@@ -3,13 +3,16 @@ import createAxiosAdapter from './axios-adapter'
 import { UserTypes } from '../constants'
 const { REACT_APP_API_URL: API_URL } = process.env
 
-const authProvider = createAxiosAdapter(axios, {
+export const authProviderOptions = {
   authFields: { username: 'email', password: 'password' },
   authUrl: API_URL,
-  tokenStorageKey: 'token',
-  userStorageKey: 'user',
+  tokenStorageKey: 'marchavirtual.token',
+  userStorageKey: 'marchavirtual.user',
+  tokenField: 'token',
   userfield: 'user'
-})
+}
+
+const authProvider = createAxiosAdapter(axios, authProviderOptions)
 
 const {
   AUTH_LOGIN_REQUEST,
