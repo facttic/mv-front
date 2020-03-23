@@ -259,17 +259,29 @@ class FeedComponent extends Component {
     this.setState({ currentTweet: null });
   }
 
-  deleteTweet = (tweetId) => {
+  deleteTweet = tweetId => {
     Api.users.deleteTweet(tweetId)
       .then(res => {
-        console.log(res)
+        const { status } = res
+        if (status === 200) {
+          console.log('res', res)
+          console.log(`Deleted tweet with id: ${tweetId}`)
+        }
       })
   }
 
-  banUser = (tweetId) => {
-    Api.users.banUser(tweetId)
+  banUser = userTwitterId => {
+    Api.users.banUser(userTwitterId)
       .then(res => {
-        console.log(res)
+        const { status } = res
+        if (status === 201) {
+          const {
+            data: { inserted: { user_id_str }, removedTweetsCount },
+          } = res
+          console.log('res', res)
+          console.log(`Banned user with twitter id: ${user_id_str}`)
+          console.log(`Deleted ${removedTweetsCount} tweets`)
+        }
       })
   }
 
