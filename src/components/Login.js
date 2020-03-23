@@ -76,7 +76,10 @@ const Login = (props) => {
     const { username, password } = userState
     Api.users.login(username, password)
       .then(res => {
-        props.history.push('/')
+        props.history.push({
+          pathname: '/',
+          state: { isAuthenticated: true, res },
+        })
       })
   }
 
