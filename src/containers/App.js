@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import axios from 'axios';
-// import Api from '../api'
+import Api from '../api'
 
 import Header from '../components/Header';
 import Media from '../components/Media';
@@ -260,11 +260,11 @@ class FeedComponent extends Component {
   }
 
   deleteTweet = (tweetId) => {
-    console.log("delete" + tweetId)
+    Api.users.banUser(tweetId)
   }
 
   blockUser = (tweetId) => {
-    console.log("bloack" + tweetId)
+    Api.users.deleteTweet(tweetId)
   }
 
   render() {
