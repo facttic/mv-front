@@ -1,8 +1,5 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
-import CardImage from './CardImage';
-import CardInfo from './CardInfo';
-import CardModeration from './CardModeration';
 import Api from '../api'
 import { withRouter } from 'react-router-dom'
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import axios from 'axios';
+// import Api from '../api'
 
 import Header from '../components/Header';
 import Media from '../components/Media';
@@ -160,7 +161,7 @@ const Preloader = styled.div`
 
 const { REACT_APP_API_URL: API_URL } = process.env
 
-class App extends Component {
+class FeedComponent extends Component {
 
   state = {
     loading: false,
@@ -169,6 +170,7 @@ class App extends Component {
     currentPage: 1,
     perPage: Constants.initialAmount,
     total: 0,
+    isAuthenticated: false
   }
 
   componentDidMount() {
@@ -180,6 +182,15 @@ class App extends Component {
     const params = `page=${_currentPage}&perPage=${perPage}`
     const url = `${API_URL}/${endpoint}?${params}`
     this.fetchTweets(url)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      location: {
+        state: { isAuthenticated = false } = {}
+      }
+    } = this.props.history
+    this.setState({ isAuthenticated })
   }
 
   fetchTweets(url) {
@@ -257,6 +268,7 @@ class App extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.state
 
     let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" click={this.mouseClickHandler} enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
     
@@ -273,7 +285,7 @@ class App extends Component {
 
       tweetCard = <Modal style={{ top: y, left: x }}>
                     <Overlay onTouchStart={this.closeCard} />
-                    <Card tweet={this.state.currentTweet.tweet} close={this.closeCard} delete={this.deleteTweet} block={this.blockUser} />
+                    <Card show={isAuthenticated} tweet={this.state.currentTweet.tweet} close={this.closeCard} delete={this.deleteTweet} block={this.blockUser} />
                   </Modal>;
     }
 
@@ -281,26 +293,35 @@ class App extends Component {
 
     return (
       <Container ref={this.container} className="App">
-        <ThemeProvider theme={theme}>
-          <Grid>
-            <HeaderWrapper>
-              <Header title="#PañuelosConMemoria" info="Este 24 de marzo construimos memoria activa desde Marcha Virtual.">
-                Subí tu foto a Twitter con el hashtag <a href="https://twitter.com/search?q=%23PañuelosConMemoria" target="_blank" rel="noopener noreferrer">#PañuelosConMemoria</a> y sumate. <span>¡La marcha la hacemos entre todxs!</span>
-              </Header>
-            </HeaderWrapper>
-            {gallery}
-          </Grid>
-          {preloader}
-          {tweetCard}
-          <Footer><Link href="https://facttic.org.ar/" target="_blank" rel="noopener noreferrer">Desarrollado por FACTTIC</Link></Footer>
-          <Route path="/moderar">
-            <Overlay/>
-            <Login />
-          </Route>
-        </ThemeProvider>
+        <Grid>
+          <HeaderWrapper>
+            <Header title="#PañuelosConMemoria" info="Este 24 de marzo construimos memoria activa desde Marcha Virtual.">
+              Subí tu foto a Twitter con el hashtag <a href="https://twitter.com/search?q=%23PañuelosConMemoria" target="_blank" rel="noopener noreferrer">#PañuelosConMemoria</a> y sumate. <span>¡La marcha la hacemos entre todxs!</span>
+            </Header>
+          </HeaderWrapper>
+          {gallery}
+        </Grid>
+        {preloader}
+        {tweetCard}
+        <Footer><Link href="https://facttic.org.ar/" target="_blank" rel="noopener noreferrer">Desarrollado por FACTTIC</Link></Footer>
       </Container>
     );
   }
 }
 
-export default App;
+const Feed = withRouter(FeedComponent)
+
+export default () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Route path='/'>
+        <Feed />
+      </Route>
+      <Route path="/moderar">
+        <Overlay />
+        <Login />
+      </Route>
+    </ThemeProvider>
+  )
+}
+
