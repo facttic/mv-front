@@ -6,7 +6,8 @@ export default (client, options = {}) => {
       AUTH_LOGIN_REQUEST,
       AUTH_LOGOUT_REQUEST,
       AUTH_CHECK_REQUEST,
-      USERS_ADD_TO_BLACKLIST_REQUEST
+      USERS_BAN_REQUEST,
+      USERS_DELETE_TWEET_REQUEST,
     } = UserTypes
 
     const {
@@ -47,6 +48,7 @@ export default (client, options = {}) => {
               localStorage.setItem(tokenStorageKey, token)
               localStorage.setItem(userStorageKey, JSON.stringify(user))
               client.defaults.headers.common['Authorization'] = token
+              console.log(user)
               resolve(user)
             })
             .catch(error => {
@@ -57,10 +59,11 @@ export default (client, options = {}) => {
 
       case AUTH_LOGOUT_REQUEST:
         return new Promise(resolve => {
+          const token = localStorage.getItem(tokenStorageKey)
           const headers = {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            token,
           }
-          const user = JSON.parse(localStorage.getItem(userStorageKey))
           const method = 'post'
           const url = `${authUrl}/users/me/logout`
           client({ url, headers, method })
@@ -99,16 +102,37 @@ export default (client, options = {}) => {
       /**
        * Other network resources. This could be moved elsewhere - @sgobotta
        */
-      case USERS_ADD_TO_BLACKLIST_REQUEST:
+
+      case USERS_BAN_REQUEST:
         return new Promise((resolve, reject) => {
+          const token = localStorage.getItem(tokenStorageKey)
           const headers = {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            token,
           }
-          const user = JSON.parse(localStorage.getItem(userStorageKey))
           const method = 'post'
-          const data = { user, twitterId: params.twitterId }
+          const data = { tweetId: params.tweetId }
           const url = `${authUrl}/users/blacklist`
           client({ url, data, headers, method })
+            .then(res => {
+              resolve(res)
+            })
+            .catch(error => {
+              reject(error)
+            })
+        })
+
+      case USERS_DELETE_TWEET_REQUEST:
+        return new Promise((resolve, reject) => {
+          const token = localStorage.getItem(tokenStorageKey)
+          const headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            token,
+          }
+          const method = 'delete'
+          const _params = { tweetId: params.tweetId }
+          const url = `${authUrl}/tweets`
+          client({ url, params: _params, headers, method })
             .then(res => {
               resolve(res)
             })
