@@ -32,7 +32,7 @@ const CardInfoAuthor = (props) => {
     <Wrapper className="CardInfoAuthor">
       <div><Image src={props.author.profile_image_url_https} alt="" /></div>
       <Name className="author">
-        <NamePart>{props.author.name}</NamePart> - <NamePart><a href={'https://twitter.com/' + props.author.screen_name} target="_blank">@{props.author.screen_name}</a></NamePart>
+        <NamePart>{props.author.name}</NamePart> - <NamePart><a href={'https://twitter.com/' + props.author.screen_name} target="_blank" rel="noopener noreferrer">@{props.author.screen_name}</a></NamePart>
       </Name>
     </Wrapper>
   );

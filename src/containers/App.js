@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 
 import Header from '../components/Header';
 import Media from '../components/Media';
 import Card from '../components/Card';
-import Constants from '../constants'
+import Login from '../components/Login';
+import Constants from '../constants';
 
 const theme = {
   colors: {
@@ -150,6 +152,12 @@ const Overlay = styled.div`
   animation: in 500ms ease-in-out;
 `;
 
+const Preloader = styled.div`
+  text-align: center;
+  padding: 3em;
+`;
+
+
 const { REACT_APP_API_URL: API_URL } = process.env
 
 class App extends Component {
@@ -175,15 +183,18 @@ class App extends Component {
   }
 
   fetchTweets(url) {
-    const { currentPage: _currentPage, tweets: _tweets } = this.state
-    axios.get(url)
-      .then(res => {
-        const { list: newTweets, total } = res.data
-        const currentPage = _currentPage + 1
-        const tweets = _tweets.concat(newTweets)
+    if(!this.state.loading) {
+      const { currentPage: _currentPage, tweets: _tweets } = this.state
+      this.setState({ loading: true })
+      axios.get(url)
+        .then(res => {
+          const { list: newTweets, total } = res.data
+          const currentPage = _currentPage + 1
+          const tweets = new Set(_tweets.concat(newTweets))
 
-        this.setState({ tweets, currentPage, total })
-      })
+          this.setState({ tweets: Array.from(tweets), currentPage, total, loading: false })
+        })
+    }
   }
 
   onEndReached() {
@@ -216,6 +227,12 @@ class App extends Component {
     }
   }
 
+  mouseClickHandler = (e, tweet) => {
+    clearTimeout(this.timer);
+    let ct = { tweet, el: e.target };
+    this.setState({ currentTweet: ct });
+  }
+
   mouseEnterHandler = (e, tweet) => {
     let ct = { tweet, el: e.target };
     this.timer = setTimeout(() => {
@@ -231,9 +248,17 @@ class App extends Component {
     this.setState({ currentTweet: null });
   }
 
+  deleteTweet = (tweetId) => {
+    console.log("delete" + tweetId)
+  }
+
+  blockUser = (tweetId) => {
+    console.log("bloack" + tweetId)
+  }
+
   render() {
 
-    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
+    let gallery = this.state.tweets.map((tweet) => { return <Media key={tweet.tweet_id_str} tweet={tweet} alt="" click={this.mouseClickHandler} enter={this.mouseEnterHandler} leave={this.mouseLeaveHandler} /> })
     
     let tweetCard = null;
     if(this.state.currentTweet) {
@@ -248,9 +273,11 @@ class App extends Component {
 
       tweetCard = <Modal style={{ top: y, left: x }}>
                     <Overlay onTouchStart={this.closeCard} />
-                    <Card tweet={this.state.currentTweet.tweet} close={this.closeCard} />
+                    <Card tweet={this.state.currentTweet.tweet} close={this.closeCard} delete={this.deleteTweet} block={this.blockUser} />
                   </Modal>;
     }
+
+    let preloader = (this.state.loading) ? <Preloader><img src={require( '../assets/spinner.gif')} alt="Cargando" /></Preloader> : null;
 
     return (
       <Container ref={this.container} className="App">
@@ -258,13 +285,18 @@ class App extends Component {
           <Grid>
             <HeaderWrapper>
               <Header title="#PañuelosConMemoria" info="Este 24 de marzo construimos memoria activa desde Marcha Virtual.">
-                Subí tu foto a Twitter con el hashtag <a href="https://twitter.com/search?q=%23PañuelosConMemoria" target="_blank">#PañuelosConMemoria</a> y sumate. <span>¡La marcha la hacemos entre todxs!</span>
+                Subí tu foto a Twitter con el hashtag <a href="https://twitter.com/search?q=%23PañuelosConMemoria" target="_blank" rel="noopener noreferrer">#PañuelosConMemoria</a> y sumate. <span>¡La marcha la hacemos entre todxs!</span>
               </Header>
             </HeaderWrapper>
             {gallery}
           </Grid>
+          {preloader}
           {tweetCard}
-          <Footer><Link href="https://facttic.org.ar/" target="_blank">Desarrollado por FACTTIC</Link></Footer>
+          <Footer><Link href="https://facttic.org.ar/" target="_blank" rel="noopener noreferrer">Desarrollado por FACTTIC</Link></Footer>
+          <Route path="/moderar">
+            <Overlay/>
+            <Login />
+          </Route>
         </ThemeProvider>
       </Container>
     );
