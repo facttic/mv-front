@@ -28,8 +28,8 @@ export default {
       password,
     }),
     logout: () => provider(AUTH_LOGOUT_REQUEST),
-    banUser: tweetId => provider(USERS_BAN_REQUEST, {
-      tweetId
+    banUser: userTwitterId => provider(USERS_BAN_REQUEST, {
+      userTwitterId
     }),
     deleteTweet: tweetId => provider(USERS_DELETE_TWEET_REQUEST, {
       tweetId
