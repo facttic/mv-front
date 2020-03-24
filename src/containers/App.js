@@ -8,7 +8,6 @@ import Header from '../components/Header';
 import Media from '../components/Media';
 import Card from '../components/Card';
 import Login from '../components/Login';
-import UsersCounter from '../components/UsersCounter';
 import Constants from '../constants';
 
 const theme = {
@@ -407,6 +406,7 @@ class FeedComponent extends Component {
             <Header
               title="#PañuelosConMemoria"
               info="Este 24 de marzo construimos memoria activa desde Marcha Virtual."
+              count={usersCount}
             >
               Subí tu foto a Twitter con el hashtag{' '}
               <a
@@ -417,7 +417,6 @@ class FeedComponent extends Component {
                 #PañuelosConMemoria
               </a>{' '}
               y sumate. <span>¡La marcha la hacemos entre todxs!</span>
-              <UsersCounter count={usersCount}></UsersCounter>
             </Header>
             
           </HeaderWrapper>

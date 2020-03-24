@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
+import UsersCounter from './UsersCounter';
 
-const Wrapper = styled.article`
+const Wrapper = styled.div`
   padding: 1em 15px;
+  position: relative;
 
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
     padding: 2em 0;
@@ -63,6 +65,7 @@ const Header = (props) => {
       <Title>{props.title}</Title>
       <SubTitle>{props.info}</SubTitle>
       <Text>{props.children}</Text>
+      <UsersCounter count={props.count}></UsersCounter>
     </Wrapper>
   );
 }
