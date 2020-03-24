@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import Media from "../components/Media";
 import Card from "../components/Card";
 import Login from "../components/Login";
+import UsersCounter from "../components/UsersCounter";
 import Constants from "../constants";
 
 const theme = {
@@ -348,7 +349,7 @@ class FeedComponent extends Component {
   }
 
   render() {
-    const { isAuthenticated } = this.state;
+    const { isAuthenticated, usersCount } = this.state;
 
     let gallery = this.state.tweets.map(tweet => {
       return (
@@ -416,7 +417,9 @@ class FeedComponent extends Component {
                 #PañuelosConMemoria
               </a>{" "}
               y sumate. <span>¡La marcha la hacemos entre todxs!</span>
+              <UsersCounter count={usersCount}></UsersCounter>
             </Header>
+            
           </HeaderWrapper>
           {gallery}
         </Grid>
