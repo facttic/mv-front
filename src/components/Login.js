@@ -87,11 +87,12 @@ const Login = (props) => {
   return (
     <Wrapper className="Login" onMouseLeave={props.close}>
       <Title>Ingreso de moderadorxs</Title>
-      <Label for="user">Usuario</Label>
+      <Label htmlFor="user">Usuario</Label>
       <Input
         type="text"
         value={userState.username}
         onChange={(e) => handleOnChange('username', e.target.value)}
+        id="user"
       />
       <Label htmlFor="password">
         Contraseña
@@ -100,6 +101,7 @@ const Login = (props) => {
         type="password"
         value={userState.password}
         onChange={(e) => handleOnChange('password', e.target.value)}
+        id="password"
       />
       <Button onClick={login}>
         Ingresar

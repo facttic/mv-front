@@ -175,6 +175,7 @@ class FeedComponent extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+    document.addEventListener('keydown', this.keyPressed);
     this.container = React.createRef();
     this.timer = null;
     const { currentPage: _currentPage, perPage } = this.state
@@ -283,6 +284,12 @@ class FeedComponent extends Component {
           console.log(`Deleted ${removedTweetsCount} tweets`)
         }
       })
+  }
+
+  keyPressed = (e) => {
+    if (e.keyCode == 77 && e.shiftKey) {
+      this.props.history.push('/moderar');
+    }
   }
 
   render() {
