@@ -4,9 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You should create an `.env.local` and/or `.env.production.local` files to define or override the default environment variables:
 
-+ `REACT_APP_API_URL`
-+ `REACT_APP_PER_PAGE`
-+ `REACT_APP_INITIAL_AMOUNT`
++ `REACT_APP_API_URL`: *The url for most of the services used*
++ `REACT_APP_PER_PAGE`: *Number of items per page for the infinite scroll*
++ `REACT_APP_INITIAL_AMOUNT`: *Initial items amount for the infinite scroll*
++ `REACT_APP_MIN_USERS_COUNT`: *Minimum amount to start counting users*
 
 ## Available Scripts
 
