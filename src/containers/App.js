@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
-import styled, { ThemeProvider } from "styled-components";
-import axios from "axios";
-import Api from "../api";
+import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
+import styled, { ThemeProvider } from 'styled-components';
+import axios from 'axios';
+import Api from '../api';
 
-import Header from "../components/Header";
-import Media from "../components/Media";
-import Card from "../components/Card";
-import Login from "../components/Login";
-import UsersCounter from "../components/UsersCounter";
-import Constants from "../constants";
+import Header from '../components/Header';
+import Media from '../components/Media';
+import Card from '../components/Card';
+import Login from '../components/Login';
+import UsersCounter from '../components/UsersCounter';
+import Constants from '../constants';
 
 const theme = {
   colors: {
-    dark: "#04090d",
-    light: "#f8f8f8",
-    primary: "#243243"
+    dark: '#04090d',
+    light: '#f8f8f8',
+    primary: '#243243'
   },
   fonts: {
-    display: "'Roboto', sans-serif",
-    text: "'Roboto Mono', sans-serif"
+    display: "'Roboto', 'sans-serif'",
+    text: "'Roboto Mono', 'sans-serif'"
   },
   pageWidth: {
     xl: 1200,
@@ -62,39 +62,39 @@ const Container = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: ${"----------------------------------------"
+  grid-template-columns: ${'----------------------------------------'
     .substring(0, theme.columns.s)
-    .replace(/-/gi, "1fr ")};
+    .replace(/-/gi, '1fr ')};
   grid-column-gap: ${theme.columns.gap.s}px;
   grid-row-gap: ${2 * theme.columns.gap.s}px;
   margin: 30px 0;
   transform: rotate3d(0deg, 0deg, 0deg);
 
   @media (min-width: ${theme.pageWidth.s}px) {
-    grid-template-columns: ${"----------------------------------------"
+    grid-template-columns: ${'----------------------------------------'
       .substring(0, theme.columns.s)
-      .replace(/-/gi, "1fr ")};
+      .replace(/-/gi, '1fr ')};
     grid-column-gap: ${theme.columns.gap.s}px;
     grid-row-gap: ${2 * theme.columns.gap.s}px;
   }
   @media (min-width: ${theme.pageWidth.m}px) {
-    grid-template-columns: ${"----------------------------------------"
+    grid-template-columns: ${'----------------------------------------'
       .substring(0, theme.columns.m)
-      .replace(/-/gi, "1fr ")};
+      .replace(/-/gi, '1fr ')};
     grid-column-gap: ${theme.columns.gap.m}px;
     grid-row-gap: ${2 * theme.columns.gap.m}px;
   }
   @media (min-width: ${theme.pageWidth.l}px) {
-    grid-template-columns: ${"----------------------------------------"
+    grid-template-columns: ${'----------------------------------------'
       .substring(0, theme.columns.l)
-      .replace(/-/gi, "1fr ")};
+      .replace(/-/gi, '1fr ')};
     grid-column-gap: ${theme.columns.gap.l}px;
     grid-row-gap: ${2 * theme.columns.gap.l}px;
   }
   @media (min-width: ${theme.pageWidth.xl}px) {
-    grid-template-columns: ${"----------------------------------------"
+    grid-template-columns: ${'----------------------------------------'
       .substring(0, theme.columns.xl)
-      .replace(/-/gi, "1fr ")};
+      .replace(/-/gi, '1fr ')};
     grid-column-gap: ${theme.columns.gap.xl}px;
     grid-row-gap: ${2 * theme.columns.gap.xl}px;
   }
@@ -179,7 +179,7 @@ const Link = styled.a`
 const Modal = styled.div`
   position: absolute;
   z-index: 2;
-  animation: "in 400ms ease-out";
+  animation: 'in 400ms ease-out';
 `;
 
 const Overlay = styled.div`
@@ -218,7 +218,7 @@ class FeedComponent extends Component {
     this.container = React.createRef();
     this.timer = null;
     const { currentPage: _currentPage, perPage } = this.state;
-    const endpoint = "tweets";
+    const endpoint = 'tweets';
     const params = `page=${_currentPage}&perPage=${perPage}`;
     const url = `${API_URL}/${endpoint}?${params}`;
     this.fetchTweets(url);
@@ -264,7 +264,7 @@ class FeedComponent extends Component {
 
   onEndReached() {
     const { perPage, tweets } = this.state;
-    const endpoint = "tweets";
+    const endpoint = 'tweets';
     const _perPage = Constants.perPage;
     const page = Math.round(tweets.length / _perPage) + 1;
     const params = `page=${page}&perPage=${perPage}`;
@@ -275,12 +275,12 @@ class FeedComponent extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   isBottom(element) {
     return (
-      document.getElementById("root").getBoundingClientRect().bottom <=
+      document.getElementById('root').getBoundingClientRect().bottom <=
       window.innerHeight
     );
   }
@@ -289,7 +289,7 @@ class FeedComponent extends Component {
     const { total, tweets } = this.state;
     const shouldFetchMore = total > tweets.length;
     if (shouldFetchMore && this.isBottom()) {
-      document.removeEventListener("scroll", this.trackScrolling);
+      document.removeEventListener('scroll', this.trackScrolling);
       this.onEndReached();
     }
   };
@@ -319,7 +319,7 @@ class FeedComponent extends Component {
     Api.users.deleteTweet(tweetId).then(res => {
       const { status } = res;
       if (status === 200) {
-        console.log("res", res);
+        console.log('res', res);
         console.log(`Deleted tweet with id: ${tweetId}`);
       }
     });
@@ -335,7 +335,7 @@ class FeedComponent extends Component {
             removedTweetsCount
           }
         } = res;
-        console.log("res", res);
+        console.log('res', res);
         console.log(`Banned user with twitter id: ${user_id_str}`);
         console.log(`Deleted ${removedTweetsCount} tweets`);
       }
@@ -396,7 +396,7 @@ class FeedComponent extends Component {
 
     let preloader = this.state.loading ? (
       <Preloader>
-        <img src={require("../assets/spinner.gif")} alt="Cargando" />
+        <img src={require('../assets/spinner.gif')} alt="Cargando" />
       </Preloader>
     ) : null;
 
@@ -408,14 +408,14 @@ class FeedComponent extends Component {
               title="#PañuelosConMemoria"
               info="Este 24 de marzo construimos memoria activa desde Marcha Virtual."
             >
-              Subí tu foto a Twitter con el hashtag{" "}
+              Subí tu foto a Twitter con el hashtag{' '}
               <a
                 href="https://twitter.com/search?q=%23PañuelosConMemoria"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 #PañuelosConMemoria
-              </a>{" "}
+              </a>{' '}
               y sumate. <span>¡La marcha la hacemos entre todxs!</span>
               <UsersCounter count={usersCount}></UsersCounter>
             </Header>
@@ -426,7 +426,7 @@ class FeedComponent extends Component {
         {preloader}
         {tweetCard}
         <Footer>
-          {/* <img src="/favicon.png" width="48" alt="Marcha Virtual" /> */}
+          {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
           <Link
             href="https://facttic.org.ar/"
             target="_blank"

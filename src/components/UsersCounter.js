@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
-import Api from "../api";
-
+import Api from '../api';
+import Constants from '../constants'
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,13 +43,13 @@ const NamePart = styled.span`
 `;
 
 const UsersCounter = (props) => {
-
-    let usersAreEnought = props.count > 100;
+    const { minUsersCount } = Constants
+    const areEnoughUsers = props.count >= minUsersCount;
 
       function renderCounter() {
           return (
             <Wrapper>
-                <div><Image src="/24.png" alt="" /></div>
+                <div><Image src='/24.png' alt='' /></div>
                 <Count>
                 <Name>  
                     Somos 
@@ -63,7 +63,7 @@ const UsersCounter = (props) => {
 
     return (
         <div>
-            { usersAreEnought &&
+            { areEnoughUsers &&
                 renderCounter()
             }   
         </div>
