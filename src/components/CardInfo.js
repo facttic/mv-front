@@ -47,7 +47,7 @@ const CardInfo = props => {
     ":" +
     date.getSeconds();
   const strDate = date.getDate() + " " + months[date.getMonth()];
-  let text = props.text.replace(/\B(#[\wñ]+\b)(?!;)/gi, function(x) {
+  let text = props.text.replace(/\B(#[\w\u00C0-\u00FF]+\b)(?!;)/gi, function(x) {
     return `<a href="https://twitter.com/search?q=${x.replace(
       "#",
       "%23"
