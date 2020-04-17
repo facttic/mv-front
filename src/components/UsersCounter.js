@@ -59,7 +59,7 @@ const UsersCounter = (props) => {
           <Wrapper>
               <Text>
                 <Image src='/24.png' alt='' width="360" height="230" />
-                Somos más de <Count>{Math.floor(props.count/100)*100}</Count> pañuelos marchando
+                Somos más de <Count>{(Math.floor(props.count/100)*100).toLocaleString("es")}</Count> pañuelos marchando
               </Text>
           </Wrapper> 
         )
