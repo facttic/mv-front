@@ -23,13 +23,14 @@ const ImageWrapper = styled.div`
     //   align-self: center;
     // }
     
-    transform: scale(.9);
+    // transform: scale(.9);
   :nth-child(odd) {
-    transform: scale(1) translateY(-10px);
+    // transform: scale(1) translateY(-10px);
+    filter: hue-rotate(90deg);
   }
   
   :nth-child(3n + 5) {
-    transform: scale(.9) translateX(-5px);
+    // transform: scale(.9) translateX(-5px);
   }
 
   ::after {
