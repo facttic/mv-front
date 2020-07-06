@@ -387,7 +387,7 @@ class FeedComponent extends Component {
     return (
       <Container ref={this.container} className="App">
         <Grid>
-          {/* <HeaderWrapper>
+          <HeaderWrapper>
             <Header
               title="#PañuelosConMemoria"
               info="Este 24 de marzo construimos memoria activa desde Marcha Virtual."
@@ -404,7 +404,7 @@ class FeedComponent extends Component {
               y sumate. <span>¡La marcha la hacemos entre todxs!</span>
             </Header>
             
-          </HeaderWrapper> */}
+          </HeaderWrapper>
           {gallery}
         </Grid>
         {preloader}
