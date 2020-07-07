@@ -13,12 +13,14 @@ import Constants from '../constants';
 const theme = {
   colors: {
     dark: '#04090d',
-    light: '#f8f8f8',
-    primary: '#243243'
+    light: '#232323',
+    primary: '#243243',
+    gradientRainbow: 'linear-gradient(90deg,#ee3e45,#f97000,#eedb36,#2a9a51,#3968a6,#8e2e6b)',
+    gradientRainbowText: 'linear-gradient(90deg,#d12a30,#e47f2c,#cab822,#2a9a51,#3968a6,#8e2e6b)'
   },
   fonts: {
-    display: "'Roboto', 'sans-serif'",
-    text: "'Roboto Mono', 'sans-serif'"
+    display: "'Montserrat', 'sans-serif'",
+    text: "'Open Sans', 'sans-serif'"
   },
   pageWidth: {
     xl: 1200,
@@ -57,6 +59,9 @@ const Container = styled.div`
   @media (min-width: ${theme.pageWidth.xl}px) {
     max-width: ${theme.pageWidth.xl}px;
   }
+  @media (max-width: ${theme.pageWidth.m}px) {
+    padding: 0 18px;
+  }  
 `;
 
 const Grid = styled.div`
@@ -90,23 +95,16 @@ const Grid = styled.div`
 `;
 
 const HeaderWrapper = styled.header`
-  grid-column: 1 / span ${theme.columns.s};
-  grid-row: 3 / span 5;
   justify-self: center;
   align-self: center;
 
   @media (min-width: ${theme.pageWidth.s}px) {
-    grid-column: 1 / span ${theme.columns.s};
-    grid-row: 2 / span 5;
   }
   @media (min-width: ${theme.pageWidth.m}px) {
-    grid-column: 2 / span ${theme.columns.m - 2};
   }
   @media (min-width: ${theme.pageWidth.l}px) {
-    grid-column: 3 / span ${theme.columns.l - 4};
   }
   @media (min-width: ${theme.pageWidth.xl}px) {
-    grid-column: 3 / span ${theme.columns.xl - 4};
   }
 `;
 
@@ -186,6 +184,23 @@ const Preloader = styled.div`
   text-align: center;
   padding: 3em;
 `;
+
+const LeadClosing = styled.span`
+  display: block;
+`
+
+const RainbowLink = styled.a`
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #e47f2c;
+  background-image: ${theme.colors.gradientRainbowText};
+  background-size: 100%;
+  &:hover {
+    color: #e47f2c;
+  }
+`
 
 const { REACT_APP_API_URL: API_URL } = process.env;
 
@@ -391,25 +406,33 @@ class FeedComponent extends Component {
 
     return (
       <Container ref={this.container} className="App">
+      <HeaderWrapper>
+        <Header
+          title="#10j #LeyMatrimonioIgualitario"
+          info="Este 10 de julio se cumplen 10 años de la aprobación de la Ley de Matrimonio Igualitario."
+          logoImgSrc="logo.jpg"
+          logoImgAlt="logo frente orgullo y lucha"
+          logoImgHeight="250"
+          logoImgWidth="auto"
+          count={usersCount}
+          countImgSrc="heart.svg"
+          countImgAlt="pride heart"
+          countImgWidth="360"
+          countImgHeight="230"
+        >
+          Subí tu foto a Twitter con el hashtag{' '}
+          <RainbowLink
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            #LeyMatrimonioIgualitario
+          </RainbowLink>{' '}
+          y sumate. <LeadClosing>¡La marcha la hacemos entre todxs!</LeadClosing>
+        </Header>
+        
+      </HeaderWrapper>
         <Grid>
-          <HeaderWrapper>
-            <Header
-              title="#PañuelosConMemoria"
-              info="Este 24 de marzo construimos memoria activa desde Marcha Virtual."
-              count={usersCount}
-            >
-              Subí tu foto a Twitter con el hashtag{' '}
-              <a
-                href="https://twitter.com/search?q=%23PañuelosConMemoria"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                #PañuelosConMemoria
-              </a>{' '}
-              y sumate. <span>¡La marcha la hacemos entre todxs!</span>
-            </Header>
-            
-          </HeaderWrapper>
           {gallery}
         </Grid>
         {preloader}
