@@ -29,7 +29,7 @@ const theme = {
     s: 576
   },
   columns: {
-    xl: 12,
+    xl: 18,
     l: 12,
     m: 12,
     s: 6,
