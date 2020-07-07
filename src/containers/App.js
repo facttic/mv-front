@@ -29,8 +29,8 @@ const theme = {
     s: 576
   },
   columns: {
-    xl: 18,
-    l: 18,
+    xl: 12,
+    l: 12,
     m: 12,
     s: 6,
     gap: {
@@ -67,30 +67,25 @@ const Container = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(${theme.columns.s}, 1fr);
-  grid-column-gap: ${theme.columns.gap.s}px;
-  grid-row-gap: ${2 * theme.columns.gap.s}px;
+  gap: ${theme.columns.gap.s}px;
   margin: 30px 0;
   transform: rotate3d(0deg, 0deg, 0deg);
 
   @media (min-width: ${theme.pageWidth.s}px) {
     grid-template-columns: repeat(${theme.columns.s}, 1fr);
-    grid-column-gap: ${theme.columns.gap.s}px;
-    grid-row-gap: ${2 * theme.columns.gap.s}px;
+    gap: ${theme.columns.gap.s}px;
   }
   @media (min-width: ${theme.pageWidth.m}px) {
     grid-template-columns: repeat(${theme.columns.m}, 1fr);
-    grid-column-gap: ${theme.columns.gap.m}px;
-    grid-row-gap: ${2 * theme.columns.gap.m}px;
+    gap: ${theme.columns.gap.m}px;
   }
   @media (min-width: ${theme.pageWidth.l}px) {
     grid-template-columns: repeat(${theme.columns.l}, 1fr);
-    grid-column-gap: ${theme.columns.gap.l}px;
-    grid-row-gap: ${2 * theme.columns.gap.l}px;
+    gap: ${theme.columns.gap.l}px;
   }
   @media (min-width: ${theme.pageWidth.xl}px) {
     grid-template-columns: repeat(${theme.columns.xl}, 1fr);
-    grid-column-gap: ${theme.columns.gap.xl}px;
-    grid-row-gap: ${2 * theme.columns.gap.xl}px;
+    gap: ${theme.columns.gap.xl}px;
   }
 `;
 
@@ -347,7 +342,7 @@ class FeedComponent extends Component {
   };
 
   keyPressed = (e) => {
-    if (e.keyCode == 77 && e.shiftKey) {
+    if (e.keyCode === 77 && e.shiftKey) {
       this.props.history.push('/moderar');
     }
   }
