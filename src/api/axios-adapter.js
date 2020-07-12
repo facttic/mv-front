@@ -151,7 +151,7 @@ export default (client, options = {}) => {
             token
           };
           const method = "delete";
-          const url = `${authUrl}/tweets/${params.tweetId}`;
+          const url = `${authUrl}/posts/${params.tweetId}`;
           client({ url, headers, method })
             .then(res => {
               resolve(res);

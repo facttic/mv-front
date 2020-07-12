@@ -217,7 +217,7 @@ class FeedComponent extends Component {
     this.container = React.createRef();
     this.timer = null;
     const { currentPage: _currentPage, perPage } = this.state;
-    const endpoint = 'tweets';
+    const endpoint = 'posts';
     const params = `page=${_currentPage}&perPage=${perPage}`;
     const url = `${API_URL}/${endpoint}?${params}`;
     this.fetchTweets(url);
