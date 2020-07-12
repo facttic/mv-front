@@ -264,7 +264,7 @@ class FeedComponent extends Component {
 
   onEndReached() {
     const { perPage, tweets } = this.state;
-    const endpoint = 'tweets';
+    const endpoint = 'posts';
     const _perPage = Constants.perPage;
     const page = Math.round(tweets.length / _perPage) + 1;
     const params = `page=${page}&perPage=${perPage}`;
