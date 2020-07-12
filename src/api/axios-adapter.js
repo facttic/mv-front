@@ -115,7 +115,7 @@ export default (client, options = {}) => {
           };
           const method = "post";
           const data = { user_id_str: params.userTwitterId };
-          const url = `${authUrl}/blacklists`;
+          const url = `${authUrl}/deny_lists`;
           client({ url, data, headers, method })
             .then(res => {
               resolve(res);
@@ -133,7 +133,7 @@ export default (client, options = {}) => {
             token
           };
           const method = "get";
-          const url = `${authUrl}/twitter_users`;
+          const url = `${authUrl}/post_users`;
           client({ url, headers, method })
             .then(res => {
               resolve(res);
@@ -151,7 +151,7 @@ export default (client, options = {}) => {
             token
           };
           const method = "delete";
-          const url = `${authUrl}/tweets/${params.tweetId}`;
+          const url = `${authUrl}/posts/${params.tweetId}`;
           client({ url, headers, method })
             .then(res => {
               resolve(res);

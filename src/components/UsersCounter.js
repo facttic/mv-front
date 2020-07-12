@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
-import Api from '../api';
 import Constants from '../constants'
+import Image from './Image'
 
 const Wrapper = styled.aside`
   // display: flex;
@@ -11,23 +11,27 @@ const Wrapper = styled.aside`
   text-align: center;
 `;
 
-const Image = styled.img`
+const CounterIcon = styled(Image)`
   display: inline-block;
-  width: 36px;
   height: auto;
+  height: 16.5px;
+  width: 18px;
+  margin: 0 8px;
   // border-radius: 50%;
-  margin: 0;
   position: relative;
-  top: 6px;
+  //top: 6px;
+  @media (max-width: ${props => props.theme.pageWidth.m}px) {
+    margin: 0 3px;
+  }
 `;
 
 const Text = styled.p`
-  font-size: 0.75em;
+  font-size: 0.95rem;
   align-self: center;
   margin-bottom: 0;
 
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    font-size: 0.6875em;
+    font-size: 0.975rem;
   }
 `;
 
@@ -47,7 +51,13 @@ const Count = styled.span`
   // margin-right: 15px;
   // margin-left: 15px;
   font-weight: 700;
-  color: ${props => props.theme.colors.primary};
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #e47f2c;
+  background-image: ${props => props.theme.colors.gradientRainbowText};
+  background-size: 100%;
 `;
 
 const UsersCounter = (props) => {
@@ -58,8 +68,19 @@ const UsersCounter = (props) => {
         return (
           <Wrapper>
               <Text>
-                <Image src='/24.png' alt='' width="360" height="230" />
-                Somos más de <Count>{(Math.floor(props.count/100)*100).toLocaleString("es")}</Count> pañuelos marchando
+                <CounterIcon 
+                  imgSrc={props.imgSrc}
+                  imgAlt={props.countImgAlt}
+                  imgHeight={props.countImgHeight}
+                  imgWidth={props.countImgWidth}
+                />
+                Somos más de <Count>{(Math.floor(props.count/100)*100).toLocaleString("es")}</Count> personas marchando
+                <CounterIcon 
+                  imgSrc={props.imgSrc}
+                  imgAlt={props.countImgAlt}
+                  imgHeight={props.countImgHeight}
+                  imgWidth={props.countImgWidth}
+                />
               </Text>
           </Wrapper> 
         )
