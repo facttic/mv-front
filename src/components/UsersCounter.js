@@ -69,14 +69,14 @@ const UsersCounter = (props) => {
           <Wrapper>
               <Text>
                 <CounterIcon 
-                  imgSrc={props.countImgSrc}
+                  imgSrc={props.imgSrc}
                   imgAlt={props.countImgAlt}
                   imgHeight={props.countImgHeight}
                   imgWidth={props.countImgWidth}
                 />
                 Somos más de <Count>{(Math.floor(props.count/100)*100).toLocaleString("es")}</Count> personas marchando
                 <CounterIcon 
-                  imgSrc={props.countImgSrc}
+                  imgSrc={props.imgSrc}
                   imgAlt={props.countImgAlt}
                   imgHeight={props.countImgHeight}
                   imgWidth={props.countImgWidth}
