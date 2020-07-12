@@ -73,7 +73,7 @@ const CardInfo = props => {
 
   return (
     <Wrapper className="CardInfo">
-      <Time datetime={formattedDate}>{strDate}</Time>
+      {months[date.getMonth()] && <Time datetime={formattedDate}>{strDate}</Time>}
       <Text
         dangerouslySetInnerHTML={{
           __html: text

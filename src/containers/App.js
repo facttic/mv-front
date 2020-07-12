@@ -353,7 +353,7 @@ class FeedComponent extends Component {
     let gallery = this.state.tweets.map(tweet => {
       return (
         <Media
-          key={tweet.tweet_id_str}
+          key={tweet.post_id_str}
           tweet={tweet}
           alt=""
           click={this.mouseClickHandler}
@@ -412,7 +412,7 @@ class FeedComponent extends Component {
           count={usersCount}
           countImgSrc="heart.svg"
           countImgAlt="pride heart"
-          countImgWidth="360"
+          countImgWidth="320"
           countImgHeight="230"
         >
           Subí tu foto a Twitter con el hashtag{' '}

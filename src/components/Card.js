@@ -21,7 +21,7 @@ const Card = (props) => {
   return (
     <CardWrapper className="Card" onMouseLeave={props.close}>
       <CardImage media={props.tweet.media} source={props.tweet.source} user={props.tweet.user} />
-      <CardInfo date={props.tweet.tweet_created_at} text={props.tweet.full_text} author={props.tweet.user} source={props.tweet.source} />
+      <CardInfo date={props.tweet.post_created_at} text={props.tweet.full_text} author={props.tweet.user} source={props.tweet.source} />
       { props.show && <CardModeration user={props.tweet.user.screen_name} delete={() => props.delete(props.tweet._id)} block={() => props.block(props.tweet.user.id_str)} />}
     </CardWrapper>
   );
