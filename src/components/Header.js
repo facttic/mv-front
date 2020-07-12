@@ -55,6 +55,10 @@ const Title = styled.h1`
   @media (max-width: ${props => props.theme.pageWidth.s}px) {
     font-size: 1.5em;
   }
+
+  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
+    font-size: 1.2em;
+  }
 `;
 
 const SubTitle = styled.p`
@@ -68,6 +72,10 @@ const SubTitle = styled.p`
   
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
     font-size: 1.125rem;
+  }
+
+  @media (max-width: ${props => props.theme.pageWidth.s}px) {
+    font-size: 1.075em;
   }
 `;
 
@@ -85,6 +93,10 @@ const Text = styled.p`
 const Logo = styled(Image)`
   @media (max-width: ${props => props.theme.pageWidth.s}px) {
     height: 180px;
+  }
+  
+  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
+    height: 155px;
   }
 `
 
@@ -106,10 +118,10 @@ const Header = (props) => {
       <Text>{props.children}</Text>
       <UsersCounter
         count={props.count}
-        countImgSrc={props.countImgSrc}
-        countImgAlt={props.countImgAlt}
-        countImgHeight={props.countImgHeight}
-        countImgWidth={props.countImgWidth}
+        imgSrc={props.countImgSrc}
+        imgAlt={props.countImgAlt}
+        imgHeight={props.countImgHeight}
+        imgWidth={props.countImgWidth}
       >
       </UsersCounter>
     </Wrapper>

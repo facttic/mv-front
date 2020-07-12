@@ -26,7 +26,8 @@ const theme = {
     xl: 1200,
     l: 992,
     m: 768,
-    s: 576
+    s: 576,
+    xs: 300
   },
   columns: {
     xl: 18,
@@ -184,7 +185,7 @@ const LeadClosing = styled.span`
   display: block;
 `
 
-const RainbowLink = styled.a`
+const RainbowHashtag = styled.span`
   background-clip: text;
   text-fill-color: transparent;
   -webkit-background-clip: text;
@@ -403,8 +404,8 @@ class FeedComponent extends Component {
       <Container ref={this.container} className="App">
       <HeaderWrapper>
         <Header
-          title="#10j #LeyMatrimonioIgualitario"
-          info="Este 10 de julio se cumplen 10 años de la aprobación de la Ley de Matrimonio Igualitario."
+          title="#15J #MatrimonioIgualitario"
+          info="Este 15 de julio se cumplen 10 años de la aprobación de la Ley de Matrimonio Igualitario."
           logoImgSrc="logo.jpg"
           logoImgAlt="logo frente orgullo y lucha"
           logoImgHeight="250"
@@ -415,14 +416,10 @@ class FeedComponent extends Component {
           countImgWidth="360"
           countImgHeight="230"
         >
-          Subí tu foto a Twitter con el hashtag{' '}
-          <RainbowLink
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            #LeyMatrimonioIgualitario
-          </RainbowLink>{' '}
+          Subí tu foto a Twitter con alguno de los hashtags{' '}
+          <RainbowHashtag>
+            #MatrimonioIgualitario {' '} #10AñosMatrimonioIgualitario 
+          </RainbowHashtag>{' '}
           y sumate. <LeadClosing>¡La marcha la hacemos entre todxs!</LeadClosing>
         </Header>
         
