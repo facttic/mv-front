@@ -85,7 +85,8 @@ const Media = (props) => {
 
   let { tweet } = props;
   // let imageSrc = (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : '';
-  const image = (tweet.media.length > 0) ? <Image width="150" height="150" src={tweet.media[0].media_url_thumb} onMouseEnter={(e) => props.enter(e, props.tweet)} onClick={(e) => props.click(e, props.tweet)} onMouseLeave={props.leave} /> : null;
+  const media = tweet.source === 'instagram' ? tweet.user.profile_image_url_https + '/media/?size=t' : tweet.media[0].media_url_thumb
+  const image = (tweet.media.length > 0) ? <Image width="150" height="150" src={media} onMouseEnter={(e) => props.enter(e, props.tweet)} onClick={(e) => props.click(e, props.tweet)} onMouseLeave={props.leave} /> : null;
 
   return (
     <ImageWrapper className="Media">

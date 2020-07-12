@@ -23,9 +23,13 @@ const Image = styled.img`
 const CardImage = (props) => {
   
   // const imageSrc = (props.media.length > 0) ? props.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=small') : '';
-  const w = (props.media.length > 0 && props.media[0].sizes) ? props.media[0].sizes.small.w : '';
-  const h = (props.media.length > 0 && props.media[0].sizes) ? props.media[0].sizes.small.h : '';
-  const image = (props.media.length > 0) ? <Image alt="" src={props.media[0].media_url_small} width={w} height={h} /> : null;
+  let sizes = (props.media.length > 0 && props.media[0].sizes) ? props.media[0].sizes : null
+  if(Array.isArray(sizes)) sizes = sizes[0]
+  
+  const w = (sizes) ? sizes.small.w : '';
+  const h = (sizes) ? sizes.small.h : '';
+  const media = props.source === 'instagram' ? props.user.profile_image_url_https + '/media/?size=m' : props.media[0].media_url_small;
+  const image = (props.media.length > 0) ? <Image alt="" src={media} width={w} height={h} /> : null;
 
   return (
     <Wrapper className="CardImage">
