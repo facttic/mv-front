@@ -374,8 +374,8 @@ class FeedComponent extends Component {
         180;
       let y = elemRect.top - containerRect.top - 30;
 
-      if (x + 360 > containerRect.right - containerRect.left + 15)
-        x = containerRect.right - containerRect.left + 15 - 360;
+      if (x + 320 > containerRect.right - containerRect.left + 15)
+        x = containerRect.right - containerRect.left + 15 - 320;
       if (x < 15) x = 15;
       if (y < -25) y = -25;
 

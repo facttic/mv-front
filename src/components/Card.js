@@ -5,7 +5,7 @@ import CardInfo from './CardInfo';
 import CardModeration from './CardModeration';
 
 const CardWrapper = styled.article`
-  width: 360px;
+  width: 320px;
   max-width: calc(100% - 30px);
   background-color: #fff;
   position: relative;
@@ -20,8 +20,8 @@ const Card = (props) => {
 
   return (
     <CardWrapper className="Card" onMouseLeave={props.close}>
-      <CardImage media={props.tweet.media} />
-      <CardInfo date={props.tweet.tweet_created_at} text={props.tweet.full_text} author={props.tweet.user} />
+      <CardImage media={props.tweet.media} source={props.tweet.source} user={props.tweet.user} />
+      <CardInfo date={props.tweet.tweet_created_at} text={props.tweet.full_text} author={props.tweet.user} source={props.tweet.source} />
       { props.show && <CardModeration user={props.tweet.user.screen_name} delete={() => props.delete(props.tweet._id)} block={() => props.block(props.tweet.user.id_str)} />}
     </CardWrapper>
   );

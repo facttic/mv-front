@@ -28,11 +28,15 @@ const NamePart = styled.span`
 
 const CardInfoAuthor = (props) => {
 
+  const profileSrc = props.source === 'instagram' ? require('../assets/ig.jpg') : props.author.profile_image_url_https
+  const profileLink = props.source === 'instagram' ? props.author.profile_image_url_https : `https://twitter.com/${props.author.screen_name}`
+  const profileName = props.source === 'instagram' ? 'Ver en Instagram' : `@${props.author.screen_name}`
+
   return (
     <Wrapper className="CardInfoAuthor">
-      <div><Image src={props.author.profile_image_url_https} alt="" /></div>
+      <div><Image src={profileSrc} alt="" /></div>
       <Name className="author">
-        <NamePart>{props.author.name}</NamePart> - <NamePart><a href={'https://twitter.com/' + props.author.screen_name} target="_blank" rel="noopener noreferrer">@{props.author.screen_name}</a></NamePart>
+      {props.author.name !== '' && <span><NamePart>{props.author.name}</NamePart> - </span>}<NamePart><a href={profileLink} target="_blank" rel="noopener noreferrer">{profileName}</a></NamePart>
       </Name>
     </Wrapper>
   );
