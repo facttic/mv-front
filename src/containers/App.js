@@ -406,19 +406,23 @@ class FeedComponent extends Component {
         <Header
           title="#15J #MatrimonioIgualitario"
           info="Este 15 de julio se cumplen 10 años de la aprobación de la Ley de Matrimonio Igualitario."
-          logoImgSrc="logo.jpg"
+          logoImgSrc="logo.svg"
           logoImgAlt="logo frente orgullo y lucha"
           logoImgHeight="250"
           logoImgWidth="auto"
           count={usersCount}
           countImgSrc="heart.svg"
-          countImgAlt="pride heart"
+          countImgAlt="corazón con colores del orgullo"
           countImgWidth="320"
           countImgHeight="230"
         >
-          Subí tu foto a Twitter con alguno de los hashtags{' '}
+          Subí tu foto a Twitter o Instagram con los hashtags{' '}
           <RainbowHashtag>
-            #MatrimonioIgualitario {' '} #10AñosMatrimonioIgualitario 
+            #MatrimonioIgualitario
+          </RainbowHashtag>
+          {' '}o{' '}
+          <RainbowHashtag>
+            #10AñosMatrimonioIgualitario 
           </RainbowHashtag>{' '}
           y sumate. <LeadClosing>¡La marcha la hacemos entre todxs!</LeadClosing>
         </Header>
