@@ -436,7 +436,7 @@ class FeedComponent extends Component {
         <Footer>
           {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
           <Link
-            href="https://facttic.org.ar/"
+            href="https://facttic.org.ar/fit"
             target="_blank"
             rel="noopener noreferrer"
           >
