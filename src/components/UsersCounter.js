@@ -21,7 +21,7 @@ const CounterIcon = styled(Image)`
   position: relative;
   //top: 6px;
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    margin: 0 3px;
+    margin: 0 3px;    
   }
 `;
 
@@ -32,6 +32,12 @@ const Text = styled.p`
 
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
     font-size: 0.975rem;
+  }
+
+  @media (min-width: 340px) and (max-width: 380px) {
+    max-width: 315px;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
