@@ -372,7 +372,7 @@ class FeedComponent extends Component {
         elemRect.left -
         containerRect.left +
         (elemRect.right - elemRect.left) / 2 -
-        180;
+        160;
       let y = elemRect.top - containerRect.top - 30;
 
       if (x + 320 > containerRect.right - containerRect.left + 15)
@@ -436,7 +436,7 @@ class FeedComponent extends Component {
         <Footer>
           {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
           <Link
-            href="https://facttic.org.ar/"
+            href="https://facttic.org.ar/fit"
             target="_blank"
             rel="noopener noreferrer"
           >
