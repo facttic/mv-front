@@ -20,7 +20,7 @@ const theme = {
   },
   fonts: {
     display: "'Montserrat', 'sans-serif'",
-    text: "'Open Sans', 'sans-serif'"
+    text: "'Roboto', 'sans-serif'"
   },
   pageWidth: {
     xl: 1200,
@@ -153,7 +153,7 @@ const Footer = styled.footer`
 
 const Link = styled.a`
   color: inherit;
-  font-family: ${theme.fonts.display};
+  font-family: ${theme.fonts.text};
   text-decoration: none;
   font-size: 0.625rem;
   display: block;

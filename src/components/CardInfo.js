@@ -32,7 +32,7 @@ const CardInfo = props => {
     "nov.",
     "dic."
   ];
-  const date = new Date(props.date);
+  const date = new Date(props.date*1000);
   const formattedDate =
     date.getFullYear() +
     "-" +
