@@ -12,9 +12,9 @@ import Constants from '../constants';
 
 const theme = {
   colors: {
-    dark: '#04090d',
-    light: '#232323',
-    primary: '#243243',
+    dark: '#0d0904',
+    light: '#f8f8f8',
+    primary: '#d69942',
     gradientRainbow: 'linear-gradient(90deg,#ee3e45,#f97000,#eedb36,#2a9a51,#3968a6,#8e2e6b)',
     gradientRainbowText: 'linear-gradient(90deg,#d12a30,#e47f2c,#cab822,#2a9a51,#3968a6,#8e2e6b)'
   },
@@ -30,15 +30,15 @@ const theme = {
     xs: 300
   },
   columns: {
-    xl: 18,
+    xl: 14,
     l: 12,
-    m: 12,
-    s: 6,
+    m: 8,
+    s: 5,
     gap: {
-      xl: 5,
-      l: 5,
-      m: 5,
-      s: 5
+      xl: 15,
+      l: 15,
+      m: 15,
+      s: 15
     }
   }
 };
@@ -108,47 +108,11 @@ const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   right: 0;
+  left: 0;
   padding: 0.25em 30px 0.25em;
-  background: rgba(248, 248, 248, 0);
-  background: -moz-linear-gradient(
-    left,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  background: -webkit-gradient(
-    left top,
-    right top,
-    color-stop(0%, rgba(248, 248, 248, 0)),
-    color-stop(25%, rgba(248, 248, 248, 0.95)),
-    color-stop(100%, rgba(248, 248, 248, 1))
-  );
-  background: -webkit-linear-gradient(
-    left,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  background: -o-linear-gradient(
-    left,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  background: -ms-linear-gradient(
-    left,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  background: linear-gradient(
-    to right,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f8f8f8', GradientType=1 );
+  background: ${props => props.theme.colors.dark};
   text-align: right;
+  opacity: .95;
 `;
 
 const Link = styled.a`
@@ -171,7 +135,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
   animation: in 500ms ease-in-out;
 `;
@@ -223,6 +187,7 @@ class FeedComponent extends Component {
     const url = `${API_URL}/${endpoint}?${params}`;
     this.fetchTweets(url);
     this.fetchUsersCount();
+    console.log("%c¿Dónde está"+"%c Facundo Astudillo Castro"+"%c?", "color:#f02;", "color:#f02; font-weight:bold;", "color:#f02;");
   }
 
   componentWillReceiveProps(nextProps) {
