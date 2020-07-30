@@ -19,7 +19,7 @@ const theme = {
     gradientRainbowText: 'linear-gradient(90deg,#d12a30,#e47f2c,#cab822,#2a9a51,#3968a6,#8e2e6b)'
   },
   fonts: {
-    display: "'Montserrat', 'sans-serif'",
+    display: "'Roboto Condensed', 'sans-serif'",
     text: "'Roboto', 'sans-serif'"
   },
   pageWidth: {
@@ -149,17 +149,12 @@ const LeadClosing = styled.span`
   display: block;
 `
 
-const RainbowHashtag = styled.span`
-  background-clip: text;
-  text-fill-color: transparent;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #e47f2c;
-  background-image: ${theme.colors.gradientRainbowText};
-  background-size: 100%;
-  &:hover {
+const Hashtag = styled.span`
+  color: ${theme.colors.primary};
+  font-weight: 700;
+  /*&:hover {
     color: #e47f2c;
-  }
+  }*/
 `
 
 const { REACT_APP_API_URL: API_URL } = process.env;
@@ -369,27 +364,32 @@ class FeedComponent extends Component {
       <Container ref={this.container} className="App">
       <HeaderWrapper>
         <Header
-          title="#15J #MatrimonioIgualitario"
-          info="Este 15 de julio se cumplen 10 años de la aprobación de la Ley de Matrimonio Igualitario."
-          logoImgSrc="logo.svg"
-          logoImgAlt="logo frente orgullo y lucha"
-          logoImgHeight="250"
+          title="JusticiaporSantiago"
+          info="Este 1ro de agosto construyamos una nueva justicia desde la memoria y la verdad."
+          logoImgSrc="mirada_santiago.jpg"
+          logoImgAlt="mirada Santiago Maldonado"
+          logoImgHeight="80"
           logoImgWidth="auto"
           count={usersCount}
-          countImgSrc="heart.svg"
-          countImgAlt="corazón con colores del orgullo"
-          countImgWidth="320"
-          countImgHeight="230"
+          countImgSrc=""
+          countImgAlt=""
+          countImgWidth=""
+          countImgHeight=""
         >
-          Subí tu foto a Twitter o Instagram con los hashtags{' '}
-          <RainbowHashtag>
-            #MatrimonioIgualitario
-          </RainbowHashtag>
-          {' '}o{' '}
-          <RainbowHashtag>
-            #10AñosMatrimonioIgualitario 
-          </RainbowHashtag>{' '}
-          y sumate. <LeadClosing>¡La marcha la hacemos entre todxs!</LeadClosing>
+          Subí tu foto a Twitter e Instagram con los hashtags:
+          {' '}
+          <Hashtag>
+            #JusticiaPorSantiago
+          </Hashtag>
+          {' '}
+          <Hashtag>
+            #3AñosDeImpunidad
+          </Hashtag>
+          {' '}
+          <Hashtag>
+            #ElEstadoEsResponsable
+          </Hashtag>
+          <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
         </Header>
         
       </HeaderWrapper>
