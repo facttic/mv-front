@@ -29,11 +29,16 @@ const Title = styled.h1`
   font-weight: 700;
   color: ${props => props.theme.colors.light};
   position: relative;
-  padding: 0 0 8px 0;
+  //padding: 0 0 8px 0;
+  padding: 0;
   margin: 20px 5px;
   text-align: center;
-
-  &::after {
+  text-transform: uppercase;
+  &::before {
+    content: '#';
+    color: ${props => props.theme.colors.primary};
+  }
+  /*&::after {
     content: '';
     position: absolute;
     display: block;    
@@ -46,7 +51,7 @@ const Title = styled.h1`
     margin-right: auto;
     background-image: ${props => props.theme.colors.gradientRainbow};
     background-size: 100%;
-  }
+  }*/
 
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
     font-size: 1.75em;
@@ -91,13 +96,15 @@ const Text = styled.p`
 `;
 
 const Logo = styled(Image)`
-  @media (max-width: ${props => props.theme.pageWidth.s}px) {
+  opacity: .85;
+  /*@media (max-width: ${props => props.theme.pageWidth.s}px) {
     height: 180px;
+
   }
   
   @media (max-width: ${props => props.theme.pageWidth.xs}px) {
     height: 155px;
-  }
+  }*/
 `
 
 const Header = (props) => {

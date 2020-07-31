@@ -12,14 +12,14 @@ import Constants from '../constants';
 
 const theme = {
   colors: {
-    dark: '#04090d',
-    light: '#232323',
-    primary: '#243243',
+    dark: '#0d0904',
+    light: '#f8f8f8',
+    primary: '#d69942',
     gradientRainbow: 'linear-gradient(90deg,#ee3e45,#f97000,#eedb36,#2a9a51,#3968a6,#8e2e6b)',
     gradientRainbowText: 'linear-gradient(90deg,#d12a30,#e47f2c,#cab822,#2a9a51,#3968a6,#8e2e6b)'
   },
   fonts: {
-    display: "'Montserrat', 'sans-serif'",
+    display: "'Roboto Condensed', 'sans-serif'",
     text: "'Roboto', 'sans-serif'"
   },
   pageWidth: {
@@ -30,15 +30,15 @@ const theme = {
     xs: 300
   },
   columns: {
-    xl: 18,
+    xl: 14,
     l: 12,
-    m: 12,
-    s: 6,
+    m: 8,
+    s: 5,
     gap: {
-      xl: 5,
-      l: 5,
-      m: 5,
-      s: 5
+      xl: 15,
+      l: 15,
+      m: 15,
+      s: 15
     }
   }
 };
@@ -108,47 +108,11 @@ const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   right: 0;
+  left: 0;
   padding: 0.25em 30px 0.25em;
-  background: rgba(248, 248, 248, 0);
-  background: -moz-linear-gradient(
-    left,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  background: -webkit-gradient(
-    left top,
-    right top,
-    color-stop(0%, rgba(248, 248, 248, 0)),
-    color-stop(25%, rgba(248, 248, 248, 0.95)),
-    color-stop(100%, rgba(248, 248, 248, 1))
-  );
-  background: -webkit-linear-gradient(
-    left,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  background: -o-linear-gradient(
-    left,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  background: -ms-linear-gradient(
-    left,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  background: linear-gradient(
-    to right,
-    rgba(248, 248, 248, 0) 0%,
-    rgba(248, 248, 248, 0.95) 25%,
-    rgba(248, 248, 248, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f8f8f8', GradientType=1 );
+  background: ${props => props.theme.colors.dark};
   text-align: right;
+  opacity: .95;
 `;
 
 const Link = styled.a`
@@ -171,7 +135,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
   animation: in 500ms ease-in-out;
 `;
@@ -185,17 +149,12 @@ const LeadClosing = styled.span`
   display: block;
 `
 
-const RainbowHashtag = styled.span`
-  background-clip: text;
-  text-fill-color: transparent;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #e47f2c;
-  background-image: ${theme.colors.gradientRainbowText};
-  background-size: 100%;
-  &:hover {
+const Hashtag = styled.span`
+  color: ${theme.colors.primary};
+  font-weight: 700;
+  /*&:hover {
     color: #e47f2c;
-  }
+  }*/
 `
 
 const { REACT_APP_API_URL: API_URL } = process.env;
@@ -223,6 +182,7 @@ class FeedComponent extends Component {
     const url = `${API_URL}/${endpoint}?${params}`;
     this.fetchTweets(url);
     this.fetchUsersCount();
+    console.log("%c¿Dónde está"+"%c Facundo Astudillo Castro"+"%c?", "color:#f02;", "color:#f02; font-weight:bold;", "color:#f02;");
   }
 
   componentWillReceiveProps(nextProps) {
@@ -404,27 +364,32 @@ class FeedComponent extends Component {
       <Container ref={this.container} className="App">
       <HeaderWrapper>
         <Header
-          title="#15J #MatrimonioIgualitario"
-          info="Este 15 de julio se cumplen 10 años de la aprobación de la Ley de Matrimonio Igualitario."
-          logoImgSrc="logo.svg"
-          logoImgAlt="logo frente orgullo y lucha"
-          logoImgHeight="250"
+          title="JusticiaporSantiago"
+          info="Este 1ro de agosto construyamos una nueva justicia desde la memoria y la verdad."
+          logoImgSrc="mirada_santiago.jpg"
+          logoImgAlt="mirada Santiago Maldonado"
+          logoImgHeight="80"
           logoImgWidth="auto"
           count={usersCount}
-          countImgSrc="heart.svg"
-          countImgAlt="corazón con colores del orgullo"
-          countImgWidth="320"
-          countImgHeight="230"
+          countImgSrc=""
+          countImgAlt=""
+          countImgWidth=""
+          countImgHeight=""
         >
-          Subí tu foto a Twitter o Instagram con los hashtags{' '}
-          <RainbowHashtag>
-            #MatrimonioIgualitario
-          </RainbowHashtag>
-          {' '}o{' '}
-          <RainbowHashtag>
-            #10AñosMatrimonioIgualitario 
-          </RainbowHashtag>{' '}
-          y sumate. <LeadClosing>¡La marcha la hacemos entre todxs!</LeadClosing>
+          Subí tu foto a Twitter e Instagram con los hashtags:
+          {' '}
+          <Hashtag>
+            #JusticiaPorSantiago
+          </Hashtag>
+          {' '}
+          <Hashtag>
+            #3AñosDeImpunidad
+          </Hashtag>
+          {' '}
+          <Hashtag>
+            #ElEstadoEsResponsable
+          </Hashtag>
+          <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
         </Header>
         
       </HeaderWrapper>
