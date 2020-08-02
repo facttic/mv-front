@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&family=Roboto+Condensed:wght@700&display=swap');
 
 /*COLORS*/
-$dark-color: #04090d;
+$dark-color: #0d0904;
 $light-color: #f8f8f8;
-$text-color: #6b6f70;
-$primary-color: #1ac69e;
+$text-color: #f8f8f8;
+$primary-color: #d69942;
 
 /*TYPOGRAPHY*/
 $display:'Roboto', sans-serif;
@@ -17,7 +17,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   //background-color: $light-color;
-  background-color: #fff;
+  // background: #0d0904 url(http://www.santiagomaldonado.com/wp-content/uploads/2017/08/bg3.jpg) no-repeat center fixed;
+  background: #0d0904;
+  background-size: cover;
   color: $text-color;
 }
 

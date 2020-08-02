@@ -1,6 +1,6 @@
 {
-  "short_name": "#MatrimonioIgualitario",
-  "name": "#MatrimonioIgualitario",
+  "short_name": "#JusticiaporSantiago",
+  "name": "#JusticiaporSantiago",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#955ba5",
-  "background_color": "#955ba5"
+  "theme_color": "#d69942",
+  "background_color": "#d69942"
 }
