@@ -5,6 +5,7 @@ import axios from 'axios';
 import Api from '../api';
 
 import Header from '../components/Header';
+import HeaderCollage from '../components/Header/HeaderCollage'
 import Media from '../components/Media';
 import Card from '../components/Card';
 import Login from '../components/Login';
@@ -14,12 +15,14 @@ const theme = {
   colors: {
     dark: '#0d0904',
     light: '#f8f8f8',
-    primary: '#d69942',
+    primary: '#009e3c',
     gradientRainbow: 'linear-gradient(90deg,#ee3e45,#f97000,#eedb36,#2a9a51,#3968a6,#8e2e6b)',
     gradientRainbowText: 'linear-gradient(90deg,#d12a30,#e47f2c,#cab822,#2a9a51,#3968a6,#8e2e6b)'
   },
   fonts: {
     display: "'Roboto Condensed', 'sans-serif'",
+    headerFont: "'Bitter', serif;",
+    headerTextFont: "'Montserrat', 'sans-serif'",
     text: "'Roboto', 'sans-serif'"
   },
   pageWidth: {
@@ -42,6 +45,15 @@ const theme = {
     }
   }
 };
+
+const Background = styled.div`
+  width: 100%;
+  height: 100%;
+  position:fixed;
+  overflow-y: scroll;
+  background-image: url(${require('../assets/imgs/background.jpg')});
+  background-size:100%;
+`
 
 const Container = styled.div`
   position: relative;
@@ -66,11 +78,15 @@ const Container = styled.div`
 `;
 
 const Grid = styled.div`
+  position: relative;
+  z-index:999999;
   display: grid;
   grid-template-columns: repeat(${theme.columns.s}, 1fr);
   gap: ${theme.columns.gap.s}px;
   margin: 30px 0;
   transform: rotate3d(0deg, 0deg, 0deg);
+  height: 3000px;
+  background: #000;
 
   @media (min-width: ${theme.pageWidth.s}px) {
     grid-template-columns: repeat(${theme.columns.s}, 1fr);
@@ -145,17 +161,6 @@ const Preloader = styled.div`
   padding: 3em;
 `;
 
-const LeadClosing = styled.span`
-  display: block;
-`
-
-const Hashtag = styled.span`
-  color: ${theme.colors.primary};
-  font-weight: 700;
-  /*&:hover {
-    color: #e47f2c;
-  }*/
-`
 
 const { REACT_APP_API_URL: API_URL } = process.env;
 
@@ -182,7 +187,7 @@ class FeedComponent extends Component {
     const url = `${API_URL}/${endpoint}?${params}`;
     this.fetchTweets(url);
     this.fetchUsersCount();
-    console.log("%c¿Dónde está"+"%c Facundo Astudillo Castro"+"%c?", "color:#f02;", "color:#f02; font-weight:bold;", "color:#f02;");
+    console.log("%c¿Dónde está" + "%c Facundo Astudillo Castro" + "%c?", "color:#f02;", "color:#f02; font-weight:bold;", "color:#f02;");
   }
 
   componentWillReceiveProps(nextProps) {
@@ -361,54 +366,44 @@ class FeedComponent extends Component {
     ) : null;
 
     return (
-      <Container ref={this.container} className="App">
-      <HeaderWrapper>
-        <Header
-          title="JusticiaporSantiago"
-          info="Este 1ro de agosto construyamos una nueva justicia desde la memoria y la verdad."
-          logoImgSrc="mirada_santiago.jpg"
-          logoImgAlt="mirada Santiago Maldonado"
-          logoImgHeight="80"
-          logoImgWidth="auto"
-          count={usersCount}
-          countImgSrc=""
-          countImgAlt=""
-          countImgWidth=""
-          countImgHeight=""
-        >
-          Subí tu foto a Twitter e Instagram con los hashtags:
-          {' '}
-          <Hashtag>
-            #JusticiaPorSantiago
-          </Hashtag>
-          {' '}
-          <Hashtag>
-            #3AñosDeImpunidad
-          </Hashtag>
-          {' '}
-          <Hashtag>
-            #ElEstadoEsResponsable
-          </Hashtag>
-          <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
-        </Header>
-        
-      </HeaderWrapper>
-        <Grid>
-          {gallery}
-        </Grid>
-        {preloader}
-        {tweetCard}
-        <Footer>
-          {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
-          <Link
-            href="https://facttic.org.ar/fit"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Desarrollado por FACTTIC
-          </Link>
-        </Footer>
-      </Container>
+      <Background>
+        <Container ref={this.container} className="App">
+          <HeaderWrapper>
+            <HeaderCollage></HeaderCollage>
+            <Header
+              title="Marcha virtual por el Aborto Legal, Seguro y Gratuito"
+              info="Este 29 de diciembre sumate a la lucha por el #AbortoLegal2020"
+              //logoImgSrc="mirada_santiago.jpg"
+              logoImgAlt="Marcha virtual por el aborto legal"
+              //logoImgHeight="80"
+              //logoImgWidth="auto"
+              count={usersCount}
+              countImgSrc=""
+              countImgAlt=""
+              countImgWidth=""
+              countImgHeight=""
+            >
+
+            </Header>
+
+          </HeaderWrapper>
+          <Grid>
+            {gallery}
+          </Grid>
+          {preloader}
+          {tweetCard}
+          <Footer>
+            {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
+            <Link
+              href="https://facttic.org.ar/fit"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Desarrollado por FACTTIC
+            </Link>
+          </Footer>
+        </Container>
+      </Background>
     );
   }
 }

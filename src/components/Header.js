@@ -4,7 +4,8 @@ import UsersCounter from './UsersCounter';
 import Image from './Image';
 
 const Wrapper = styled.div`
-  padding: 1em 0;
+  font-family: ${props => props.theme.fonts.headerTextFont};
+  padding-top: 15%;
   position: relative;
   text-align: center;
 
@@ -24,7 +25,8 @@ const TitleWrapper = styled.div`
 `
 
 const Title = styled.h1`
-  font-family: ${props => props.theme.fonts.display};
+  font-family: ${props => props.theme.fonts.headerFont};
+  width: 60%;
   font-size: 2.5em;
   font-weight: 700;
   color: ${props => props.theme.colors.light};
@@ -33,25 +35,6 @@ const Title = styled.h1`
   padding: 0;
   margin: 20px 5px;
   text-align: center;
-  text-transform: uppercase;
-  &::before {
-    content: '#';
-    color: ${props => props.theme.colors.primary};
-  }
-  /*&::after {
-    content: '';
-    position: absolute;
-    display: block;    
-    width: 100%;
-    height: 3px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    background-image: ${props => props.theme.colors.gradientRainbow};
-    background-size: 100%;
-  }*/
 
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
     font-size: 1.75em;
@@ -67,7 +50,6 @@ const Title = styled.h1`
 `;
 
 const SubTitle = styled.p`
-  font-family: ${props => props.theme.fonts.text};
   font-size: 1.125rem;
   font-weight: 700;
   text-align: center;
@@ -107,15 +89,39 @@ const Logo = styled(Image)`
   }*/
 `
 
+const HashtagsContainer = styled.div`
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 20px;
+`
+
+const Hashtag = styled.span`
+  color: ${props => props.theme.colors.light};
+  background-color: ${props => props.theme.colors.primary};
+  padding:5px;
+  margin: 0 10px;
+  font-weight: 700;
+  /*&:hover {
+    color: #e47f2c;
+  }*/
+`
+
+const LeadClosing = styled.span`
+  display: block;
+`
+
+
 const Header = (props) => {
 
   return (
     <Wrapper className="Header">
-      <Logo 
+
+      {/*<Logo 
         imgSrc={props.logoImgSrc} 
         imgAlt={props.logoImgAlt} 
         imgHeight={props.logoImgHeight} 
-        imgWidth={props.logoImgWidth} />
+        imgWidth={props.logoImgWidth} /> */}
+
       <TitleWrapper>
         <Title>
           {props.title}
@@ -131,6 +137,18 @@ const Header = (props) => {
         imgWidth={props.countImgWidth}
       >
       </UsersCounter>
+
+      Participá subiendo tu foto a Twitter o Instagram con algunos de los hashtags oficiales:
+      <HashtagsContainer>
+        <Hashtag>#AbortoLegal2020</Hashtag>
+        <Hashtag> #EsUrgente</Hashtag>
+        <Hashtag> #EsAhoraSenado</Hashtag>
+      </HashtagsContainer>
+
+
+
+      <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
+
     </Wrapper>
   );
 }
