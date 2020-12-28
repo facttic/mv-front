@@ -52,7 +52,7 @@ const Background = styled.div`
   position:fixed;
   overflow-y: scroll;
   background-image: url(${require('../assets/imgs/background.jpg')});
-  background-size:100%;
+  background-size:auto 100%;
 `
 
 const Container = styled.div`
@@ -85,8 +85,6 @@ const Grid = styled.div`
   gap: ${theme.columns.gap.s}px;
   margin: 30px 0;
   transform: rotate3d(0deg, 0deg, 0deg);
-  height: 3000px;
-  background: #000;
 
   @media (min-width: ${theme.pageWidth.s}px) {
     grid-template-columns: repeat(${theme.columns.s}, 1fr);
@@ -126,9 +124,10 @@ const Footer = styled.footer`
   right: 0;
   left: 0;
   padding: 0.25em 30px 0.25em;
-  background: ${props => props.theme.colors.dark};
+  background: ${props => props.theme.colors.primary};
   text-align: right;
   opacity: .95;
+  z-index: 9999999;
 `;
 
 const Link = styled.a`

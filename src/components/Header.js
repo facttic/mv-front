@@ -9,13 +9,18 @@ const Wrapper = styled.div`
   position: relative;
   text-align: center;
 
-  @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    padding: 2em 0;
+  @media (max-width: ${props => props.theme.pageWidth.l}px) {
+    padding-top: 25%;
   }
 
-  @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    padding: 1.5em 0;
+  @media (max-width: ${props => props.theme.pageWidth.s}px) {
+    padding-top: 35%;
   }
+
+  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
+    padding-top: 37%;
+  }
+
 `;
 
 const TitleWrapper = styled.div`
@@ -96,14 +101,16 @@ const HashtagsContainer = styled.div`
 `
 
 const Hashtag = styled.span`
+  display: inline-block;
   color: ${props => props.theme.colors.light};
   background-color: ${props => props.theme.colors.primary};
   padding:5px;
   margin: 0 10px;
   font-weight: 700;
-  /*&:hover {
-    color: #e47f2c;
-  }*/
+
+  @media (max-width: ${(props) => props.theme.pageWidth.m}px) {
+    margin-top: 10px;
+  }
 `
 
 const LeadClosing = styled.span`

@@ -21,12 +21,20 @@ const PanueloVerde = styled(Panuelo)`
     width: 37%;
     left:32.5%;
     top:32%;
+
+    @media (max-width: ${(props) => props.theme.pageWidth.s}px) {
+        top:30%;
+    }
 `
 
 const PajaroDerecha = styled(PajaroR)`
     width: 35%;
     right:0;
     top:20%;
+
+    @media (max-width: ${(props) => props.theme.pageWidth.s}px) {
+        top:23%;
+    }
 `
 
 const HeaderCollage = (props) => {

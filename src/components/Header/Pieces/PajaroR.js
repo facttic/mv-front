@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import CollagePiece from './CollagePiece'
-import { withSwinging, withBeat2 } from '../hoc/motion'
+import { wingWithSwinging, withSwinging, withBeat2 } from '../hoc/motion'
 
 const PiecesContainer = styled.div`
     position: absolute;
@@ -15,11 +15,20 @@ const Bird = styled(CollagePiece)`
 `
 
 
-const Wing = styled(withSwinging(CollagePiece))`
+const Wing = styled(wingWithSwinging(CollagePiece, { duration: '.3s', swinging: '1' }))`
     width: 40%;
     left: 27%;
     top:-50%;
     z-index: 10;
+    transform-origin: center bottom;
+
+    @media (max-width: ${(props) => props.theme.pageWidth.m}px) {
+        top:-43%;
+     }
+
+    @media (max-width: ${(props) => props.theme.pageWidth.s}px) {
+        top:-26%;
+     }
 `
 
 const PajaroR = (props) => {
