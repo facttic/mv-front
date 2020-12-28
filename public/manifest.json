@@ -1,6 +1,6 @@
 {
-  "short_name": "#JusticiaporSantiago",
-  "name": "#JusticiaporSantiago",
+  "short_name": "#QueSeaLey",
+  "name": "#QueSeaLey",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#d69942",
-  "background_color": "#d69942"
+  "theme_color": "#009e3c",
+  "background_color": "#009e3c"
 }
