@@ -9,11 +9,11 @@ const CardWrapper = styled.article`
   max-width: calc(100% - 30px);
   background-color: #fff;
   position: relative;
-  z-index: 2;
   // border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 4px 8px -2px rgba(0,0,0,.45);
   margin-bottom: 20px;
+  z-index: 10;
 `;
 
 const Card = (props) => {

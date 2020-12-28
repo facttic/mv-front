@@ -79,7 +79,7 @@ const Container = styled.div`
 
 const Grid = styled.div`
   position: relative;
-  z-index:999999;
+  z-index:9;
   display: grid;
   grid-template-columns: repeat(${theme.columns.s}, 1fr);
   gap: ${theme.columns.gap.s}px;
@@ -140,7 +140,7 @@ const Link = styled.a`
 
 const Modal = styled.div`
   position: absolute;
-  z-index: 2;
+  z-index: 10;
   animation: 'in 400ms ease-out';
 `;
 
@@ -151,7 +151,7 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
+  z-index: 10;
   animation: in 500ms ease-in-out;
 `;
 
