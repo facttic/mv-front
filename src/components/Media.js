@@ -7,8 +7,9 @@ const ImageWrapper = styled.div`
   overflow:hidden;
   cursor: pointer;
   position: relative;
-
-  background-color: #120c06;
+  max-height:70px;
+  overflow: hidden;
+  //background-color: #120c06;
   animation: in 500ms ease-in-out;
   // box-shadow: 0 12px 16px 8px rgba(0,0,0,.6);
 
@@ -40,6 +41,21 @@ const ImageWrapper = styled.div`
     }
   }
 
+  @media (max-width: ${(props) => props.theme.pageWidth.xl}px) {
+      max-height:65px;
+    }
+
+  @media (max-width: ${(props) => props.theme.pageWidth.l}px) {
+      max-height:75px;
+    }  
+  
+  @media (max-width: ${(props) => props.theme.pageWidth.m}px) {
+      max-height:80px;
+  }  
+
+  @media (max-width: ${(props) => props.theme.pageWidth.s}px) {
+      max-height:65px;
+  }  
 `;
 
 const Image = styled.img`
