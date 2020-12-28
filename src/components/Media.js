@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
+import { Img } from 'react-image'
 
 const ImageWrapper = styled.div`
   transition: all 50ms ease-out;
@@ -58,7 +59,7 @@ const ImageWrapper = styled.div`
   }  
 `;
 
-const Image = styled.img`
+const Image = styled(Img)`
   display:block;
   margin: 0;
   width: 150px;
@@ -76,7 +77,7 @@ const Media = (props) => {
   let { tweet } = props;
   // let imageSrc = (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : '';
   const media = tweet.media[0].media_url_thumb
-  const image = (tweet.media.length > 0) ? <Image width="150" height="150" src={media} onMouseEnter={(e) => props.enter(e, props.tweet)} onClick={(e) => props.click(e, props.tweet)} onMouseLeave={props.leave} /> : null;
+  const image = (tweet.media.length > 0) ? <Image width="150" height="150" src={[media, require('../assets/imgs/placeholder.jpg')]} onMouseEnter={(e) => props.enter(e, props.tweet)} onClick={(e) => props.click(e, props.tweet)} onMouseLeave={props.leave} /> : null;
 
   return (
     <ImageWrapper className="Media">
