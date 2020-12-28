@@ -135,7 +135,8 @@ const Link = styled.a`
   font-family: ${theme.fonts.text};
   text-decoration: none;
   font-size: 0.625rem;
-  display: block;
+  display: inline-block;
+  margin 0 10px;
 `;
 
 const Modal = styled.div`
@@ -392,6 +393,14 @@ class FeedComponent extends Component {
           {preloader}
           {tweetCard}
           <Footer>
+            <Link
+              href="https://www.instagram.com/mulata.dcv/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Collage: Mulata.dcv
+            </Link>
+            {"|"}
             {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
             <Link
               href="https://facttic.org.ar/fit"
