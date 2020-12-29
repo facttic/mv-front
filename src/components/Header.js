@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   padding-top: 15%;
   position: relative;
   text-align: center;
+  color:#FFFFFF;
 
   @media (max-width: ${props => props.theme.pageWidth.l}px) {
     padding-top: 25%;
@@ -20,6 +21,7 @@ const Wrapper = styled.div`
   @media (max-width: ${props => props.theme.pageWidth.xs}px) {
     padding-top: 37%;
   }
+
 
 `;
 

@@ -130,6 +130,7 @@ const Footer = styled.footer`
   text-align: right;
   opacity: 0.95;
   z-index: 9999999;
+  color: #FFFFFF;
 `;
 
 const Link = styled.a`
