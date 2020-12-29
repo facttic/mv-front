@@ -83,7 +83,7 @@ const Flores2RightB = styled(withBeat2(FloresB, { duration: '7s' }))`
 
 const PlantasLeft = styled(withBeat2(Plantas, { duration: '10s' }))`
     position: absolute;
-    padding-top: 21%;
+    padding-top: 23%;
     width: 23%;
     left: -3%;
     z-index:0;
@@ -109,7 +109,7 @@ const PlantasLeft = styled(withBeat2(Plantas, { duration: '10s' }))`
 
 const PlantasRight = styled(withBeat2(Plantas, { duration: '15s' }))`
     position: absolute;
-    padding-top: 12%;
+    padding-top: 17%;
     height: 100%;
     width: 30%;
     right:-9%;
@@ -136,7 +136,7 @@ const PlantasRight = styled(withBeat2(Plantas, { duration: '15s' }))`
 
 const PlantasRightB = styled(withBeat2(Plantas, { duration: '12s' }))`
     position: absolute;
-    padding-top: 25%;
+    padding-top: 28%;
     width: 17%;
     right:-3%;
     z-index:0;
