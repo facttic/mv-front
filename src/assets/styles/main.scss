@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&family=Roboto+Condensed:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bitter:400,400i,700|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap');
 
 /*COLORS*/
 $dark-color: #0d0904;
 $light-color: #f8f8f8;
 $text-color: #f8f8f8;
-$primary-color: #d69942;
+$primary-color: #009e3c;
 
 /*TYPOGRAPHY*/
 $display:'Roboto', sans-serif;
@@ -15,12 +16,7 @@ body {
   font: 400 100%/1.375 $text;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  //background-color: $light-color;
-  // background: #0d0904 url(http://www.santiagomaldonado.com/wp-content/uploads/2017/08/bg3.jpg) no-repeat center fixed;
-  background: #0d0904;
-  background-size: cover;
-  color: $text-color;
+  color: $primary-color;
 }
 
 * { 
@@ -40,3 +36,9 @@ a {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
+
+  @media (max-width: 997px ) {
+    .App{
+      overflow-x: hidden;
+    }
+  }

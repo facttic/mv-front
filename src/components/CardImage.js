@@ -28,7 +28,7 @@ const CardImage = (props) => {
   
   const w = (sizes) ? sizes.small.w : '';
   const h = (sizes) ? sizes.small.h : '';
-  const media = props.source === 'instagram' ? props.user.profile_image_url_https + '/media/?size=m' : props.media[0].media_url_small;
+  const media = props.media[0].media_url_small;
   const image = (props.media.length > 0) ? <Image alt="" src={media} width={w} height={h} /> : null;
 
   return (

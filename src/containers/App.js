@@ -1,33 +1,38 @@
-import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom';
-import styled, { ThemeProvider } from 'styled-components';
-import axios from 'axios';
-import Api from '../api';
+import React, { Component } from "react";
+import { Route, withRouter } from "react-router-dom";
+import styled, { ThemeProvider } from "styled-components";
+import axios from "axios";
+import Api from "../api";
 
-import Header from '../components/Header';
-import Media from '../components/Media';
-import Card from '../components/Card';
-import Login from '../components/Login';
-import Constants from '../constants';
+import Header from "../components/Header";
+import HeaderCollage from "../components/Header/HeaderCollage";
+import Media from "../components/Media";
+import Card from "../components/Card";
+import Login from "../components/Login";
+import Constants from "../constants";
 
 const theme = {
   colors: {
-    dark: '#0d0904',
-    light: '#f8f8f8',
-    primary: '#d69942',
-    gradientRainbow: 'linear-gradient(90deg,#ee3e45,#f97000,#eedb36,#2a9a51,#3968a6,#8e2e6b)',
-    gradientRainbowText: 'linear-gradient(90deg,#d12a30,#e47f2c,#cab822,#2a9a51,#3968a6,#8e2e6b)'
+    dark: "#0d0904",
+    light: "#f8f8f8",
+    primary: "#009e3c",
+    gradientRainbow:
+      "linear-gradient(90deg,#ee3e45,#f97000,#eedb36,#2a9a51,#3968a6,#8e2e6b)",
+    gradientRainbowText:
+      "linear-gradient(90deg,#d12a30,#e47f2c,#cab822,#2a9a51,#3968a6,#8e2e6b)",
   },
   fonts: {
     display: "'Roboto Condensed', 'sans-serif'",
-    text: "'Roboto', 'sans-serif'"
+    headerFont: "'Bitter', serif;",
+    headerTextFont: "'Montserrat', 'sans-serif'",
+    text: "'Roboto', 'sans-serif'",
   },
   pageWidth: {
     xl: 1200,
     l: 992,
     m: 768,
     s: 576,
-    xs: 300
+    xs: 300,
   },
   columns: {
     xl: 14,
@@ -38,10 +43,19 @@ const theme = {
       xl: 15,
       l: 15,
       m: 15,
-      s: 15
-    }
-  }
+      s: 15,
+    },
+  },
 };
+
+const Background = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  background-image: url(${require("../assets/imgs/background.jpg")});
+  background-size: auto 100%;
+`;
 
 const Container = styled.div`
   position: relative;
@@ -62,10 +76,12 @@ const Container = styled.div`
   }
   @media (max-width: ${theme.pageWidth.m}px) {
     padding: 0 18px;
-  }  
+  }
 `;
 
 const Grid = styled.div`
+  position: relative;
+  z-index: 9;
   display: grid;
   grid-template-columns: repeat(${theme.columns.s}, 1fr);
   gap: ${theme.columns.gap.s}px;
@@ -110,9 +126,11 @@ const Footer = styled.footer`
   right: 0;
   left: 0;
   padding: 0.25em 30px 0.25em;
-  background: ${props => props.theme.colors.dark};
+  background: ${(props) => props.theme.colors.primary};
   text-align: right;
-  opacity: .95;
+  opacity: 0.95;
+  z-index: 9999999;
+  color: #FFFFFF;
 `;
 
 const Link = styled.a`
@@ -120,13 +138,14 @@ const Link = styled.a`
   font-family: ${theme.fonts.text};
   text-decoration: none;
   font-size: 0.625rem;
-  display: block;
+  display: inline-block;
+  margin 0 10px;
 `;
 
 const Modal = styled.div`
   position: absolute;
-  z-index: 2;
-  animation: 'in 400ms ease-out';
+  z-index: 10;
+  animation: "in 400ms ease-out";
 `;
 
 const Overlay = styled.div`
@@ -136,7 +155,7 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
+  z-index: 10;
   animation: in 500ms ease-in-out;
 `;
 
@@ -144,18 +163,6 @@ const Preloader = styled.div`
   text-align: center;
   padding: 3em;
 `;
-
-const LeadClosing = styled.span`
-  display: block;
-`
-
-const Hashtag = styled.span`
-  color: ${theme.colors.primary};
-  font-weight: 700;
-  /*&:hover {
-    color: #e47f2c;
-  }*/
-`
 
 const { REACT_APP_API_URL: API_URL } = process.env;
 
@@ -168,26 +175,28 @@ class FeedComponent extends Component {
     perPage: Constants.initialAmount,
     total: 0,
     isAuthenticated: false,
-    usersCount: 0
+    usersCount: 0,
+    keepScrolling: true,
   };
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-    document.addEventListener('keydown', this.keyPressed);
+    // console.log("adding event listener to scroll");
+    // window.addEventListener("scroll", this.handleScroll, false);
+    document.addEventListener("keydown", this.keyPressed);
     this.container = React.createRef();
     this.timer = null;
     const { currentPage: _currentPage, perPage } = this.state;
-    const endpoint = 'posts';
+    const endpoint = "posts";
     const params = `page=${_currentPage}&perPage=${perPage}`;
     const url = `${API_URL}/${endpoint}?${params}`;
     this.fetchTweets(url);
     this.fetchUsersCount();
-    console.log("%c¿Dónde está"+"%c Facundo Astudillo Castro"+"%c?", "color:#f02;", "color:#f02; font-weight:bold;", "color:#f02;");
+    // console.log("%c¿Dónde está" + "%c Facundo Astudillo Castro" + "%c?", "color:#f02;", "color:#f02; font-weight:bold;", "color:#f02;");
   }
 
   componentWillReceiveProps(nextProps) {
     const {
-      location: { state: { isAuthenticated = false } = {} }
+      location: { state: { isAuthenticated = false } = {} },
     } = this.props.history;
     this.setState({ isAuthenticated });
   }
@@ -196,7 +205,7 @@ class FeedComponent extends Component {
     if (!this.state.loading) {
       const { currentPage: _currentPage, tweets: _tweets } = this.state;
       this.setState({ loading: true });
-      axios.get(url).then(res => {
+      axios.get(url).then((res) => {
         const { list: newTweets, total } = res.data;
         const currentPage = _currentPage + 1;
         const tweets = new Set(_tweets.concat(newTweets));
@@ -205,18 +214,18 @@ class FeedComponent extends Component {
           tweets: Array.from(tweets),
           currentPage,
           total,
-          loading: false
+          loading: false,
         });
       });
     }
   }
 
   fetchUsersCount = () => {
-    Api.users.usersCount().then(res => {
+    Api.users.usersCount().then((res) => {
       const { status } = res;
       if (status === 200) {
         this.setState({
-          usersCount: res.data.count
+          usersCount: res.data.count,
         });
       }
     });
@@ -224,7 +233,7 @@ class FeedComponent extends Component {
 
   onEndReached() {
     const { perPage, tweets } = this.state;
-    const endpoint = 'posts';
+    const endpoint = "posts";
     const _perPage = Constants.perPage;
     const page = Math.round(tweets.length / _perPage) + 1;
     const params = `page=${page}&perPage=${perPage}`;
@@ -235,21 +244,25 @@ class FeedComponent extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    console.log("removing scroll");
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   isBottom(element) {
+    // console.log(document.getElementById("root").getBoundingClientRect().bottom);
+    // console.log(window.innerHeight);
     return (
-      document.getElementById('root').getBoundingClientRect().bottom <=
+      document.getElementById("root").getBoundingClientRect().bottom <=
       window.innerHeight
     );
   }
 
-  handleScroll = e => {
+  handleScroll = (e) => {
     const { total, tweets } = this.state;
     const shouldFetchMore = total > tweets.length;
+    // console.log(shouldFetchMore);
     if (shouldFetchMore && this.isBottom()) {
-      document.removeEventListener('scroll', this.trackScrolling);
+      // document.removeEventListener("scroll", this.trackScrolling);
       this.onEndReached();
     }
   };
@@ -275,27 +288,27 @@ class FeedComponent extends Component {
     this.setState({ currentTweet: null });
   };
 
-  deleteTweet = tweetId => {
-    Api.users.deleteTweet(tweetId).then(res => {
+  deleteTweet = (tweetId) => {
+    Api.users.deleteTweet(tweetId).then((res) => {
       const { status } = res;
       if (status === 200) {
-        console.log('res', res);
+        console.log("res", res);
         console.log(`Deleted tweet with id: ${tweetId}`);
       }
     });
   };
 
-  banUser = userTwitterId => {
-    Api.users.banUser(userTwitterId).then(res => {
+  banUser = (userTwitterId) => {
+    Api.users.banUser(userTwitterId).then((res) => {
       const { status } = res;
       if (status === 201) {
         const {
           data: {
             inserted: { user_id_str },
-            removedTweetsCount
-          }
+            removedTweetsCount,
+          },
         } = res;
-        console.log('res', res);
+        console.log("res", res);
         console.log(`Banned user with twitter id: ${user_id_str}`);
         console.log(`Deleted ${removedTweetsCount} tweets`);
       }
@@ -304,14 +317,14 @@ class FeedComponent extends Component {
 
   keyPressed = (e) => {
     if (e.keyCode === 77 && e.shiftKey) {
-      this.props.history.push('/moderar');
+      this.props.history.push("/moderar");
     }
-  }
+  };
 
   render() {
     const { isAuthenticated, usersCount } = this.state;
 
-    let gallery = this.state.tweets.map(tweet => {
+    let gallery = this.state.tweets.map((tweet) => {
       return (
         <Media
           key={tweet.post_id_str}
@@ -356,59 +369,52 @@ class FeedComponent extends Component {
 
     let preloader = this.state.loading ? (
       <Preloader>
-        <img src={require('../assets/spinner.gif')} alt="Cargando" />
+        <img src={require("../assets/spinner.gif")} alt="Cargando" />
       </Preloader>
     ) : null;
 
     return (
-      <Container ref={this.container} className="App">
-      <HeaderWrapper>
-        <Header
-          title="JusticiaporSantiago"
-          info="Este 1ro de agosto construyamos una nueva justicia desde la memoria y la verdad."
-          logoImgSrc="mirada_santiago.jpg"
-          logoImgAlt="mirada Santiago Maldonado"
-          logoImgHeight="80"
-          logoImgWidth="auto"
-          count={usersCount}
-          countImgSrc=""
-          countImgAlt=""
-          countImgWidth=""
-          countImgHeight=""
-        >
-          Subí tu foto a Twitter e Instagram con los hashtags:
-          {' '}
-          <Hashtag>
-            #JusticiaPorSantiago
-          </Hashtag>
-          {' '}
-          <Hashtag>
-            #3AñosDeImpunidad
-          </Hashtag>
-          {' '}
-          <Hashtag>
-            #ElEstadoEsResponsable
-          </Hashtag>
-          <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
-        </Header>
-        
-      </HeaderWrapper>
-        <Grid>
-          {gallery}
-        </Grid>
-        {preloader}
-        {tweetCard}
-        <Footer>
-          {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
-          <Link
-            href="https://facttic.org.ar/fit"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Desarrollado por FACTTIC
-          </Link>
-        </Footer>
-      </Container>
+      <Background onScroll={this.handleScroll}>
+        <Container ref={this.container} className="App">
+          <HeaderWrapper>
+            <HeaderCollage></HeaderCollage>
+            <Header
+              title="Marcha virtual por el Aborto Legal, Seguro y Gratuito"
+              info="Este 29 de diciembre sumate a la lucha por el #AbortoLegal2020"
+              //logoImgSrc="mirada_santiago.jpg"
+              logoImgAlt="Marcha virtual por el aborto legal"
+              //logoImgHeight="80"
+              //logoImgWidth="auto"
+              count={usersCount}
+              countImgSrc=""
+              countImgAlt=""
+              countImgWidth=""
+              countImgHeight=""
+            ></Header>
+          </HeaderWrapper>
+          <Grid>{gallery}</Grid>
+          {preloader}
+          {tweetCard}
+          <Footer>
+            <Link
+              href="https://www.instagram.com/mulata.dcv/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Collage: Mulata.dcv
+            </Link>
+            {"|"}
+            {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
+            <Link
+              href="https://facttic.org.ar/fit"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Desarrollado por FACTTIC
+            </Link>
+          </Footer>
+        </Container>
+      </Background>
     );
   }
 }
