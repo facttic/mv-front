@@ -3,13 +3,13 @@ import { Route, withRouter } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 import Api from "../api";
-
 import Header from "../components/Header";
 import HeaderCollage from "../components/Header/HeaderCollage";
 import Media from "../components/Media";
-import Card from "../components/Card";
 import Login from "../components/Login";
 import Constants from "../constants";
+import TweetCard from "./TweetCard";
+import Preloader from "./Preloader";
 
 const theme = {
   colors: {
@@ -142,12 +142,6 @@ const Link = styled.a`
   margin 0 10px;
 `;
 
-const Modal = styled.div`
-  position: absolute;
-  z-index: 10;
-  animation: "in 400ms ease-out";
-`;
-
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -157,11 +151,6 @@ const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
   animation: in 500ms ease-in-out;
-`;
-
-const Preloader = styled.div`
-  text-align: center;
-  padding: 3em;
 `;
 
 const { REACT_APP_API_URL: API_URL } = process.env;
@@ -337,42 +326,6 @@ class FeedComponent extends Component {
       );
     });
 
-    let tweetCard = null;
-    if (this.state.currentTweet) {
-      let containerRect = this.container.current.getBoundingClientRect();
-      let elemRect = this.state.currentTweet.el.getBoundingClientRect();
-      let x =
-        elemRect.left -
-        containerRect.left +
-        (elemRect.right - elemRect.left) / 2 -
-        160;
-      let y = elemRect.top - containerRect.top - 30;
-
-      if (x + 320 > containerRect.right - containerRect.left + 15)
-        x = containerRect.right - containerRect.left + 15 - 320;
-      if (x < 15) x = 15;
-      if (y < -25) y = -25;
-
-      tweetCard = (
-        <Modal style={{ top: y, left: x }}>
-          <Overlay onTouchStart={this.closeCard} />
-          <Card
-            show={isAuthenticated}
-            tweet={this.state.currentTweet.tweet}
-            close={this.closeCard}
-            delete={this.deleteTweet}
-            block={this.banUser}
-          />
-        </Modal>
-      );
-    }
-
-    let preloader = this.state.loading ? (
-      <Preloader>
-        <img src={require("../assets/spinner.gif")} alt="Cargando" />
-      </Preloader>
-    ) : null;
-
     return (
       <Background onScroll={this.handleScroll}>
         <Container ref={this.container} className="App">
@@ -393,8 +346,16 @@ class FeedComponent extends Component {
             ></Header>
           </HeaderWrapper>
           <Grid>{gallery}</Grid>
-          {preloader}
-          {tweetCard}
+          {this.state.loading && <Preloader
+          url='https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif'/>}
+          {this.state.currentTweet && <TweetCard 
+          isAuthenticated={this.state.isAuthenticated}
+          currentTweet={this.state.currentTweet}
+          container={this.container}
+          closeCard={this.closeCard}
+          deleteTweet={this.deleteTweet}
+          banUser={this.banUser}/>}
+
           <Footer>
             <Link
               href="https://www.instagram.com/mulata.dcv/"
