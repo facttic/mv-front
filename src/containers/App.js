@@ -4,8 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 import Api from "../api";
 
-import Header from "../components/Header";
-import HeaderCollage from "../components/Header/HeaderCollage";
+import Header from "../components/Header/Header";
 import Media from "../components/Media";
 import Card from "../components/Card";
 import Login from "../components/Login";
@@ -377,7 +376,6 @@ class FeedComponent extends Component {
       <Background onScroll={this.handleScroll}>
         <Container ref={this.container} className="App">
           <HeaderWrapper>
-            <HeaderCollage></HeaderCollage>
             <Header
               title="Marcha virtual por el Aborto Legal, Seguro y Gratuito"
               info="Este 29 de diciembre sumate a la lucha por el #AbortoLegal2020"
