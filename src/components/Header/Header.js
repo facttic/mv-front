@@ -3,6 +3,9 @@ import styled, { withTheme } from 'styled-components';
 import UsersCounter from '../UsersCounter';
 import Image from '../Image';
 import Hashtags from './snippets/Hashtags'
+import Title from './snippets/Title'
+import Subtitle from './snippets/Subtitle'
+import Text from './snippets/Text'
 
 const Wrapper = styled.div`
   font-family: ${props => props.theme.fonts.headerTextFont};
@@ -23,65 +26,6 @@ const Wrapper = styled.div`
     padding-top: 37%;
   }
 
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-`
-
-const Title = styled.h1`
-  font-family: ${props => props.theme.fonts.headerFont};
-  width: 60%;
-  font-size: 2.5em;
-  font-weight: 700;
-  color: ${props => props.theme.colors.light};
-  position: relative;
-  //padding: 0 0 8px 0;
-  padding: 0;
-  margin: 20px 5px;
-  text-align: center;
-
-  @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    font-size: 1.75em;
-  }
-  
-  @media (max-width: ${props => props.theme.pageWidth.s}px) {
-    font-size: 1.5em;
-  }
-
-  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
-    font-size: 1.2em;
-  }
-`;
-
-const SubTitle = styled.p`
-  font-size: 1.125rem;
-  font-weight: 700;
-  text-align: center;
-  color: ${props => props.theme.colors.light};
-  border-radius: .1em;
-  margin: 0 auto 10px auto;
-  
-  @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    font-size: 1.125rem;
-  }
-
-  @media (max-width: ${props => props.theme.pageWidth.s}px) {
-    font-size: 1.075em;
-  }
-`;
-
-const Text = styled.p`
-  text-align: center;  
-  margin: 0;
-  font-size: .975rem;
-  line-height: 1.5;
-
-  @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    font-size: 0.975em;
-  }
 `;
 
 const Logo = styled(Image)`
@@ -111,12 +55,8 @@ const Header = (props) => {
         imgHeight={props.logoImgHeight} 
         imgWidth={props.logoImgWidth} /> */}
 
-      <TitleWrapper>
-        <Title>
-          {props.title}
-        </Title>
-      </TitleWrapper>
-      <SubTitle>{props.info}</SubTitle>
+      <Title title={props.title}/>
+      <Subtitle>{props.info}</Subtitle>
       <Text>{props.children}</Text>
       <UsersCounter
         count={props.count}
