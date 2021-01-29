@@ -3,8 +3,7 @@ import { Route, withRouter } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import axios from "axios";
 import Api from "../api";
-import Header from "../components/Header";
-import HeaderCollage from "../components/Header/HeaderCollage";
+import Header from "../components/Header/Header";
 import Media from "../components/Media";
 import Login from "../components/Login";
 import Constants from "../constants";
@@ -330,7 +329,6 @@ class FeedComponent extends Component {
       <Background onScroll={this.handleScroll}>
         <Container ref={this.container} className="App">
           <HeaderWrapper>
-            <HeaderCollage></HeaderCollage>
             <Header
               title="Marcha virtual por el Aborto Legal, Seguro y Gratuito"
               info="Este 29 de diciembre sumate a la lucha por el #AbortoLegal2020"
@@ -347,14 +345,14 @@ class FeedComponent extends Component {
           </HeaderWrapper>
           <Grid>{gallery}</Grid>
           {this.state.loading && <Preloader
-          url='https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif'/>}
-          {this.state.currentTweet && <TweetCard 
-          isAuthenticated={this.state.isAuthenticated}
-          currentTweet={this.state.currentTweet}
-          container={this.container}
-          closeCard={this.closeCard}
-          deleteTweet={this.deleteTweet}
-          banUser={this.banUser}/>}
+            url='https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif' />}
+          {this.state.currentTweet && <TweetCard
+            isAuthenticated={this.state.isAuthenticated}
+            currentTweet={this.state.currentTweet}
+            container={this.container}
+            closeCard={this.closeCard}
+            deleteTweet={this.deleteTweet}
+            banUser={this.banUser} />}
 
           <Footer>
             <Link
