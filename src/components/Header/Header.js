@@ -6,11 +6,21 @@ import Hashtags from './snippets/Hashtags'
 import Title from './snippets/Title'
 import Subtitle from './snippets/Subtitle'
 import Text from './snippets/Text'
+import BackgroundImage from './snippets/BackgroundImage';
 
 const Wrapper = styled.div`
   font-family: ${props => props.theme.fonts.headerTextFont};
+  position: relative;
+  text-align: center;
+  color:#FFFFFF;
+
+`;
+
+const TextWrapper = styled.div`
+  font-family: ${props => props.theme.fonts.headerTextFont};
   padding-top: 15%;
   position: relative;
+  z-index: 2;
   text-align: center;
   color:#FFFFFF;
 
@@ -48,31 +58,30 @@ const Header = (props) => {
 
   return (
     <Wrapper className="Header">
-
-      {/*<Logo 
+      <BackgroundImage background={props.background} />
+      <TextWrapper>
+        {/*<Logo 
         imgSrc={props.logoImgSrc} 
         imgAlt={props.logoImgAlt} 
         imgHeight={props.logoImgHeight} 
         imgWidth={props.logoImgWidth} /> */}
+        
+        <Title title={props.title} />
+        <Subtitle>{props.info}</Subtitle>
 
-      <Title title={props.title}/>
-      <Subtitle>{props.info}</Subtitle>
-      <Text>{props.children}</Text>
-      <UsersCounter
-        count={props.count}
-        imgSrc={props.countImgSrc}
-        imgAlt={props.countImgAlt}
-        imgHeight={props.countImgHeight}
-        imgWidth={props.countImgWidth}
-      >
-      </UsersCounter>
+        <UsersCounter
+          count={props.count}
+          imgSrc={props.countImgSrc}
+          imgAlt={props.countImgAlt}
+          imgHeight={props.countImgHeight}
+          imgWidth={props.countImgWidth} />
 
-      Participá subiendo tu foto a Twitter o Instagram con algunos de los hashtags oficiales:
+        <Text text={props.text} />
 
-      <Hashtags hashtags={props.hashtags}></Hashtags>
+        <Hashtags hashtags={props.hashtags} />
 
-      <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
-
+        <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
+      </TextWrapper>
     </Wrapper>
   );
 }

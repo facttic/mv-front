@@ -14,7 +14,7 @@ const TextStyles = styled.p`
 
 const Text = (props) => {
     return (
-            <TextStyles>{props.children}</TextStyles>
+            <TextStyles>{props.text}</TextStyles>
     );
 };
 
