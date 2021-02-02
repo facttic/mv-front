@@ -332,6 +332,7 @@ class FeedComponent extends Component {
             <Header
               title="Marcha virtual por el Aborto Legal, Seguro y Gratuito"
               info="Este 29 de diciembre sumate a la lucha por el #AbortoLegal2020"
+              background="https://bangbranding.com/blog/wp-content/uploads/2016/11/700x511_SliderInterior.jpg"
               //logoImgSrc="mirada_santiago.jpg"
               logoImgAlt="Marcha virtual por el aborto legal"
               //logoImgHeight="80"
@@ -341,6 +342,7 @@ class FeedComponent extends Component {
               countImgAlt=""
               countImgWidth=""
               countImgHeight=""
+              text="Participá subiendo tu foto a Twitter o Instagram con algunos de los hashtags oficiales:"
             ></Header>
           </HeaderWrapper>
           <Grid>{gallery}</Grid>
