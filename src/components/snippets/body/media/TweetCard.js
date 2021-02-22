@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../components/Card";
+import Card from "./Card";
 import styled from "styled-components";
 
 const Modal = styled.div`

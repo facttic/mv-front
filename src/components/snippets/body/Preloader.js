@@ -10,7 +10,7 @@ export default function Preloader({
     url
 }) {
     return <Center>
-        <img src={url || require("../assets/spinner.gif")} alt="Cargando" />
+        <img src={url || require("../../../assets/imgs/spinner.gif")} alt="Cargando" />
     </Center>
 }
 

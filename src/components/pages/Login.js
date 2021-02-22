@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
-import Api from '../api'
+import Api from '../../api'
 import { withRouter } from 'react-router-dom'
 
 const Wrapper = styled.div`

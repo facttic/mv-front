@@ -28,7 +28,7 @@ const NamePart = styled.span`
 
 const CardInfoAuthor = (props) => {
 
-  const profileSrc = props.source === 'instagram' ? require('../assets/ig.jpg') : props.author.profile_image_url_https
+  const profileSrc = props.source === 'instagram' ? require('../../../../assets/imgs/ig.jpg') : props.author.profile_image_url_https
   const profileLink = props.source === 'instagram' ? props.author.profile_image_url_https : `https://twitter.com/${props.author.screen_name}`
   const profileName = props.source === 'instagram' ? 'Ver en Instagram' : `@${props.author.screen_name}`
 

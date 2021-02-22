@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
-import Constants from '../constants'
+import Constants from '../../../constants'
 import Image from './Image'
 
 const Wrapper = styled.aside`

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { withTheme } from "styled-components";
 import { Img } from "react-image";
-import fallbackImage from "../assets/imgs/placeholder.jpg";
+import fallbackImage from "../../../../assets/imgs/placeholder.jpg";
 
 const ImageWrapper = styled.div`
   transition: all 50ms ease-out;

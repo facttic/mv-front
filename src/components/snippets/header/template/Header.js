@@ -2,11 +2,11 @@ import React from 'react';
 import styled, { withTheme } from 'styled-components';
 import UsersCounter from '../UsersCounter';
 import Image from '../Image';
-import Hashtags from './snippets/Hashtags'
-import Title from './snippets/Title'
-import Subtitle from './snippets/Subtitle'
-import Text from './snippets/Text'
-import BackgroundImage from './snippets/BackgroundImage';
+import Hashtags from '../Hashtags'
+import Title from '../Title'
+import Subtitle from '../Subtitle'
+import Text from '../Text'
+import BackgroundImage from '../BackgroundImage';
 
 const Wrapper = styled.div`
   font-family: ${props => props.theme.fonts.headerTextFont};
