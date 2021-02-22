@@ -9,7 +9,7 @@
       {
         "name": "Sponsor 1",
         "logoUri": "acá iría la URL del logo",
-        "pageUri": "acá iría la ",
+        "pageUri": "acá iría la blablabalbal "
       }
     ],
     "hashtags": [
@@ -22,7 +22,7 @@
       "keywords": [
         "keyword 1",
         "keyword 2",
-        "keyword 3",
+        "keyword 3"
       ],
       "description": "La descripciñon de la Marcha que vamos a mostrar enla metadata"
     },

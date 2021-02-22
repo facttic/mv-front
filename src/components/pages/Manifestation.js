@@ -2,11 +2,16 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Api from "../../api";
+import Constants from "../../constants";
+
 import Header from "../snippets/header/template/Header";
 import Media from "../snippets/body/media/Media";
-import Constants from "../../constants";
+import FeedGrid from '../snippets/body/template/FeedGrid'
 import TweetCard from "../snippets/body/media/TweetCard";
 import Preloader from "../snippets/body/Preloader";
+import Footer from '../snippets/body/Footer'
+
+const manifestationData = require('../../data/manifestationSchema.json') 
 
 
 const Background = styled.div`
@@ -40,72 +45,10 @@ const Container = styled.div`
   }
 `;
 
-const Grid = styled.div`
-  position: relative;
-  z-index: 9;
-  display: grid;
-  grid-template-columns: repeat(${props => props.theme.columns.s}, 1fr);
-  gap: ${props => props.theme.columns.gap.s}px;
-  margin: 30px 0;
-  transform: rotate3d(0deg, 0deg, 0deg);
-
-  @media (min-width: ${props => props.theme.pageWidth.s}px) {
-    grid-template-columns: repeat(${props => props.theme.columns.s}, 1fr);
-    gap: ${props => props.theme.columns.gap.s}px;
-  }
-  @media (min-width: ${props => props.theme.pageWidth.m}px) {
-    grid-template-columns: repeat(${props => props.theme.columns.m}, 1fr);
-    gap: ${props => props.theme.columns.gap.m}px;
-  }
-  @media (min-width: ${props => props.theme.pageWidth.l}px) {
-    grid-template-columns: repeat(${props => props.theme.columns.l}, 1fr);
-    gap: ${props => props.theme.columns.gap.l}px;
-  }
-  @media (min-width: ${props => props.theme.pageWidth.xl}px) {
-    grid-template-columns: repeat(${props => props.theme.columns.xl}, 1fr);
-    gap: ${props => props.theme.columns.gap.xl}px;
-  }
-`;
-
-const HeaderWrapper = styled.header`
-  justify-self: center;
-  align-self: center;
-
-  @media (min-width: ${props => props.theme.pageWidth.s}px) {
-  }
-  @media (min-width: ${props => props.theme.pageWidth.m}px) {
-  }
-  @media (min-width: ${props => props.theme.pageWidth.l}px) {
-  }
-  @media (min-width: ${props => props.theme.pageWidth.xl}px) {
-  }
-`;
-
-const Footer = styled.footer`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  padding: 0.25em 30px 0.25em;
-  background: ${(props) => props.theme.colors.primary};
-  text-align: right;
-  opacity: 0.95;
-  z-index: 9999999;
-  color: #FFFFFF;
-`;
-
-const Link = styled.a`
-  color: inherit;
-  font-family: ${props => props.theme.fonts.text};
-  text-decoration: none;
-  font-size: 0.625rem;
-  display: inline-block;
-  margin 0 10px;
-`;
-
 const { REACT_APP_API_URL: API_URL } = process.env;
 
 class Manifestation extends Component {
+
   state = {
     loading: false,
     tweets: [],
@@ -116,11 +59,11 @@ class Manifestation extends Component {
     isAuthenticated: false,
     usersCount: 0,
     keepScrolling: true,
+    manifestation:{}
+
   };
 
   componentDidMount() {
-    // console.log("adding event listener to scroll");
-    // window.addEventListener("scroll", this.handleScroll, false);
     document.addEventListener("keydown", this.keyPressed);
     this.container = React.createRef();
     this.timer = null;
@@ -130,6 +73,7 @@ class Manifestation extends Component {
     const url = `${API_URL}/${endpoint}?${params}`;
     this.fetchTweets(url);
     this.fetchUsersCount();
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -153,7 +97,10 @@ class Manifestation extends Component {
           currentPage,
           total,
           loading: false,
+          //TODO: esto esta provisiorio para poder usar el json, hay que hacer la función que tome la data real de la db
+          manifestation:manifestationData,
         });
+
       });
     }
   }
@@ -187,8 +134,6 @@ class Manifestation extends Component {
   }
 
   isBottom(element) {
-    // console.log(document.getElementById("root").getBoundingClientRect().bottom);
-    // console.log(window.innerHeight);
     return (
       document.getElementById("root").getBoundingClientRect().bottom <=
       window.innerHeight
@@ -198,9 +143,7 @@ class Manifestation extends Component {
   handleScroll = (e) => {
     const { total, tweets } = this.state;
     const shouldFetchMore = total > tweets.length;
-    // console.log(shouldFetchMore);
     if (shouldFetchMore && this.isBottom()) {
-      // document.removeEventListener("scroll", this.trackScrolling);
       this.onEndReached();
     }
   };
@@ -277,26 +220,24 @@ class Manifestation extends Component {
 
     return (
       <Background onScroll={this.handleScroll}>
-        <Container ref={this.container} className="App">
-          <HeaderWrapper>
-            <Header
-              title="Marcha virtual por el Aborto Legal, Seguro y Gratuito"
-              info="Este 29 de diciembre sumate a la lucha por el #AbortoLegal2020"
-              background="https://bangbranding.com/blog/wp-content/uploads/2016/11/700x511_SliderInterior.jpg"
-              //logoImgSrc="mirada_santiago.jpg"
-              logoImgAlt="Marcha virtual por el aborto legal"
-              //logoImgHeight="80"
-              //logoImgWidth="auto"
-              count={usersCount}
-              countImgSrc=""
-              countImgAlt=""
-              countImgWidth=""
-              countImgHeight=""
-              text="Participá subiendo tu foto a Twitter o Instagram con algunos de los hashtags oficiales:"
-            ></Header>
-          </HeaderWrapper>
-          <Grid>{gallery}</Grid>
+        <Container ref={this.container} className="App">   
+          <Header
+            title={this.state.manifestation.title}
+            info={this.state.manifestation.subtitle}
+            background=""
+            logoImgAlt={this.state.manifestation.name}
+            count={usersCount}
+            countImgSrc=""
+            countImgAlt=""
+            countImgWidth=""
+            countImgHeight=""
+            text="Participá subiendo tu foto a Twitter o Instagram con algunos de los hashtags oficiales:"
+          ></Header>
+
+          <FeedGrid gallery={gallery}></FeedGrid>
+
           {this.state.loading && <Preloader />}
+          
           {this.state.currentTweet && <TweetCard
             isAuthenticated={this.state.isAuthenticated}
             currentTweet={this.state.currentTweet}
@@ -304,26 +245,10 @@ class Manifestation extends Component {
             closeCard={this.closeCard}
             deleteTweet={this.deleteTweet}
             banUser={this.banUser} />}
-
-          <Footer>
-            <Link
-              href="https://www.instagram.com/mulata.dcv/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Collage: Mulata.dcv
-            </Link>
-            {"|"}
-            {/* <img src='/favicon.png' width='48' alt='Marcha Virtual' /> */}
-            <Link
-              href="https://facttic.org.ar/fit"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Desarrollado por FACTTIC
-            </Link>
-          </Footer>
         </Container>
+
+        <Footer></Footer>
+      
       </Background>
     );
   }

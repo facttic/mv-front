@@ -39,7 +39,6 @@ const theme = {
 };
 
 
-
 const Container = styled.div`
   position: relative;
   margin: 0 auto;
@@ -62,7 +61,7 @@ const Overlay = styled.div`
 class App extends Component {
   render() {
     return (
-      <Container className="App">
+      <Container ref={this.container} className="App">
         <ThemeProvider theme={theme}>
           <Route path="/">
             <Manifestation />

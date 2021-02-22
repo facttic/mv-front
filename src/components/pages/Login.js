@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   max-width: calc(100% - 30px);
   background-color: #fff;
   position: absolute;
-  z-index: 2;
+  z-index: 100;
   border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 4px 8px -2px rgba(0,0,0,.45); 
