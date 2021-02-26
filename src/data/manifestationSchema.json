@@ -3,12 +3,18 @@
     "uri": "http://www.marchasvirtuales.com.ar",
     "title": "Este es el TÍTULO de la marcha",
     "subtitle": "Este es el SUBTÍTULO de la marcha",
-    "description": "Esta es la descripción de la marcha, debería tenber una longitud considerable como para ocupar dos líneas o más",
-    "footer": "En el footer no sé qué más pondríamos ",
+    "description": "Esta es la descripción de la marcha, debería tener una longitud considerable como para ocupar dos líneas o más",
+    "text": "Participá subiendo tu foto a Twitter o Instagram con algunos de los hashtags oficiales:",
+    "footer": "Acá se podría agregar mas texto al footer",
     "sponsors": [
       {
         "name": "Sponsor 1",
-        "logoUri": "acá iría la URL del logo",
+        "logoUri": "https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_360/public/Purina%C2%AE%20La%20llegada%20del%20gatito%20a%20casa.jpg?itok=9QVIW73Q",
+        "pageUri": "https://facttic.org.ar/fit"
+      },
+      {
+        "name": "Sponsor 2",
+        "logoUri": "https://i.pinimg.com/originals/98/62/ff/9862ff3501a6d31945495ee068cb1558.jpg",
         "pageUri": "acá iría la blablabalbal "
       }
     ],

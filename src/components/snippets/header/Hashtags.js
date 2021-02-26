@@ -24,9 +24,7 @@ const Hashtags = (props) => {
 
   return (
     <HashtagsContainer>
-      <Hashtag> #Hashtag1 </Hashtag>
-      <Hashtag> #Hashtag1 </Hashtag>
-      <Hashtag> #Hashtag1 </Hashtag>
+      {props.hashtags.map(hashtag => <Hashtag> {hashtag} </Hashtag>)} 
     </HashtagsContainer>
   );
 };

@@ -7,6 +7,7 @@ import Title from '../Title'
 import Subtitle from '../Subtitle'
 import Text from '../Text'
 import BackgroundImage from '../BackgroundImage';
+import Description from '../Description';
 
 const Wrapper = styled.div`
   font-family: ${props => props.theme.fonts.headerTextFont};
@@ -67,7 +68,8 @@ const Header = (props) => {
         imgWidth={props.logoImgWidth} /> */}
         
         <Title title={props.title} />
-        <Subtitle>{props.info}</Subtitle>
+        <Subtitle subtitle={props.info} />
+        <Description description={props.description} />
 
         <UsersCounter
           count={props.count}

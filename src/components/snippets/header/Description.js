@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
 
-const SubtitleStyles = styled.p`
+const DescriptionStyles = styled.p`
   font-size: 1.125rem;
-  font-weight: 700;
   text-align: center;
   color: ${props => props.theme.colors.light};
   border-radius: .1em;
@@ -18,10 +17,10 @@ const SubtitleStyles = styled.p`
   }
 `;
 
-const Subtitle = (props) => {
+const Description = (props) => {
     return (
-        <SubtitleStyles>{props.subtitle}</SubtitleStyles>        
+        <DescriptionStyles> {props.description} </DescriptionStyles>
     );
 };
 
-export default Subtitle;
+export default Description;

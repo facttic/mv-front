@@ -14,7 +14,6 @@ const TitleStyles = styled.h1`
   font-weight: 700;
   color: ${props => props.theme.colors.light};
   position: relative;
-  //padding: 0 0 8px 0;
   padding: 0;
   margin: 20px 5px;
   text-align: center;

@@ -10,6 +10,7 @@ import FeedGrid from '../snippets/body/template/FeedGrid'
 import TweetCard from "../snippets/body/media/TweetCard";
 import Preloader from "../snippets/body/Preloader";
 import Footer from '../snippets/body/Footer'
+import Sponsors from "../snippets/body/Sponsors";
 
 const manifestationData = require('../../data/manifestationSchema.json') 
 
@@ -221,9 +222,13 @@ class Manifestation extends Component {
     return (
       <Background onScroll={this.handleScroll}>
         <Container ref={this.container} className="App">   
+
+        <Sponsors sponsors={this.state.manifestation.sponsors || []}></Sponsors>
+
           <Header
             title={this.state.manifestation.title}
             info={this.state.manifestation.subtitle}
+            description={this.state.manifestation.description}
             background=""
             logoImgAlt={this.state.manifestation.name}
             count={usersCount}
@@ -231,7 +236,8 @@ class Manifestation extends Component {
             countImgAlt=""
             countImgWidth=""
             countImgHeight=""
-            text="Participá subiendo tu foto a Twitter o Instagram con algunos de los hashtags oficiales:"
+            text={this.state.manifestation.text}
+            hashtags={this.state.manifestation.hashtags || []}
           ></Header>
 
           <FeedGrid gallery={gallery}></FeedGrid>
@@ -247,7 +253,7 @@ class Manifestation extends Component {
             banUser={this.banUser} />}
         </Container>
 
-        <Footer></Footer>
+        <Footer footerText={this.state.manifestation.footer}></Footer>
       
       </Background>
     );
