@@ -223,8 +223,6 @@ class Manifestation extends Component {
       <Background onScroll={this.handleScroll}>
         <Container ref={this.container} className="App">   
 
-        <Sponsors sponsors={this.state.manifestation.sponsors || []}></Sponsors>
-
           <Header
             title={this.state.manifestation.title}
             info={this.state.manifestation.subtitle}
@@ -239,6 +237,8 @@ class Manifestation extends Component {
             text={this.state.manifestation.text}
             hashtags={this.state.manifestation.hashtags || []}
           ></Header>
+
+          <Sponsors sponsors={this.state.manifestation.sponsors || []}></Sponsors>
 
           <FeedGrid gallery={gallery}></FeedGrid>
 

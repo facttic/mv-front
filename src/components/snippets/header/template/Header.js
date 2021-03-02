@@ -41,14 +41,6 @@ const TextWrapper = styled.div`
 
 const Logo = styled(Image)`
   opacity: .85;
-  /*@media (max-width: ${props => props.theme.pageWidth.s}px) {
-    height: 180px;
-
-  }
-  
-  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
-    height: 155px;
-  }*/
 `
 
 const LeadClosing = styled.span`
@@ -61,11 +53,6 @@ const Header = (props) => {
     <Wrapper className="Header">
       <BackgroundImage background={props.background} />
       <TextWrapper>
-        {/*<Logo 
-        imgSrc={props.logoImgSrc} 
-        imgAlt={props.logoImgAlt} 
-        imgHeight={props.logoImgHeight} 
-        imgWidth={props.logoImgWidth} /> */}
         
         <Title title={props.title} />
         <Subtitle subtitle={props.info} />
