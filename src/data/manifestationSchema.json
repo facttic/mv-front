@@ -1,6 +1,8 @@
 {
     "name": "Este es el NOMBRE de la marcha virtual",
     "uri": "http://www.marchasvirtuales.com.ar",
+    "background": "https://fondos.io/wp-content/uploads/2019/01/fondo-color-verde-agua-16.jpg",
+    "headerBackground": "https://i.pinimg.com/originals/a2/59/96/a259967faf2cd4731c130e3c395dcbba.jpg",
     "title": "Este es el TÍTULO de la marcha",
     "subtitle": "Este es el SUBTÍTULO de la marcha",
     "description": "Esta es la descripción de la marcha, debería tener una longitud considerable como para ocupar dos líneas o más",
@@ -19,9 +21,9 @@
       }
     ],
     "hashtags": [
-      "Saraza",
+      "Hashtag1",
       "Hashtag2",
-      "ble"
+      "Hashtag3"
     ],
     "metadata": {
       "title": "El título de la marcha que vamos a mostrar en la metadata",

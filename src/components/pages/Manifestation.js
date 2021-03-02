@@ -18,9 +18,9 @@ const manifestationData = require('../../data/manifestationSchema.json')
 const Background = styled.div`
   width: 100%;
   height: 100%;
+  background-image: url(${props => props.image});
   position: fixed;
   overflow-y: scroll;
-  background-image: url(${require("../../assets/imgs/background.jpg")});
   background-size: auto 100%;
 `;
 
@@ -220,14 +220,14 @@ class Manifestation extends Component {
     });
 
     return (
-      <Background onScroll={this.handleScroll}>
+      <Background onScroll={this.handleScroll} image={this.state.manifestation.background}>
         <Container ref={this.container} className="App">   
 
           <Header
             title={this.state.manifestation.title}
             info={this.state.manifestation.subtitle}
             description={this.state.manifestation.description}
-            background=""
+            background={this.state.manifestation.headerBackground}
             logoImgAlt={this.state.manifestation.name}
             count={usersCount}
             countImgSrc=""

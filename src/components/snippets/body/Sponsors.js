@@ -15,20 +15,35 @@ justify-content: center;
 margin-top: 60px;
 `;
 
+const TextContainer = styled.div`
+justify-content: center;
+display: flex;
+`;
+
+const ImagesContainer = styled.div`
+justify-content: center;
+display: flex;
+margin-top: 24px;
+`;
+
 const Image = styled.img`
-max-width: 250px;
+max-height: 100px;
 `;
 
 const Sponsors = (props) => {
     return (
         <SponsorsContainer>
-            {props.sponsors.map(sponsor => <Link
-                href={sponsor.pageUri}
-                target="_blank"
-                rel="noopener noreferrer">
-                <Image alt={sponsor.name} src={sponsor.logoUri}></Image>
-            </Link>)}
-
+            <div>
+                <TextContainer> Nos acompañan en esta marcha </TextContainer>
+                <ImagesContainer>
+                    {props.sponsors.map(sponsor => <Link
+                        href={sponsor.pageUri}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <Image alt={sponsor.name} src={sponsor.logoUri}></Image>
+                    </Link>)}
+                </ImagesContainer>
+            </div>
         </SponsorsContainer>
     );
 };
