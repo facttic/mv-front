@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Link = styled.a`
   color: inherit;
-  font-family: ${props => props.theme.fonts.text};
+  font-family: ${props => props.theme.styles.colors.accent};
   text-decoration: none;
   display: inline-block;
   margin 0 10px;

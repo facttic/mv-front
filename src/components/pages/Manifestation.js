@@ -20,7 +20,7 @@ const Background = styled.div`
   height: 100%;
   position: fixed;
   overflow-y: scroll;
-  background-image: url(${require("../../assets/imgs/background.jpg")});
+  background-color:${ props => props.theme.styles.colors.background};
   background-size: auto 100%;
 `;
 

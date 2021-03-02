@@ -7,17 +7,38 @@ import Login from "../components/pages/Login";
 import Manifestation from "../components/pages/Manifestation";
 
 const theme = {
-  colors: {
-    dark: "#0d0904",
-    light: "#f8f8f8",
-    primary: "#009e3c"
+
+  styles: {
+    colors: {
+      background: "#DEE2E6",
+      accent: "#212529"
+    },
+    text: {
+      title: {
+        font: "Serif",
+        color: "#212529"
+      },
+      subtitle: {
+        font: "Serif",
+        color: "#212529"
+      },
+      body: {
+        font: "Serif",
+        color: "#6C757D"
+      }
+    },
+    thumbnails: {
+      columns: 7,
+      colors: {
+        hover: "#6C757D",
+        border: "#343A40"
+      }
+    },
+    cards: {
+      darkMode: false
+    }
   },
-  fonts: {
-    display: "'Roboto Condensed', 'sans-serif'",
-    headerFont: "'Bitter', serif;",
-    headerTextFont: "'Montserrat', 'sans-serif'",
-    text: "'Roboto', 'sans-serif'",
-  },
+
   pageWidth: {
     xl: 1200,
     l: 992,
@@ -25,6 +46,7 @@ const theme = {
     s: 576,
     xs: 300,
   },
+
   columns: {
     xl: 14,
     l: 12,

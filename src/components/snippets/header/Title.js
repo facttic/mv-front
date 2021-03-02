@@ -8,11 +8,11 @@ const TitleWrapper = styled.div`
 `
 
 const TitleStyles = styled.h1`
-  font-family: ${props => props.theme.fonts.headerFont};
+  font-family: ${props => props.theme.styles.text.title.font};
   width: 60%;
   font-size: 2.5em;
   font-weight: 700;
-  color: ${props => props.theme.colors.light};
+  color: ${props => props.theme.styles.text.title.color};
   position: relative;
   padding: 0;
   margin: 20px 5px;

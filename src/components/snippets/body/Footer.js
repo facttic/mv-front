@@ -7,7 +7,7 @@ const FooterContainer = styled.footer`
   right: 0;
   left: 0;
   padding: 0.25em 30px 0.25em;
-  background: ${(props) => props.theme.colors.primary};
+  background: ${(props) => props.theme.styles.colors.accent};
   text-align: right;
   opacity: 0.95;
   z-index: 9999999;
@@ -16,7 +16,7 @@ const FooterContainer = styled.footer`
 
 const Link = styled.a`
   color: inherit;
-  font-family: ${props => props.theme.fonts.text};
+  font-family: ${props => props.theme.styles.text.body.font};
   text-decoration: none;
   display: inline-block;
   margin 0 10px;

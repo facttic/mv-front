@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components'
 
 const SubtitleStyles = styled.p`
+  font-family: ${props => props.theme.styles.text.subtitle.font};
   font-size: 1.125rem;
   font-weight: 700;
   text-align: center;
-  color: ${props => props.theme.colors.light};
+  color: ${props => props.theme.styles.text.subtitle.color};
   border-radius: .1em;
   margin: 0 auto 10px auto;
   

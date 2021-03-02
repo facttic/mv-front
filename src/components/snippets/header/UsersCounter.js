@@ -21,6 +21,8 @@ const CounterIcon = styled(Image)`
 `;
 
 const Text = styled.p`
+  font-family: ${props => props.theme.styles.text.subtitle.font};
+  color:${props => props.theme.styles.text.subtitle.color};
   font-size: 1rem;
   align-self: center;
   margin-bottom: 0;
@@ -38,7 +40,7 @@ const Text = styled.p`
 
 
 const Count = styled.span`
-  color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.styles.colors.accent};
   font-weight: 700;
 `;
 

@@ -5,15 +5,12 @@ import fallbackImage from "../../../../assets/imgs/placeholder.jpg";
 
 const ImageWrapper = styled.div`
   transition: all 50ms ease-out;
-  // border-radius: 3px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
   max-height: 70px;
   overflow: hidden;
-  //background-color: #120c06;
   animation: in 500ms ease-in-out;
-  // box-shadow: 0 12px 16px 8px rgba(0,0,0,.6);
 
   ::after {
     content: "";
@@ -23,7 +20,7 @@ const ImageWrapper = styled.div`
     left: 0;
     height: 3px;
     width: 0;
-    background: ${(props) => props.theme.colors.primary};
+    background: ${(props) => props.theme.styles.colors.accent};
     opacity: 0.75;
     pointer-events: none;
   }

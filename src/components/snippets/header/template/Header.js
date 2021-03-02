@@ -10,7 +10,6 @@ import BackgroundImage from '../BackgroundImage';
 import Description from '../Description';
 
 const Wrapper = styled.div`
-  font-family: ${props => props.theme.fonts.headerTextFont};
   position: relative;
   text-align: center;
   color:#FFFFFF;
@@ -18,8 +17,7 @@ const Wrapper = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  font-family: ${props => props.theme.fonts.headerTextFont};
-  padding-top: 15%;
+  padding-top: 10%;
   position: relative;
   z-index: 2;
   text-align: center;
@@ -38,12 +36,9 @@ const TextWrapper = styled.div`
   }
 
 `;
-
-const Logo = styled(Image)`
-  opacity: .85;
-`
-
 const LeadClosing = styled.span`
+  font-family: ${props => props.theme.styles.text.subtitle.font};
+  color: ${props => props.theme.styles.text.subtitle.color};
   display: block;
 `
 
