@@ -12,7 +12,8 @@ const Link = styled.a`
 const SponsorsContainer = styled.div`
 display: flex;
 justify-content: center;
-margin-top: 60px;
+margin-top: 40px;
+margin-bottom: 70px;
 `;
 
 const TextContainer = styled.p`
@@ -37,7 +38,8 @@ const Sponsors = (props) => {
             <div>
                 <TextContainer> Nos acompañan en esta marcha </TextContainer>
                 <ImagesContainer>
-                    {props.sponsors.map(sponsor => <Link
+                    {props.sponsors.map((sponsor, key) => <Link
+                        key={key}
                         href={sponsor.pageUri}
                         target="_blank"
                         rel="noopener noreferrer">

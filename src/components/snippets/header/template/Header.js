@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
 import UsersCounter from '../UsersCounter';
-import Image from '../Image';
 import Hashtags from '../Hashtags'
 import Title from '../Title'
 import Subtitle from '../Subtitle'
@@ -51,20 +50,16 @@ const Header = (props) => {
         
         <Title title={props.title} />
         <Subtitle subtitle={props.info} />
-        <Description description={props.description} />
-
-        <UsersCounter
-          count={props.count}
-          imgSrc={props.countImgSrc}
-          imgAlt={props.countImgAlt}
-          imgHeight={props.countImgHeight}
-          imgWidth={props.countImgWidth} />
 
         <Text text={props.text} />
 
         <Hashtags hashtags={props.hashtags} />
 
+        <UsersCounter
+          count={props.count}
+          imgSrc={props.countImgSrc} />
         <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
+
       </TextWrapper>
     </Wrapper>
   );

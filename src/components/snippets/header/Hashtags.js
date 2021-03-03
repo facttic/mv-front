@@ -14,7 +14,7 @@ display: inline-block;
   padding:5px 20px;
   margin: 0 10px;
   font-weight: 700;
-
+  border-radius:70px;
   @media (max-width: ${(props) => props.theme.pageWidth.m}px) {
     margin-top: 10px;
   }
@@ -24,7 +24,7 @@ const Hashtags = (props) => {
 
   return (
     <HashtagsContainer>
-      {props.hashtags.map(hashtag => <Hashtag> #{hashtag} </Hashtag>)} 
+      {props.hashtags.map((hashtag, key) => <Hashtag key={key}> #{hashtag.name} </Hashtag>)} 
     </HashtagsContainer>
   );
 };

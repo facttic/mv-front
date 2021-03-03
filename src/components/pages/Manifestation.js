@@ -12,7 +12,7 @@ import Preloader from "../snippets/body/Preloader";
 import Footer from '../snippets/body/Footer'
 import Sponsors from "../snippets/body/Sponsors";
 
-const manifestationData = require('../../data/manifestationSchema.json') 
+const manifestationTemplate = require('../../data/manifestationTemplate.json') 
 
 
 const Background = styled.div`
@@ -60,7 +60,7 @@ class Manifestation extends Component {
     isAuthenticated: false,
     usersCount: 0,
     keepScrolling: true,
-    manifestation:{}
+    manifestation: manifestationTemplate
 
   };
 
@@ -70,8 +70,8 @@ class Manifestation extends Component {
     this.timer = null;
     const { currentPage: _currentPage, perPage } = this.state;
     const endpoint = "posts";
-    const params = `page=${_currentPage}&perPage=${perPage}`;
-    const url = `${API_URL}/${endpoint}?${params}`;
+    const params = `page=${_currentPage}&perPage=${perPage}&`;
+    const url = `${API_URL}/${endpoint}?${params}&manifestationId=603949b303aa2fac6c3e20ba`;
     this.fetchTweets(url);
     this.fetchUsersCount();
 
@@ -81,7 +81,7 @@ class Manifestation extends Component {
     const {
       location: { state: { isAuthenticated = false } = {} },
     } = this.props.history;
-    this.setState({ isAuthenticated });
+    this.setState({ isAuthenticated});
   }
 
   fetchTweets(url) {
@@ -98,8 +98,6 @@ class Manifestation extends Component {
           currentPage,
           total,
           loading: false,
-          //TODO: esto esta provisiorio para poder usar el json, hay que hacer la función que tome la data real de la db
-          manifestation:manifestationData,
         });
 
       });
@@ -220,25 +218,21 @@ class Manifestation extends Component {
     });
 
     return (
-      <Background onScroll={this.handleScroll}>
+      <Background onScroll={this.handleScroll} image={this.state.manifestation.background}>
         <Container ref={this.container} className="App">   
-
+        {console.log(this.state.manifestation.people)}
           <Header
             title={this.state.manifestation.title}
             info={this.state.manifestation.subtitle}
-            description={this.state.manifestation.description}
-            background=""
+            background={this.state.manifestation.headerBackground}
             logoImgAlt={this.state.manifestation.name}
-            count={usersCount}
+            count={this.state.manifestation.people}
             countImgSrc=""
-            countImgAlt=""
-            countImgWidth=""
-            countImgHeight=""
-            text={this.state.manifestation.text}
-            hashtags={this.state.manifestation.hashtags || []}
+            text={this.state.manifestation.description}
+            hashtags={this.state.manifestation.hashtags}
           ></Header>
 
-          <Sponsors sponsors={this.state.manifestation.sponsors || []}></Sponsors>
+          <Sponsors sponsors={this.state.manifestation.sponsors}></Sponsors>
 
           <FeedGrid gallery={gallery}></FeedGrid>
 
