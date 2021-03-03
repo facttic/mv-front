@@ -1,37 +1,56 @@
-import React from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import styled, {withTheme} from "styled-components";
+import Media from '../media/Media'
+
+const columnsGap = 15
 
 const Grid = styled.div`
   position: relative;
   z-index: 9;
   display: grid;
-  grid-template-columns: repeat(${props => props.theme.columns.s}, 1fr);
-  gap: ${props => props.theme.columns.gap.s}px;
+  grid-template-columns: repeat(${props => props.columns}, 1fr);
+  gap: ${columnsGap}px;
   margin: 30px 0;
   transform: rotate3d(0deg, 0deg, 0deg);
-
-  @media (min-width: ${props => props.theme.pageWidth.s}px) {
-    grid-template-columns: repeat(${props => props.theme.columns.s}, 1fr);
-    gap: ${props => props.theme.columns.gap.s}px;
-  }
-  @media (min-width: ${props => props.theme.pageWidth.m}px) {
-    grid-template-columns: repeat(${props => props.theme.columns.m}, 1fr);
-    gap: ${props => props.theme.columns.gap.m}px;
-  }
-  @media (min-width: ${props => props.theme.pageWidth.l}px) {
-    grid-template-columns: repeat(${props => props.theme.columns.l}, 1fr);
-    gap: ${props => props.theme.columns.gap.l}px;
-  }
-  @media (min-width: ${props => props.theme.pageWidth.xl}px) {
-    grid-template-columns: repeat(${props => props.theme.columns.xl}, 1fr);
-    gap: ${props => props.theme.columns.gap.xl}px;
-  }
 `;
 
 
 const FeedGrid = (props) => {
-    return (
-        <Grid>{props.gallery}</Grid>
+
+  const [thumnbnailsWidth, setThumbnailsWidth] = useState();
+  const gridRef = useRef();
+  let columns = props.columns
+  let posts = props.posts
+
+  const setColumns = (columns, ref) => {  
+    let containerWidth = ref.current.offsetWidth
+    let columnWidth = (containerWidth-(columnsGap*columns))/columns 
+    setThumbnailsWidth(columnWidth) 
+  }  
+
+  useEffect(() => {
+      setColumns(columns, gridRef)
+  })
+
+
+  return (
+        <Grid ref={gridRef} columns={columns}>
+          {posts.map( post => {
+                return (
+                  <Media
+                    mediaWidth={thumnbnailsWidth}
+                    mediaHeight={thumnbnailsWidth}
+                    key={post.post_id_str}
+                    tweet={post}
+                    alt=""
+                    click={props.mouseClickHandler}
+                    enter={props.mouseEnterHandler}
+                    leave={props.mouseLeaveHandler}
+                  />
+                );
+            })
+          }
+        </Grid>
     );
 };
 

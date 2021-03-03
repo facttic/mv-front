@@ -234,7 +234,15 @@ class Manifestation extends Component {
 
           <Sponsors sponsors={this.state.manifestation.sponsors}></Sponsors>
 
-          <FeedGrid gallery={gallery}></FeedGrid>
+          <FeedGrid 
+            columns={this.state.manifestation.styles.thumbnails.columns} 
+            posts={this.state.tweets}
+            mouseClickHandler={this.mouseClickHandler}
+            mouseEnterHandler={this.mouseEnterHandler}
+            mouseLeaveHandler={this.mouseLeaveHandler}
+            >
+
+          </FeedGrid>
 
           {this.state.loading && <Preloader />}
           

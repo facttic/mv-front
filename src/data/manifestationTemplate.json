@@ -24,7 +24,7 @@
           }
         },
         "thumbnails": {
-          "columns": 7,
+          "columns": 10 ,
           "colors": {
             "hover": "#8A84E2",
             "border": "#BD4F6C"

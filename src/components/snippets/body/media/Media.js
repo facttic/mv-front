@@ -8,7 +8,6 @@ const ImageWrapper = styled.div`
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  max-height: 70px;
   overflow: hidden;
   animation: in 500ms ease-in-out;
 
@@ -59,7 +58,8 @@ const ImageWrapper = styled.div`
 const Image = styled.img`
   display: block;
   margin: 0;
-  width: 150px;
+  width: ${props=> props.mediaWidth}px;
+  height: ${props=> props.mediaWidth}px;
   max-width: 100%;
   height: auto;
   filter: grayscale(80%) contrast(120%);
@@ -74,10 +74,10 @@ const Media = (props) => {
   // let imageSrc = (tweet.media.length > 0) ? tweet.media[0].media_url_https.replace(/\.jpg|\.png|\.gif/gi, '?format=jpg&name=thumb') : '';
   const media = tweet.media[0].media_url_thumb;
   const image =
-    tweet.media.length > 0 ? (
+    tweet.media.length > 0 ? (      
       <Image
-        width="150"
-        height="150"
+        mediaWidth={props.mediaWidth}
+        mediaHeight={props.mediaHeight}
         src={media}
         onMouseEnter={(e) => props.enter(e, props.tweet)}
         onClick={(e) => props.click(e, props.tweet)}
