@@ -74,10 +74,9 @@ class App extends Component {
     return (
       <Container ref={this.container} className="App">
         <ThemeProvider theme={theme}>
-          <Route path="/">
-            <Manifestation />
+          <Route path="/" component={Manifestation}>
           </Route>
-
+          
           <Route path="/moderar">
             <Overlay />
             <Login />

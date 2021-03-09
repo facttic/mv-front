@@ -1,7 +1,7 @@
-import React from 'react';
-import styled, { withTheme } from 'styled-components';
-import Api from '../../api'
-import { withRouter } from 'react-router-dom'
+import React from "react";
+import styled, { withTheme } from "styled-components";
+import Api from "../../api";
+import { withRouter } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 300px;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   z-index: 100;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: 0 4px 8px -2px rgba(0,0,0,.45); 
+  box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.45);
   top: 20px;
   left: 0;
   right: 0;
@@ -21,19 +21,19 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   font-size: 1em;
-  color: ${props => props.theme.styles.colors.accent};
+  color: ${(props) => props.theme.styles.colors.accent};
   text-align: center;
   margin-bottom: 1.5em;
 `;
 
 const Label = styled.label`
   font-size: 0.75em;
-  display:block;
+  display: block;
   margin-bottom: 0.25em;
 `;
 
 const Input = styled.input`
-  display:block;
+  display: block;
   font-size: 1.25em;
   background-color: #eee;
   border: 0;
@@ -60,28 +60,32 @@ const Button = styled.button`
 `;
 
 const Login = (props) => {
-
   const [userState, setUserState] = React.useState({
-    username: '',
-    password: '',
-  })
+    username: "",
+    password: "",
+  });
 
-  React.useEffect(() => {
-  })
+  React.useEffect(() => {});
 
   function login() {
-    const { username, password } = userState
-    Api.users.login(username, password)
-      .then(res => {
+    const { username, password } = userState;
+    Api.users
+      .login(username, password)
+      .then((res) => {
+        console.log(props);
         props.history.push({
-          pathname: '/',
+          pathname: "/",
           state: { isAuthenticated: true, res },
-        })
+        });
       })
+      .catch((error) => {
+        //show login error
+        console.log(error.response);
+      });
   }
 
   function handleOnChange(prop, value) {
-    setUserState({ ...userState, [prop]: value })
+    setUserState({ ...userState, [prop]: value });
   }
 
   return (
@@ -91,23 +95,19 @@ const Login = (props) => {
       <Input
         type="text"
         value={userState.username}
-        onChange={(e) => handleOnChange('username', e.target.value)}
+        onChange={(e) => handleOnChange("username", e.target.value)}
         id="user"
       />
-      <Label htmlFor="password">
-        Contraseña
-      </Label>
+      <Label htmlFor="password">Contraseña</Label>
       <Input
         type="password"
         value={userState.password}
-        onChange={(e) => handleOnChange('password', e.target.value)}
+        onChange={(e) => handleOnChange("password", e.target.value)}
         id="password"
       />
-      <Button onClick={login}>
-        Ingresar
-      </Button>
+      <Button onClick={login}>Ingresar</Button>
     </Wrapper>
   );
-}
+};
 
 export default withRouter(withTheme(React.memo(Login)));

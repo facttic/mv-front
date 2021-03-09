@@ -66,7 +66,9 @@ class Manifestation extends Component {
 
   componentDidMount() {
     document.addEventListener("keydown", this.keyPressed);
-    const uri = window.location.href;
+    let uri = window.location.href;
+    // extract domain
+    uri = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1]
     this.container = React.createRef();
     this.timer = null;
     const { currentPage: _currentPage, perPage } = this.state;
@@ -94,7 +96,6 @@ class Manifestation extends Component {
           //redirect
         } else {
           const vurlPosts = urlPosts + `&manifestationId=${res.data[0].id}`;
-          console.log(vurlPosts);
           this.setState({
             manifestation: res.data[0],
             usersCount: res.data[0].people,
