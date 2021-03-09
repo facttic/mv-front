@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   font-size: 1em;
-  color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.styles.colors.accent};
   text-align: center;
   margin-bottom: 1.5em;
 `;
