@@ -66,15 +66,16 @@ class Manifestation extends Component {
 
   componentDidMount() {
     document.addEventListener("keydown", this.keyPressed);
+    const uri = window.location.href;
     this.container = React.createRef();
     this.timer = null;
     const { currentPage: _currentPage, perPage } = this.state;
-    const endpoint = "posts";
+    const endpointpost = "posts";
+    const endpointManifestation = "manifestations/getOne/byQuery";
     const params = `page=${_currentPage}&perPage=${perPage}&`;
-    const url = `${API_URL}/${endpoint}?${params}&manifestationId=603949b303aa2fac6c3e20ba`;
-    this.fetchTweets(url);
-    this.fetchUsersCount();
-
+    const urlPosts = `${API_URL}/${endpointpost}?${params}`;
+    const urlManifestation = `${API_URL}/${endpointManifestation}?uri=${uri}`;
+    this.fetchManifestaionData(urlManifestation, urlPosts);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,6 +83,29 @@ class Manifestation extends Component {
       location: { state: { isAuthenticated = false } = {} },
     } = this.props.history;
     this.setState({ isAuthenticated});
+  }
+
+  async fetchManifestaionData(url, urlPosts) {
+    console.log(url);
+    await axios
+      .get(url)
+      .then((res) => {
+        if (!res.data[0]) {
+          //redirect
+        } else {
+          const vurlPosts = urlPosts + `&manifestationId=${res.data[0].id}`;
+          console.log(vurlPosts);
+          this.setState({
+            manifestation: res.data[0],
+            usersCount: res.data[0].people,
+            urlPost: vurlPosts,
+          });
+          this.fetchTweets(vurlPosts);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }
 
   fetchTweets(url) {
