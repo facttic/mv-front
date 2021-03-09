@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Api from "../../api";
 import Constants from "../../constants";
+import _ from "lodash";
 
 import Header from "../snippets/header/template/Header";
 import Media from "../snippets/body/media/Media";
@@ -71,11 +72,9 @@ class Manifestation extends Component {
     uri = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1]
     this.container = React.createRef();
     this.timer = null;
-    const { currentPage: _currentPage, perPage } = this.state;
     const endpointpost = "posts";
     const endpointManifestation = "manifestations/getOne/byQuery";
-    const params = `page=${_currentPage}&perPage=${perPage}&`;
-    const urlPosts = `${API_URL}/${endpointpost}?${params}`;
+    const urlPosts = `${API_URL}/${endpointpost}`;
     const urlManifestation = `${API_URL}/${endpointManifestation}?uri=${uri}`;
     this.fetchManifestaionData(urlManifestation, urlPosts);
   }
@@ -88,20 +87,20 @@ class Manifestation extends Component {
   }
 
   async fetchManifestaionData(url, urlPosts) {
-    console.log(url);
     await axios
       .get(url)
       .then((res) => {
         if (!res.data[0]) {
           //redirect
         } else {
-          const vurlPosts = urlPosts + `&manifestationId=${res.data[0].id}`;
           this.setState({
             manifestation: res.data[0],
             usersCount: res.data[0].people,
-            urlPost: vurlPosts,
+            urlPost: urlPosts + `?manifestationId=${res.data[0].id}`,
           });
-          this.fetchTweets(vurlPosts);
+          const { currentPage: _currentPage, perPage } = this.state;
+          const params = `&page=${_currentPage}&perPage=${perPage}`;
+          this.fetchTweets(this.state.urlPost+params);
         }
       })
       .catch((error) => {
@@ -142,14 +141,12 @@ class Manifestation extends Component {
 
   onEndReached() {
     const { perPage, tweets } = this.state;
-    const endpoint = "posts";
     const _perPage = Constants.perPage;
     const page = Math.round(tweets.length / _perPage) + 1;
-    const params = `page=${page}&perPage=${perPage}`;
-    const url = `${API_URL}/${endpoint}?${params}`;
+    const params = `&page=${page}&perPage=${perPage}`;
 
     this.setState({ currentPage: page, perPage: _perPage });
-    this.fetchTweets(url);
+    this.fetchTweets(this.state.urlPost+`${params}`);
   }
 
   componentWillUnmount() {
@@ -203,8 +200,8 @@ class Manifestation extends Component {
     });
   };
 
-  banUser = (userTwitterId) => {
-    Api.users.banUser(userTwitterId).then((res) => {
+  banUser = (userTwitterId, manifestationId) => {
+    Api.users.banUser(userTwitterId, manifestationId).then((res) => {
       const { status } = res;
       if (status === 201) {
         const {
@@ -216,6 +213,8 @@ class Manifestation extends Component {
         console.log("res", res);
         console.log(`Banned user with twitter id: ${user_id_str}`);
         console.log(`Deleted ${removedTweetsCount} tweets`);
+        const tweetsNotBanned = _.reject(this.state.tweets, function(el) { return el.user.id_str === user_id_str; });
+        this.setState({tweets: Array.from(tweetsNotBanned)})
       }
     });
   };
