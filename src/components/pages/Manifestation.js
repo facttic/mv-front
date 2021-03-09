@@ -5,7 +5,6 @@ import Api from "../../api";
 import Constants from "../../constants";
 
 import Header from "../snippets/header/template/Header";
-import Media from "../snippets/body/media/Media";
 import FeedGrid from '../snippets/body/template/FeedGrid'
 import TweetCard from "../snippets/body/media/TweetCard";
 import Preloader from "../snippets/body/Preloader";
@@ -13,7 +12,7 @@ import Footer from '../snippets/body/Footer'
 import Sponsors from "../snippets/body/Sponsors";
 
 const manifestationTemplate = require('../../data/manifestationTemplate.json') 
-
+const headerBackgroundTemplate= require('../../assets/imgs/Header.jpg')
 
 const Background = styled.div`
   width: 100%;
@@ -61,7 +60,6 @@ class Manifestation extends Component {
     usersCount: 0,
     keepScrolling: true,
     manifestation: manifestationTemplate
-
   };
 
   componentDidMount() {
@@ -227,34 +225,29 @@ class Manifestation extends Component {
   };
 
   render() {
-    const { isAuthenticated, usersCount } = this.state;
-
-    let gallery = this.state.tweets.map((tweet) => {
-      return (
-        <Media
-          key={tweet.post_id_str}
-          tweet={tweet}
-          alt=""
-          click={this.mouseClickHandler}
-          enter={this.mouseEnterHandler}
-          leave={this.mouseLeaveHandler}
-        />
-      );
-    });
 
     return (
-      <Background onScroll={this.handleScroll} image={this.state.manifestation.background}>
+      <Background onScroll={this.handleScroll}>
         <Container ref={this.container} className="App">   
         {console.log(this.state.manifestation.people)}
           <Header
             title={this.state.manifestation.title}
             info={this.state.manifestation.subtitle}
-            background={this.state.manifestation.headerBackground}
+            background={this.state.manifestation.images.header.src != "" ? this.state.manifestation.images.header.src  : headerBackgroundTemplate }
             logoImgAlt={this.state.manifestation.name}
             count={this.state.manifestation.people}
             countImgSrc=""
             text={this.state.manifestation.description}
             hashtags={this.state.manifestation.hashtags}
+
+            /*Styles
+            TODO: Terminar con estilos custom
+            
+            leadClosingColor={this.state.manifestation.styles}
+            leadClosingFont={}*/
+
+
+            
           ></Header>
 
           <Sponsors sponsors={this.state.manifestation.sponsors}></Sponsors>

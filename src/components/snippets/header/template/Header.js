@@ -6,13 +6,12 @@ import Title from '../Title'
 import Subtitle from '../Subtitle'
 import Text from '../Text'
 import BackgroundImage from '../BackgroundImage';
-import Description from '../Description';
 
 const Wrapper = styled.div`
   position: relative;
   text-align: center;
   color:#FFFFFF;
-
+  padding-bottom: 30px;
 `;
 
 const TextWrapper = styled.div`
@@ -36,8 +35,8 @@ const TextWrapper = styled.div`
 
 `;
 const LeadClosing = styled.span`
-  font-family: ${props => props.theme.styles.text.subtitle.font};
-  color: ${props => props.theme.styles.text.subtitle.color};
+  font-family: ${props => props.font};
+  color: ${props => props.color};
   display: block;
 `
 
@@ -58,7 +57,11 @@ const Header = (props) => {
         <UsersCounter
           count={props.count}
           imgSrc={props.countImgSrc} />
-        <LeadClosing>¡Sumate a la marcha virtual!</LeadClosing>
+          
+        <LeadClosing
+          color={props.leadClosingColor}
+          font={props.leadClosingFont}
+        >¡Sumate a la marcha virtual!</LeadClosing>
 
       </TextWrapper>
     </Wrapper>
