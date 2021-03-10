@@ -19,7 +19,7 @@ const Background = styled.div`
   height: 100%;
   position: fixed;
   overflow-y: scroll;
-  background-color:${ props => props.theme.styles.colors.background};
+  background-color:${ props => props.backgroundColor || props.theme.styles.colors.background};
   background-size: auto 100%;
 `;
 
@@ -227,7 +227,9 @@ class Manifestation extends Component {
   render() {
 
     return (
-      <Background onScroll={this.handleScroll}>
+      <Background 
+        backgroundColor={this.state.manifestation.styles.colors.background}
+        onScroll={this.handleScroll}>
         <Container ref={this.container} className="App">   
           <Header
             title={this.state.manifestation.title}
@@ -247,13 +249,20 @@ class Manifestation extends Component {
             subtitleFont={this.state.manifestation.styles.text.subtitle.font}
             textColor={this.state.manifestation.styles.text.subtitle.color}
             textFont={this.state.manifestation.styles.text.subtitle.font}
+            hashtagFontColor={this.state.manifestation.styles.colors.background}
+            hashtagContainerColor={this.state.manifestation.styles.colors.accent}
+            hashtagFont={this.state.manifestation.styles.text.subtitle.font}
             counterColor={this.state.manifestation.styles.text.subtitle.color}
             counterFont={this.state.manifestation.styles.text.subtitle.font}
             leadClosingColor={this.state.manifestation.styles.text.subtitle.color}
             leadClosingFont={this.state.manifestation.styles.text.subtitle.font}
           ></Header>
 
-          <Sponsors sponsors={this.state.manifestation.sponsors}></Sponsors>
+          <Sponsors 
+            sponsors={this.state.manifestation.sponsors}
+            sponsorsColor={this.state.manifestation.styles.colors.accent}
+            sponsorsFont={this.state.manifestation.styles.text.subtitle.font}
+            ></Sponsors>
 
           <FeedGrid 
             columns={this.state.manifestation.styles.thumbnails.columns} 

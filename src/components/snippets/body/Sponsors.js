@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components'
 
 const Link = styled.a`
-  color: inherit;
-  font-family: ${props => props.theme.styles.colors.accent};
+  color: ${props => props.color || props.theme.styles.colors.accent};
+  font-family:  ${props => props.font || props.theme.styles.text.body.font};
   text-decoration: none;
   display: inline-block;
   margin 0 10px;
@@ -17,7 +17,8 @@ margin-bottom: 70px;
 `;
 
 const TextContainer = styled.p`
-font-family: ${props => props.theme.styles.colors.accent};
+font-family: ${props => props.font || props.theme.styles.text.body.font};
+color: ${props => props.color || props.theme.styles.colors.accent};
 justify-content: center;
 display: flex;
 `;
@@ -36,7 +37,7 @@ const Sponsors = (props) => {
     return (
         <SponsorsContainer>
             <div>
-                <TextContainer> Nos acompañan en esta marcha </TextContainer>
+                <TextContainer color={props.sponsorsColor} font={props.sponsorsFont}> Nos acompañan en esta marcha </TextContainer>
                 <ImagesContainer>
                     {props.sponsors.map((sponsor, key) => <Link
                         key={key}

@@ -64,7 +64,12 @@ const Header = (props) => {
           font={props.textFont}
           />
 
-        <Hashtags hashtags={props.hashtags} />
+        <Hashtags 
+          hashtags={props.hashtags} 
+          fontColor={props.hashtagFontColor}
+          containerColor={props.hashtagContainerColor}
+          font={props.hashtagFont}
+          />
 
         <UsersCounter
           count={props.count}

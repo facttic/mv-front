@@ -8,9 +8,10 @@ const HashtagsContainer = styled.div`
 `
 
 const Hashtag = styled.h3`
-display: inline-block;
-  color: ${props => props.theme.styles.colors.background};
-  background-color: ${props => props.theme.styles.colors.accent};
+  display: inline-block;
+  font-family: ${props => props.font || props.theme.styles.text.subtitle.font};
+  color: ${props => props.color || props.theme.styles.colors.background};
+  background-color: ${props => props.containerColor || props.theme.styles.colors.accent};
   padding:5px 20px;
   margin: 0 10px;
   font-weight: 700;
@@ -24,7 +25,7 @@ const Hashtags = (props) => {
 
   return (
     <HashtagsContainer>
-      {props.hashtags.map((hashtag, key) => <Hashtag key={key}> #{hashtag.name} </Hashtag>)} 
+      {props.hashtags.map((hashtag, key) => <Hashtag color={props.fontColor} containerColor={props.containerColor} font={props.font} key={key}> #{hashtag.name} </Hashtag>)} 
     </HashtagsContainer>
   );
 };
