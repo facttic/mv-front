@@ -21,8 +21,8 @@ const CounterIcon = styled(Image)`
 `;
 
 const Text = styled.p`
-  font-family: ${props => props.theme.styles.text.subtitle.font};
-  color:${props => props.theme.styles.text.subtitle.color};
+  font-family: ${props => props.font || props.theme.styles.text.subtitle.font};
+  color:${props => props.color ||  props.theme.styles.text.subtitle.color};
   font-size: 1rem;
   align-self: center;
   margin-bottom: 0;
@@ -51,7 +51,10 @@ const UsersCounter = (props) => {
     function renderCounter() {
         return (
           <Wrapper>
-              <Text>
+              <Text
+                color={props.color}
+                font={props.font}
+                >
                 <CounterIcon 
                   imgSrc={props.imgSrc}
                   imgAlt={props.countImgAlt}

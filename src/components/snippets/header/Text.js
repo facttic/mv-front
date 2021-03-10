@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components'
 
 const TextStyles = styled.p`
-  font-family: ${props => props.theme.styles.text.subtitle.font};
-  color: ${props => props.theme.styles.text.subtitle.color};
+  font-family: ${props => props.font || props.theme.styles.text.subtitle.font};
+  color: ${props => props.color || props.theme.styles.text.subtitle.color};
   text-align: center;  
   margin: 0;
   font-size: .975rem;
@@ -17,7 +17,7 @@ const TextStyles = styled.p`
 
 const Text = (props) => {
     return (
-            <TextStyles>{props.text}</TextStyles>
+            <TextStyles color={props.color} font={props.font}>{props.text}</TextStyles>
     );
 };
 

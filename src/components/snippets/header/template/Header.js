@@ -47,16 +47,31 @@ const Header = (props) => {
       <BackgroundImage background={props.background} />
       <TextWrapper>
         
-        <Title title={props.title} />
-        <Subtitle subtitle={props.info} />
+        <Title 
+          title={props.title} 
+          color= {props.titleColor}
+          font={props.titleFont}
+          />
+        <Subtitle 
+          subtitle={props.subtitle}
+          color={props.subtitleColor}
+          font={props.subtitleFont}
+          />
 
-        <Text text={props.text} />
+        <Text 
+          text={props.text} 
+          color={props.textColor}
+          font={props.textFont}
+          />
 
         <Hashtags hashtags={props.hashtags} />
 
         <UsersCounter
           count={props.count}
-          imgSrc={props.countImgSrc} />
+          imgSrc={props.countImgSrc} 
+          color={props.counterColor}
+          font={props.counterFont}
+          />
           
         <LeadClosing
           color={props.leadClosingColor}

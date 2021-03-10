@@ -229,25 +229,28 @@ class Manifestation extends Component {
     return (
       <Background onScroll={this.handleScroll}>
         <Container ref={this.container} className="App">   
-        {console.log(this.state.manifestation.people)}
           <Header
             title={this.state.manifestation.title}
-            info={this.state.manifestation.subtitle}
-            background={this.state.manifestation.images.header.src != "" ? this.state.manifestation.images.header.src  : headerBackgroundTemplate }
+            subtitle={this.state.manifestation.subtitle}
+            background={this.state.manifestation.images.header.src != "" ? this.state.manifestation.images.header.src : headerBackgroundTemplate }
             logoImgAlt={this.state.manifestation.name}
             count={this.state.manifestation.people}
             countImgSrc=""
             text={this.state.manifestation.description}
             hashtags={this.state.manifestation.hashtags}
-
-            /*Styles
-            TODO: Terminar con estilos custom
             
-            leadClosingColor={this.state.manifestation.styles}
-            leadClosingFont={}*/
+            /*STYLES*/ 
 
-
-            
+            titleColor={this.state.manifestation.styles.text.title.color}
+            titleFont={this.state.manifestation.styles.text.title.font}
+            subtitleColor={this.state.manifestation.styles.text.subtitle.color}
+            subtitleFont={this.state.manifestation.styles.text.subtitle.font}
+            textColor={this.state.manifestation.styles.text.subtitle.color}
+            textFont={this.state.manifestation.styles.text.subtitle.font}
+            counterColor={this.state.manifestation.styles.text.subtitle.color}
+            counterFont={this.state.manifestation.styles.text.subtitle.font}
+            leadClosingColor={this.state.manifestation.styles.text.subtitle.color}
+            leadClosingFont={this.state.manifestation.styles.text.subtitle.font}
           ></Header>
 
           <Sponsors sponsors={this.state.manifestation.sponsors}></Sponsors>
