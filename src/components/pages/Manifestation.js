@@ -5,12 +5,15 @@ import Api from "../../api";
 import Constants from "../../constants";
 import _ from "lodash";
 
+import webFont from 'webfontloader'
+
 import Header from "../snippets/header/template/Header";
 import FeedGrid from '../snippets/body/template/FeedGrid'
 import TweetCard from "../snippets/body/media/TweetCard";
 import Preloader from "../snippets/body/Preloader";
 import Footer from '../snippets/body/Footer'
 import Sponsors from "../snippets/body/Sponsors";
+
 
 const manifestationTemplate = require('../../data/manifestationTemplate.json') 
 const headerBackgroundTemplate= require('../../assets/imgs/Header.jpg')
@@ -60,8 +63,10 @@ class Manifestation extends Component {
     isAuthenticated: false,
     usersCount: 0,
     keepScrolling: true,
-    manifestation: manifestationTemplate
+    manifestation: manifestationTemplate,
+    manifestationFonts:[]
   };
+
 
   componentDidMount() {
     document.addEventListener("keydown", this.keyPressed);
@@ -74,7 +79,7 @@ class Manifestation extends Component {
     const endpointManifestation = "manifestations/getOne/byQuery";
     const urlPosts = `${API_URL}/${endpointpost}`;
     const urlManifestation = `${API_URL}/${endpointManifestation}?uri=${uri}`;
-    this.fetchManifestaionData(urlManifestation, urlPosts);
+    this.fetchManifestationData(urlManifestation, urlPosts); 
   }
 
   componentWillReceiveProps(nextProps) {
@@ -84,7 +89,7 @@ class Manifestation extends Component {
     this.setState({ isAuthenticated});
   }
 
-  async fetchManifestaionData(url, urlPosts) {
+  async fetchManifestationData(url, urlPosts) {
     await axios
       .get(url)
       .then((res) => {
@@ -95,10 +100,18 @@ class Manifestation extends Component {
             manifestation: res.data[0],
             usersCount: res.data[0].people,
             urlPost: urlPosts + `?manifestationId=${res.data[0].id}`,
+            manifestationFonts: [res.data[0].styles.text.title.font, res.data[0].styles.text.subtitle.font, res.data[0].styles.text.body.font]
           });
           const { currentPage: _currentPage, perPage } = this.state;
           const params = `&page=${_currentPage}&perPage=${perPage}`;
           this.fetchTweets(this.state.urlPost+params);
+
+          webFont.load({
+            google:{
+              families: this.state.manifestationFonts
+            }
+          })
+
         }
       })
       .catch((error) => {
@@ -224,69 +237,68 @@ class Manifestation extends Component {
   };
 
   render() {
-
     return (
-      <Background 
-        backgroundColor={this.state.manifestation.styles.colors.background}
-        onScroll={this.handleScroll}>
-        <Container ref={this.container} className="App">   
-          <Header
-            title={this.state.manifestation.title}
-            subtitle={this.state.manifestation.subtitle}
-            background={this.state.manifestation.images.header.src != "" ? this.state.manifestation.images.header.src : headerBackgroundTemplate }
-            logoImgAlt={this.state.manifestation.name}
-            count={this.state.manifestation.people}
-            countImgSrc=""
-            text={this.state.manifestation.description}
-            hashtags={this.state.manifestation.hashtags}
+        <Background 
+          backgroundColor={this.state.manifestation.styles.colors.background}
+          onScroll={this.handleScroll}>
+          <Container ref={this.container} className="App">   
+            <Header
+              title={this.state.manifestation.title}
+              subtitle={this.state.manifestation.subtitle}
+              background={this.state.manifestation.images.header.src != "" ? this.state.manifestation.images.header.src : headerBackgroundTemplate }
+              logoImgAlt={this.state.manifestation.name}
+              count={this.state.manifestation.people}
+              countImgSrc=""
+              text={this.state.manifestation.description}
+              hashtags={this.state.manifestation.hashtags}
+              
+              /*STYLES*/ 
+
+              titleColor={this.state.manifestation.styles.text.title.color}
+              titleFont={this.state.manifestation.styles.text.title.font}
+              subtitleColor={this.state.manifestation.styles.text.subtitle.color}
+              subtitleFont={this.state.manifestation.styles.text.subtitle.font}
+              textColor={this.state.manifestation.styles.text.subtitle.color}
+              textFont={this.state.manifestation.styles.text.subtitle.font}
+              hashtagFontColor={this.state.manifestation.styles.colors.background}
+              hashtagContainerColor={this.state.manifestation.styles.colors.accent}
+              hashtagFont={this.state.manifestation.styles.text.subtitle.font}
+              counterColor={this.state.manifestation.styles.text.subtitle.color}
+              counterFont={this.state.manifestation.styles.text.subtitle.font}
+              leadClosingColor={this.state.manifestation.styles.text.subtitle.color}
+              leadClosingFont={this.state.manifestation.styles.text.subtitle.font}
+            ></Header>
+
+            <Sponsors 
+              sponsors={this.state.manifestation.sponsors}
+              sponsorsColor={this.state.manifestation.styles.colors.accent}
+              sponsorsFont={this.state.manifestation.styles.text.subtitle.font}
+              ></Sponsors>
+
+            <FeedGrid 
+              columns={this.state.manifestation.styles.thumbnails.columns} 
+              posts={this.state.tweets}
+              mouseClickHandler={this.mouseClickHandler}
+              mouseEnterHandler={this.mouseEnterHandler}
+              mouseLeaveHandler={this.mouseLeaveHandler}
+              >
+
+            </FeedGrid>
+
+            {this.state.loading && <Preloader />}
             
-            /*STYLES*/ 
+            {this.state.currentTweet && <TweetCard
+              isAuthenticated={this.state.isAuthenticated}
+              currentTweet={this.state.currentTweet}
+              container={this.container}
+              closeCard={this.closeCard}
+              deleteTweet={this.deleteTweet}
+              banUser={this.banUser} />}
+          </Container>
 
-            titleColor={this.state.manifestation.styles.text.title.color}
-            titleFont={this.state.manifestation.styles.text.title.font}
-            subtitleColor={this.state.manifestation.styles.text.subtitle.color}
-            subtitleFont={this.state.manifestation.styles.text.subtitle.font}
-            textColor={this.state.manifestation.styles.text.subtitle.color}
-            textFont={this.state.manifestation.styles.text.subtitle.font}
-            hashtagFontColor={this.state.manifestation.styles.colors.background}
-            hashtagContainerColor={this.state.manifestation.styles.colors.accent}
-            hashtagFont={this.state.manifestation.styles.text.subtitle.font}
-            counterColor={this.state.manifestation.styles.text.subtitle.color}
-            counterFont={this.state.manifestation.styles.text.subtitle.font}
-            leadClosingColor={this.state.manifestation.styles.text.subtitle.color}
-            leadClosingFont={this.state.manifestation.styles.text.subtitle.font}
-          ></Header>
-
-          <Sponsors 
-            sponsors={this.state.manifestation.sponsors}
-            sponsorsColor={this.state.manifestation.styles.colors.accent}
-            sponsorsFont={this.state.manifestation.styles.text.subtitle.font}
-            ></Sponsors>
-
-          <FeedGrid 
-            columns={this.state.manifestation.styles.thumbnails.columns} 
-            posts={this.state.tweets}
-            mouseClickHandler={this.mouseClickHandler}
-            mouseEnterHandler={this.mouseEnterHandler}
-            mouseLeaveHandler={this.mouseLeaveHandler}
-            >
-
-          </FeedGrid>
-
-          {this.state.loading && <Preloader />}
-          
-          {this.state.currentTweet && <TweetCard
-            isAuthenticated={this.state.isAuthenticated}
-            currentTweet={this.state.currentTweet}
-            container={this.container}
-            closeCard={this.closeCard}
-            deleteTweet={this.deleteTweet}
-            banUser={this.banUser} />}
-        </Container>
-
-        <Footer footerText={this.state.manifestation.footer}></Footer>
-      
-      </Background>
+          <Footer footerText={this.state.manifestation.footer}></Footer>
+        
+        </Background>
     );
   }
 }
