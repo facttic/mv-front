@@ -49,7 +49,6 @@ const Manifestation = (props) => {
     return <Preloader></Preloader>;
   }
 
-
   return (
     <Background 
       backgroundColor={props.backgroundColor}

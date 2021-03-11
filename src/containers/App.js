@@ -9,6 +9,7 @@ import axios from 'axios'
 import Constants from '../constants'
 
 import webFont from 'webfontloader'
+import Helmet from 'react-helmet'
 
 import Login from "../components/pages/Login";
 import Manifestation from "../components/pages/Manifestation";
@@ -266,74 +267,118 @@ class App extends Component {
     }
   };
 
-
-
   render() {
     return (
-      <Container ref={this.container} className="App">
-        <ThemeProvider theme={theme}>
-          <Route path="/">
-            <Manifestation
-              loadingManifestation= {this.state.loadingManifestation}
-              
-              backgroundColor={this.state.manifestation.styles.colors.background}
-              onScroll={this.handleScroll}
+      <div>
+        <Helmet>
+                {/* <!-- HTML Meta Tags --> */}
+                <title>{this.state.manifestation.metadata.title || manifestationTemplate.metadata.title}</title>
+                <meta
+                  name="description"
+                  content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
+                />
 
-              title={this.state.manifestation.title}
-              subtitle={this.state.manifestation.subtitle}
-              background={this.state.manifestation.images.header.src}
-              logoImgAlt={this.state.manifestation.name}
-              count={this.state.manifestation.people}
-              countImgSrc=""
-              text={this.state.manifestation.description}
-              hashtags={this.state.manifestation.hashtags}
-              
-              /*STYLES*/ 
-    
-              titleColor={this.state.manifestation.styles.text.title.color}
-              titleFont={this.state.manifestation.styles.text.title.font}
-              subtitleColor={this.state.manifestation.styles.text.subtitle.color}
-              subtitleFont={this.state.manifestation.styles.text.subtitle.font}
-              textColor={this.state.manifestation.styles.text.subtitle.color}
-              textFont={this.state.manifestation.styles.text.subtitle.font}
-              hashtagFontColor={this.state.manifestation.styles.colors.background}
-              hashtagContainerColor={this.state.manifestation.styles.colors.accent}
-              hashtagFont={this.state.manifestation.styles.text.subtitle.font}
-              counterColor={this.state.manifestation.styles.text.subtitle.color}
-              counterFont={this.state.manifestation.styles.text.subtitle.font}
-              leadClosingColor={this.state.manifestation.styles.text.subtitle.color}
-              leadClosingFont={this.state.manifestation.styles.text.subtitle.font}
+                {/* <!-- Facebook Meta Tags --> */}
+                <meta property="og:url" 
+                      content={this.state.manifestation.uri || manifestationTemplate.uri} />
+                <meta property="og:type" 
+                      content="website" />
+                <meta property="og:title" 
+                      content={this.state.manifestation.metadata.title || manifestationTemplate.metadata.title} />
+                <meta property="og:description" 
+                      content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
+                />
+                <meta property="og:image"  
+                      content={this.state.manifestation.images.og.facebook || manifestationTemplate.images.og.facebook}
+                />
 
-              sponsors={this.state.manifestation.sponsors}
-              sponsorsColor={this.state.manifestation.styles.colors.accent}
-              sponsorsFont={this.state.manifestation.styles.text.subtitle.font}
-    
-              columns={this.state.manifestation.styles.thumbnails.columns} 
-              posts={this.state.tweets}
-              mouseClickHandler={this.mouseClickHandler}
-              mouseEnterHandler={this.mouseEnterHandler}
-              mouseLeaveHandler={this.mouseLeaveHandler}
+                {/* <!-- Twitter Meta Tags --> */}
+                <meta name="twitter:card" 
+                      content="summary_large_image" />
+                <meta name="twitter:title" 
+                      content={this.state.manifestation.metadata.title || manifestationTemplate.metadata.title} />
+                <meta name="twitter:description"
+                      content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
+                />
+                <meta name="twitter:image"
+                      content={this.state.manifestation.images.og.twitter || manifestationTemplate.images.og.twitter}
+                />
+        </Helmet>
 
-              isLoading={this.state.loading}
+        <Container ref={this.container} className="App">
+          <ThemeProvider theme={theme}>
+            <Route path="/">
+              <Manifestation
+
+                /*HEADER CONTENT*/ 
+                title={this.state.manifestation.title}
+                subtitle={this.state.manifestation.subtitle}
+                background={this.state.manifestation.images.header.src}
+                logoImgAlt={this.state.manifestation.name}
+                count={this.state.manifestation.people}
+                countImgSrc=""
+                text={this.state.manifestation.description}
+                hashtags={this.state.manifestation.hashtags}
+                
+                /*STYLES*/ 
+                backgroundColor={this.state.manifestation.styles.colors.background}
+      
+                titleColor={this.state.manifestation.styles.text.title.color}
+                titleFont={this.state.manifestation.styles.text.title.font}
+                
+                subtitleColor={this.state.manifestation.styles.text.subtitle.color}
+                subtitleFont={this.state.manifestation.styles.text.subtitle.font}
+                
+                textColor={this.state.manifestation.styles.text.subtitle.color}
+                textFont={this.state.manifestation.styles.text.subtitle.font}
+
+                hashtagFontColor={this.state.manifestation.styles.colors.background}
+                hashtagContainerColor={this.state.manifestation.styles.colors.accent}
+                hashtagFont={this.state.manifestation.styles.text.subtitle.font}
+
+                counterColor={this.state.manifestation.styles.text.subtitle.color}
+                counterFont={this.state.manifestation.styles.text.subtitle.font}
+
+                leadClosingColor={this.state.manifestation.styles.text.subtitle.color}
+                leadClosingFont={this.state.manifestation.styles.text.subtitle.font}
+
+                sponsors={this.state.manifestation.sponsors}
+                sponsorsColor={this.state.manifestation.styles.colors.accent}
+                sponsorsFont={this.state.manifestation.styles.text.subtitle.font}
+      
+                columns={this.state.manifestation.styles.thumbnails.columns}
+                
+                /*POSTS*/
+                loadingManifestation= {this.state.loadingManifestation}
+                onScroll={this.handleScroll} 
+
+                posts={this.state.tweets}
+                mouseClickHandler={this.mouseClickHandler}
+                mouseEnterHandler={this.mouseEnterHandler}
+                mouseLeaveHandler={this.mouseLeaveHandler}
+
+                isLoading={this.state.loading}
+            
+                isAuthenticated={this.state.isAuthenticated}
+                currentTweet={this.state.currentTweet}
+                container={this.container}
+                closeCard={this.closeCard}
+                deleteTweet={this.deleteTweet}
+                banUser={this.banUser} 
           
-              isAuthenticated={this.state.isAuthenticated}
-              currentTweet={this.state.currentTweet}
-              container={this.container}
-              closeCard={this.closeCard}
-              deleteTweet={this.deleteTweet}
-              banUser={this.banUser} 
-        
-              footerText={this.state.manifestation.footer}
+                footerText={this.state.manifestation.footer}>
 
-            ></Manifestation>
-          </Route>
-          
-          <Route path="/moderar">
-            <Overlay />
-            <Login />
-          </Route>
-        </ThemeProvider>
-      </Container>
+              </Manifestation>
+            </Route>
+            
+            <Route path="/moderar">
+              <Overlay />
+              <Login />
+            </Route>
+            
+          </ThemeProvider>
+        </Container>
+      </div>
     );
   }
 }
