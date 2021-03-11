@@ -30,9 +30,9 @@ export default {
         password
       }),
     logout: () => provider(AUTH_LOGOUT_REQUEST),
-    banUser: userTwitterId =>
+    banUser: (userTwitterId, manifestationId) =>
       provider(USERS_BAN_REQUEST, {
-        userTwitterId
+        userTwitterId, manifestationId
       }),
     deleteTweet: tweetId =>
       provider(USERS_DELETE_TWEET_REQUEST, {

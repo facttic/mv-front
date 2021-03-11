@@ -8,7 +8,7 @@ export default (client, options = {}) => {
       AUTH_CHECK_REQUEST,
       USERS_BAN_REQUEST,
       USERS_DELETE_TWEET_REQUEST,
-      USERS_COUNT_REQUEST
+      USERS_COUNT_REQUEST,
     } = UserTypes;
 
     const {
@@ -17,14 +17,14 @@ export default (client, options = {}) => {
       tokenField,
       tokenStorageKey,
       userField,
-      userStorageKey
+      userStorageKey,
     } = Object.assign(
       {
         authFields: { username: "username", password: "password" },
         tokenField: "token",
         tokenStorageKey: "token",
         userField: "user",
-        userStorageKey: "user"
+        userStorageKey: "user",
       },
       options
     );
@@ -36,17 +36,17 @@ export default (client, options = {}) => {
       case AUTH_LOGIN_REQUEST:
         return new Promise((resolve, reject) => {
           const headers = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           };
           const data = {
             [authFields.username]: params.username,
-            [authFields.password]: params.password
+            [authFields.password]: params.password,
           };
 
           const method = "post";
           const url = `${authUrl}/users/login`;
           client({ url, headers, data, method })
-            .then(response => {
+            .then((response) => {
               const { data } = response;
               const { [tokenField]: token, [userField]: user } = data;
               localStorage.setItem(tokenStorageKey, token);
@@ -55,18 +55,18 @@ export default (client, options = {}) => {
               console.log(user);
               resolve(user);
             })
-            .catch(error => {
+            .catch((error) => {
               localStorage.removeItem(tokenStorageKey);
               reject(error);
             });
         });
 
       case AUTH_LOGOUT_REQUEST:
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           const token = localStorage.getItem(tokenStorageKey);
           const headers = {
             "Content-Type": "application/x-www-form-urlencoded",
-            token
+            token,
           };
           const method = "post";
           const url = `${authUrl}/users/me/logout`;
@@ -85,16 +85,16 @@ export default (client, options = {}) => {
             const url = authUrl;
             const headers = {
               "Content-Type": "application/x-www-form-urlencoded",
-              token
+              token,
             };
             const method = "get";
             client({ url, headers, method })
-              .then(response => {
+              .then((response) => {
                 const { data } = response;
                 const { [userField]: user } = data;
                 resolve(user);
               })
-              .catch(error => {
+              .catch((error) => {
                 reject(error);
               });
           } else {
@@ -111,16 +111,19 @@ export default (client, options = {}) => {
           const token = localStorage.getItem(tokenStorageKey);
           const headers = {
             "Content-Type": "application/json",
-            token
+            token,
           };
           const method = "post";
-          const data = { user_id_str: params.userTwitterId };
+          const data = {
+            user_id_str: params.userTwitterId,
+            manifestation_id: params.manifestationId,
+          };
           const url = `${authUrl}/deny_lists`;
           client({ url, data, headers, method })
-            .then(res => {
+            .then((res) => {
               resolve(res);
             })
-            .catch(error => {
+            .catch((error) => {
               reject(error);
             });
         });
@@ -130,15 +133,15 @@ export default (client, options = {}) => {
           const token = localStorage.getItem(tokenStorageKey);
           const headers = {
             "Content-Type": "application/json",
-            token
+            token,
           };
           const method = "get";
           const url = `${authUrl}/post_users`;
           client({ url, headers, method })
-            .then(res => {
+            .then((res) => {
               resolve(res);
             })
-            .catch(error => {
+            .catch((error) => {
               reject(error);
             });
         });
@@ -148,15 +151,15 @@ export default (client, options = {}) => {
           const token = localStorage.getItem(tokenStorageKey);
           const headers = {
             "Content-Type": "application/x-www-form-urlencoded",
-            token
+            token,
           };
           const method = "delete";
           const url = `${authUrl}/posts/${params.tweetId}`;
           client({ url, headers, method })
-            .then(res => {
+            .then((res) => {
               resolve(res);
             })
-            .catch(error => {
+            .catch((error) => {
               reject(error);
             });
         });
