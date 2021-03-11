@@ -55,6 +55,7 @@ class Manifestation extends Component {
 
   state = {
     loading: false,
+    loadingManifestation:true,
     tweets: [],
     currentTweet: null,
     currentPage: 1,
@@ -95,12 +96,14 @@ class Manifestation extends Component {
       .then((res) => {
         if (!res.data[0]) {
           //redirect
+          this.setState({loadingManifestation: false})
         } else {
           this.setState({
             manifestation: res.data[0],
             usersCount: res.data[0].people,
             urlPost: urlPosts + `?manifestationId=${res.data[0].id}`,
-            manifestationFonts: [res.data[0].styles.text.title.font, res.data[0].styles.text.subtitle.font, res.data[0].styles.text.body.font]
+            manifestationFonts: [res.data[0].styles.text.title.font, res.data[0].styles.text.subtitle.font, res.data[0].styles.text.body.font],
+            loadingManifestation: false,
           });
           const { currentPage: _currentPage, perPage } = this.state;
           const params = `&page=${_currentPage}&perPage=${perPage}`;
@@ -237,6 +240,12 @@ class Manifestation extends Component {
   };
 
   render() {
+    const { isAuthenticated, usersCount } = this.state;
+
+    if (this.state.loadingManifestation) {
+      return <Preloader></Preloader>;
+    }
+
     return (
         <Background 
           backgroundColor={this.state.manifestation.styles.colors.background}
