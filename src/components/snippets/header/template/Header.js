@@ -11,11 +11,11 @@ const Wrapper = styled.div`
   position: relative;
   text-align: center;
   color:#FFFFFF;
-  padding-bottom: 30px;
+  padding-bottom: 250px;
 `;
 
 const TextWrapper = styled.div`
-  padding-top: 10%;
+  padding-top: 5%;
   position: relative;
   z-index: 2;
   text-align: center;
@@ -38,6 +38,9 @@ const LeadClosing = styled.span`
   font-family: ${props => props.font};
   color: ${props => props.color};
   display: block;
+  text-shadow:#818181 0px 0px 1px;
+  margin-top: 20px;
+  font-size:1.25em;
 `
 
 const Header = (props) => {

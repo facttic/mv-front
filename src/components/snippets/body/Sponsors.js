@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
 
+const sponsorsIconTemplate = require('../../../assets/imgs/sponsor.png')
+
 const Link = styled.a`
   color: ${props => props.color || props.theme.styles.colors.accent};
   font-family:  ${props => props.font || props.theme.styles.text.body.font};
@@ -21,6 +23,8 @@ font-family: ${props => props.font || props.theme.styles.text.body.font};
 color: ${props => props.color || props.theme.styles.colors.accent};
 justify-content: center;
 display: flex;
+text-shadow:#818181 0px 0px 1px;
+font-size:1.25em;
 `;
 
 const ImagesContainer = styled.div`
@@ -44,7 +48,7 @@ const Sponsors = (props) => {
                         href={sponsor.pageUri}
                         target="_blank"
                         rel="noopener noreferrer">
-                        <Image alt={sponsor.name} src={sponsor.logoUri}></Image>
+                        <Image alt={sponsor.name} src={sponsor.logoUri || sponsorsIconTemplate}></Image>
                     </Link>)}
                 </ImagesContainer>
             </div>

@@ -4,20 +4,21 @@ import styled from 'styled-components'
 const TextStyles = styled.p`
   font-family: ${props => props.font || props.theme.styles.text.subtitle.font};
   color: ${props => props.color || props.theme.styles.text.subtitle.color};
-  text-align: center;  
+  text-align: center;
+  padding: 5px;  
   margin: 0;
-  font-size: .975rem;
+  font-size: 1.25rem;
   line-height: 1.5;
-  padding-top:50px;
+  text-shadow:#818181 0px 0px 1px;
 
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    font-size: 0.975em;
+    font-size: 1.25em;
   }
 `;
 
 const Text = (props) => {
     return (
-            <TextStyles color={props.color} font={props.font}>{props.text}</TextStyles>
+            <TextStyles textBackground={props.textBackground} color={props.color} font={props.font}>{props.text}</TextStyles>
     );
 };
 

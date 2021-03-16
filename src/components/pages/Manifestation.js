@@ -23,7 +23,6 @@ const Background = styled.div`
 const Container = styled.div`
   position: relative;
   margin: 0 auto;
-  padding: 0 30px;
   width: 100%;
   @media (min-width: ${props => props.theme.pageWidth.s}px) {
     max-width: ${props => props.theme.pageWidth.s}px;
@@ -75,10 +74,10 @@ const Manifestation = (props) => {
           hashtagFontColor={props.hashtagFontColor}
           hashtagContainerColor={props.hashtagContainerColor}
           hashtagFont={props.hashtagFont}
-          counterColor={props.hashtagFont}
-          counterFont={props.hashtagFont}
-          leadClosingColor={props.hashtagFont}
-          leadClosingFont={props.hashtagFont}
+          counterColor={props.counterColor}
+          counterFont={props.counterFont}
+          leadClosingColor={props.leadClosingColor}
+          leadClosingFont={props.leadClosingFont}
         ></Header>
 
         <Sponsors 

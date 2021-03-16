@@ -10,14 +10,15 @@ const TitleWrapper = styled.div`
 const TitleStyles = styled.h1`
   font-family: ${props => props.font || props.theme.styles.text.title.font};
   width: 60%;
-  font-size: 2.5em;
+  font-size: 3em;
   font-weight: 700;
   color: ${props => props.color || props.theme.styles.text.title.color};
   position: relative;
   padding: 0;
   margin: 20px 5px;
   text-align: center;
-
+  text-shadow:#818181 0px 0px 2px;
+  
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
     font-size: 1.75em;
   }
@@ -34,7 +35,7 @@ const TitleStyles = styled.h1`
 const Title = (props) => {
     return (
         <TitleWrapper>
-            <TitleStyles color={props.color} font={props.font}>{props.title}</TitleStyles>
+            <TitleStyles backgroundColor={props.backgroundColor} color={props.color} font={props.font}>{props.title}</TitleStyles>
         </TitleWrapper>
     );
 };

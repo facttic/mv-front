@@ -311,42 +311,42 @@ class App extends Component {
               <Manifestation
 
                 /*HEADER CONTENT*/ 
-                title={this.state.manifestation.title}
-                subtitle={this.state.manifestation.subtitle}
-                background={this.state.manifestation.images.header.src}
-                logoImgAlt={this.state.manifestation.name}
-                count={this.state.manifestation.people}
+                title={this.state.manifestation.title || manifestationTemplate.title }
+                subtitle={this.state.manifestation.subtitle  || manifestationTemplate.subtitle }
+                background={this.state.manifestation.images.header.src  ||  manifestationTemplate.images.header.src }
+                logoImgAlt={this.state.manifestation.name || manifestationTemplate.name}
+                count={this.state.manifestation.people || manifestationTemplate.people}
                 countImgSrc=""
-                text={this.state.manifestation.description}
-                hashtags={this.state.manifestation.hashtags}
+                text={this.state.manifestation.description || manifestationTemplate.description }
+                hashtags={this.state.manifestation.hashtags != "" ? this.state.manifestation.hashtags : manifestationTemplate.hashtags }
                 
                 /*STYLES*/ 
-                backgroundColor={this.state.manifestation.styles.colors.background}
+                backgroundColor={this.state.manifestation.styles.colors.background || manifestationTemplate.styles.colors.background }
       
-                titleColor={this.state.manifestation.styles.text.title.color}
-                titleFont={this.state.manifestation.styles.text.title.font}
+                titleColor={this.state.manifestation.styles.text.title.color || manifestationTemplate.styles.text.title.color }
+                titleFont={this.state.manifestation.styles.text.title.font || manifestationTemplate.styles.text.title.font}
                 
-                subtitleColor={this.state.manifestation.styles.text.subtitle.color}
+                subtitleColor={this.state.manifestation.styles.text.subtitle.color || manifestationTemplate.styles.text.subtitle.color }
                 subtitleFont={this.state.manifestation.styles.text.subtitle.font}
                 
-                textColor={this.state.manifestation.styles.text.subtitle.color}
-                textFont={this.state.manifestation.styles.text.subtitle.font}
+                textColor={this.state.manifestation.styles.text.subtitle.color || manifestationTemplate.styles.text.subtitle.color}
+                textFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
 
-                hashtagFontColor={this.state.manifestation.styles.colors.background}
-                hashtagContainerColor={this.state.manifestation.styles.colors.accent}
-                hashtagFont={this.state.manifestation.styles.text.subtitle.font}
+                hashtagFontColor={this.state.manifestation.styles.colors.background || manifestationTemplate.styles.colors.background}
+                hashtagContainerColor={this.state.manifestation.styles.colors.accent || manifestationTemplate.styles.colors.accent}
+                hashtagFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
 
-                counterColor={this.state.manifestation.styles.text.subtitle.color}
-                counterFont={this.state.manifestation.styles.text.subtitle.font}
+                counterColor={this.state.manifestation.styles.text.subtitle.color || manifestationTemplate.styles.text.subtitle.color}
+                counterFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
 
-                leadClosingColor={this.state.manifestation.styles.text.subtitle.color}
-                leadClosingFont={this.state.manifestation.styles.text.subtitle.font}
+                leadClosingColor={this.state.manifestation.styles.text.subtitle.color || manifestationTemplate.styles.text.subtitle.color}
+                leadClosingFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
 
-                sponsors={this.state.manifestation.sponsors}
-                sponsorsColor={this.state.manifestation.styles.colors.accent}
-                sponsorsFont={this.state.manifestation.styles.text.subtitle.font}
+                sponsors={this.state.manifestation.sponsors || manifestationTemplate.sponsors}
+                sponsorsColor={this.state.manifestation.styles.colors.accent || manifestationTemplate.styles.colors.accent}
+                sponsorsFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
       
-                columns={this.state.manifestation.styles.thumbnails.columns}
+                columns={this.state.manifestation.styles.thumbnails.columns || manifestationTemplate.styles.thumbnails.columns}
                 
                 /*POSTS*/
                 loadingManifestation= {this.state.loadingManifestation}
@@ -366,7 +366,7 @@ class App extends Component {
                 deleteTweet={this.deleteTweet}
                 banUser={this.banUser} 
           
-                footerText={this.state.manifestation.footer}>
+                footerText={this.state.manifestation.footer || manifestationTemplate.footer }>
 
               </Manifestation>
             </Route>

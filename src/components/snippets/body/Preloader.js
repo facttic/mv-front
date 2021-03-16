@@ -4,14 +4,21 @@ import styled from "styled-components";
 const Center = styled.div`
   text-align: center;
   padding: 3em;
-  width:50px;
+  width:300px;
+  margin:25% auto;
+
+  img{
+      width:100%;
+  }
 `;
 
 export default function Preloader({
     url
 }) {
-    return <Center>
-        <img src={url || require("../../../assets/imgs/loading.gif")} alt="Cargando" />
-    </Center>
+    return (    
+        <Center>
+            <img src={url || require("../../../assets/imgs/loading.gif")} alt="Cargando" />
+        </Center>
+    )
 }
 

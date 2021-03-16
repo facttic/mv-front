@@ -1,28 +1,28 @@
 {
     "metadata" : {
-        "title" : "Este es el TÍTULO de la marcha",
+        "title" : "Bienvenidx a tu nueva marcha virtual",
         "keywords" : "marchas virtuales ",
         "description" : "Esta es la descripción de la marcha, debería tener una longitud considerable como para ocupar dos líneas o más"
     },
-    "styles": {
-        "colors": {
-         "background": "#000",
-          "accent": "#84DCC6"
-        },
-        "text": {
-          "title": {
-            "font": "Sans Serif",
-            "color": "#8A84E2"
+    "styles" : {
+      "colors" : {
+          "background" : "#FFF",
+          "accent" : "#ffa726"
+      },
+      "text" : {
+          "title" : {
+              "font" : "'Roboto Condensed'",
+              "color" : "#ffa726"
           },
-          "subtitle": {
-            "font": "Serif",
-            "color": "#BD4F6C"
+          "subtitle" : {
+              "font" : "'Roboto Condensed'",
+              "color" : "#848484"
           },
-          "body": {
-            "font": "Sans Serif",
-            "color": "#8A84E2"
+          "body" : {
+              "font" : "'Roboto Condensed'",
+              "color" : "#848484"
           }
-        },
+      },
         "thumbnails": {
           "columns": 10 ,
           "colors": {
@@ -37,7 +37,7 @@
     "images" : {
         "og" : {
             "twitter" : {
-                "src" : "http://localhost:3333/pubresources/2nLVA0.png"
+                "src" : ""
             },
             "facebook" : {
                 "src" : ""
@@ -50,33 +50,33 @@
             "src" : ""
         }
     },
-    "title" : "Este es el TÍTULO de la marcha",
-    "subtitle" : "Este es el SUBTÍTULO de la marcha",
-    "description" : "Esta es la descripción de la marcha, debería terminar con frases del estilo: participá subiendo tu foto usando alguno de los hashtags oficiales",
-    "footer" : "Acá se podría agregar mas texto al footer",
+    "title" : "Bienvenidx a tu nueva marcha virtual",
+    "subtitle" : "Modificá los textos, estilos e imagenes y previsualizalos en esta página",
+    "description" : "Participá compartiendo tu foto e instagram o twitter usando alguno de los hashtags oficiales ",
+    "footer" : "Agradecimientos",
     "people" : "22000",
     "deleted" : false,
-    "name" : "Este es el NOMBRE de la marcha virtual",
+    "name" : "Bienvenida a tu nueva marcha virtual",
     "uri" : "http://www.marchasvirtuales.com.ar",
     "sponsors": [
         {
           "name": "Sponsor 1",
-          "logoUri": "https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_360/public/Purina%C2%AE%20La%20llegada%20del%20gatito%20a%20casa.jpg?itok=9QVIW73Q",
+          "logoUri": "",
           "pageUri": "https://facttic.org.ar/fit"
         },
         {
           "name": "Sponsor 2",
-          "logoUri": "https://i.pinimg.com/originals/98/62/ff/9862ff3501a6d31945495ee068cb1558.jpg",
-          "pageUri": "acá iría la blablabalbal "
+          "logoUri": "",
+          "pageUri": "https://facttic.org.ar/fit"
         }
       ],
     "hashtags" : [ 
         {
-            "name" : "bitcoin",
+            "name" : "hashtag 1",
             "source" : "twitter"
         }, 
         {
-            "name" : "criptocurrency",
+            "name" : "hashtag 2",
             "source" : "twitter"
         }
     ]

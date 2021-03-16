@@ -23,12 +23,13 @@ const CounterIcon = styled(Image)`
 const Text = styled.p`
   font-family: ${props => props.font || props.theme.styles.text.subtitle.font};
   color:${props => props.color ||  props.theme.styles.text.subtitle.color};
-  font-size: 1rem;
+  font-size:1.25em;
   align-self: center;
   margin-bottom: 0;
+  text-shadow:#818181 0px 0px 1px;
 
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
-    font-size: 0.975rem;
+    font-size:1.25em;
   }
 
   @media (min-width: 340px) and (max-width: 380px) {
@@ -40,7 +41,7 @@ const Text = styled.p`
 
 
 const Count = styled.span`
-  color: ${props => props.theme.styles.colors.accent};
+  color: ${ props => props.color || props.theme.styles.colors.accent};
   font-weight: 700;
 `;
 
@@ -61,7 +62,7 @@ const UsersCounter = (props) => {
                   imgHeight={props.countImgHeight}
                   imgWidth={props.countImgWidth}
                 />
-                Somos más de <Count>{props.count}</Count> personas marchando
+                Somos más de <Count color={props.color}>{props.count}</Count> personas marchando
                 <CounterIcon 
                   imgSrc={props.imgSrc}
                   imgAlt={props.countImgAlt}
