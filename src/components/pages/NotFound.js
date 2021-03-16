@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 
 
 const notfoundBackground = require('../../assets/imgs/notfound.jpg')
@@ -18,14 +18,14 @@ const NotFound = () => {
     const history = useHistory()
 
     return (
-        <div style={{ textAlign: "center" }}>
-            <div style={{ position: "relative", marginTop: "24px" }}>
+        <div style={{ textAlign: "center", position: "relative" }}>
+            <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translate(-50%, -50%)" }}>
             <h1> No encontramos ninguna marcha con ese nombre</h1>
             <Button href="#" onClick={() => history.push("/")}>
                 Volver a Marchas Virtuales
             </Button>
             </div>
-            <img src={notfoundBackground} />
+            <img src={notfoundBackground} alt="Página no encontrada" style={{width:"100%"}} />
         </div>
     );
 };
