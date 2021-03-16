@@ -13,8 +13,9 @@ import Helmet from 'react-helmet'
 
 import Login from "../components/pages/Login";
 import Manifestation from "../components/pages/Manifestation";
+import NotFound from "../components/pages/NotFound";
 
-const manifestationTemplate = require('../data/manifestationTemplate.json') 
+const manifestationTemplate = require('../data/manifestationTemplate.json')
 
 const theme = {
 
@@ -56,7 +57,7 @@ const theme = {
     s: 576,
     xs: 300,
   }
-  
+
 };
 
 const Container = styled.div`
@@ -83,7 +84,7 @@ class App extends Component {
 
   state = {
     loading: false,
-    loadingManifestation:true,
+    loadingManifestation: true,
     tweets: [],
     currentTweet: null,
     currentPage: 1,
@@ -93,7 +94,7 @@ class App extends Component {
     usersCount: 0,
     keepScrolling: true,
     manifestation: manifestationTemplate,
-    manifestationFonts:[]
+    manifestationFonts: [],
   };
 
 
@@ -108,23 +109,24 @@ class App extends Component {
     const endpointManifestation = "manifestations/getOne/byQuery";
     const urlPosts = `${API_URL}/${endpointpost}`;
     const urlManifestation = `${API_URL}/${endpointManifestation}?uri=${uri}`;
-    this.fetchManifestationData(urlManifestation, urlPosts); 
+    this.fetchManifestationData(urlManifestation, urlPosts);
   }
 
   componentWillReceiveProps(nextProps) {
     const {
       location: { state: { isAuthenticated = false } = {} },
     } = this.props.history;
-    this.setState({ isAuthenticated});
+    this.setState({ isAuthenticated });
   }
 
   async fetchManifestationData(url, urlPosts) {
     await axios
       .get(url)
       .then((res) => {
-        if (!res.data[0]) {
+        if (res.data.length === 0) {
           //redirect
-          this.setState({loadingManifestation: false})
+          this.setState({ loadingManifestation: false })
+          this.props.history.push("/notFound");
         } else {
           this.setState({
             manifestation: res.data[0],
@@ -135,10 +137,10 @@ class App extends Component {
           });
           const { currentPage: _currentPage, perPage } = this.state;
           const params = `&page=${_currentPage}&perPage=${perPage}`;
-          this.fetchTweets(this.state.urlPost+params);
+          this.fetchTweets(this.state.urlPost + params);
 
           webFont.load({
-            google:{
+            google: {
               families: this.state.manifestationFonts
             }
           })
@@ -188,7 +190,7 @@ class App extends Component {
     const params = `&page=${page}&perPage=${perPage}`;
 
     this.setState({ currentPage: page, perPage: _perPage });
-    this.fetchTweets(this.state.urlPost+`${params}`);
+    this.fetchTweets(this.state.urlPost + `${params}`);
   }
 
   componentWillUnmount() {
@@ -255,8 +257,8 @@ class App extends Component {
         console.log("res", res);
         console.log(`Banned user with twitter id: ${user_id_str}`);
         console.log(`Deleted ${removedTweetsCount} tweets`);
-        const tweetsNotBanned = _.reject(this.state.tweets, function(el) { return el.user.id_str === user_id_str; });
-        this.setState({tweets: Array.from(tweetsNotBanned)})
+        const tweetsNotBanned = _.reject(this.state.tweets, function (el) { return el.user.id_str === user_id_str; });
+        this.setState({ tweets: Array.from(tweetsNotBanned) })
       }
     });
   };
@@ -271,43 +273,43 @@ class App extends Component {
     return (
       <div>
         <Helmet>
-                {/* <!-- HTML Meta Tags --> */}
-                <title>{this.state.manifestation.metadata.title || manifestationTemplate.metadata.title}</title>
-                <meta
-                  name="description"
-                  content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
-                />
+          {/* <!-- HTML Meta Tags --> */}
+          <title>{this.state.manifestation.metadata.title || manifestationTemplate.metadata.title}</title>
+          <meta
+            name="description"
+            content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
+          />
 
-                {/* <!-- Facebook Meta Tags --> */}
-                <meta property="og:url" 
-                      content={this.state.manifestation.uri || manifestationTemplate.uri} />
-                <meta property="og:type" 
-                      content="website" />
-                <meta property="og:title" 
-                      content={this.state.manifestation.metadata.title || manifestationTemplate.metadata.title} />
-                <meta property="og:description" 
-                      content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
-                />
-                <meta property="og:image"  
-                      content={this.state.manifestation.images.og.facebook || manifestationTemplate.images.og.facebook}
-                />
+          {/* <!-- Facebook Meta Tags --> */}
+          <meta property="og:url"
+            content={this.state.manifestation.uri || manifestationTemplate.uri} />
+          <meta property="og:type"
+            content="website" />
+          <meta property="og:title"
+            content={this.state.manifestation.metadata.title || manifestationTemplate.metadata.title} />
+          <meta property="og:description"
+            content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
+          />
+          <meta property="og:image"
+            content={this.state.manifestation.images.og.facebook || manifestationTemplate.images.og.facebook}
+          />
 
-                {/* <!-- Twitter Meta Tags --> */}
-                <meta name="twitter:card" 
-                      content="summary_large_image" />
-                <meta name="twitter:title" 
-                      content={this.state.manifestation.metadata.title || manifestationTemplate.metadata.title} />
-                <meta name="twitter:description"
-                      content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
-                />
-                <meta name="twitter:image"
-                      content={this.state.manifestation.images.og.twitter || manifestationTemplate.images.og.twitter}
-                />
+          {/* <!-- Twitter Meta Tags --> */}
+          <meta name="twitter:card"
+            content="summary_large_image" />
+          <meta name="twitter:title"
+            content={this.state.manifestation.metadata.title || manifestationTemplate.metadata.title} />
+          <meta name="twitter:description"
+            content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
+          />
+          <meta name="twitter:image"
+            content={this.state.manifestation.images.og.twitter || manifestationTemplate.images.og.twitter}
+          />
         </Helmet>
 
         <Container ref={this.container} className="App">
           <ThemeProvider theme={theme}>
-            <Route path="/">
+            <Route exact path="/">
               <Manifestation
 
                 /*HEADER CONTENT*/ 
@@ -349,8 +351,8 @@ class App extends Component {
                 columns={this.state.manifestation.styles.thumbnails.columns || manifestationTemplate.styles.thumbnails.columns}
                 
                 /*POSTS*/
-                loadingManifestation= {this.state.loadingManifestation}
-                onScroll={this.handleScroll} 
+                loadingManifestation={this.state.loadingManifestation}
+                onScroll={this.handleScroll}
 
                 posts={this.state.tweets}
                 mouseClickHandler={this.mouseClickHandler}
@@ -358,7 +360,7 @@ class App extends Component {
                 mouseLeaveHandler={this.mouseLeaveHandler}
 
                 isLoading={this.state.loading}
-            
+
                 isAuthenticated={this.state.isAuthenticated}
                 currentTweet={this.state.currentTweet}
                 container={this.container}
@@ -370,12 +372,15 @@ class App extends Component {
 
               </Manifestation>
             </Route>
-            
+
+            <Route path="/notFound">
+              <NotFound />
+            </Route>
             <Route path="/moderar">
               <Overlay />
               <Login />
             </Route>
-            
+
           </ThemeProvider>
         </Container>
       </div>
