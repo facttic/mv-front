@@ -17,6 +17,7 @@ const Background = styled.div`
   position: fixed;
   overflow-y: scroll;
   background-color:${ props => props.backgroundColor || props.theme.styles.colors.background};
+  background-image: url(${props =>props.backgroundImage});
   background-size: auto 100%;
 `;
 
@@ -51,6 +52,7 @@ const Manifestation = (props) => {
   return (
     <Background 
       backgroundColor={props.backgroundColor}
+      backgroundImage={props.backgroundImage}
       onScroll={props.onScroll}>
       <Container>   
         <Header

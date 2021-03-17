@@ -48,6 +48,9 @@
         },
         "header" : {
             "src" : ""
+        },
+        "background" : {
+            "src" : ""
         }
     },
     "title" : "Bienvenidx a tu nueva marcha virtual",
