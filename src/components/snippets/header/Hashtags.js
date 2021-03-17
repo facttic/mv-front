@@ -21,11 +21,24 @@ const Hashtag = styled.h3`
   }
 `
 
+const CleanHashtags = (hashtags) => {
+  let receivedHashtags = []
+
+  hashtags.forEach(hashtag => {
+    receivedHashtags.push(hashtag.name)
+  });
+
+  let filteredHashtags = [...new Set(receivedHashtags)]
+    return(filteredHashtags)
+} 
+
 const Hashtags = (props) => {
 
   return (
     <HashtagsContainer>
-      {props.hashtags.map((hashtag, key) => <Hashtag color={props.fontColor} containerColor={props.containerColor} font={props.font} key={key}> #{hashtag.name} </Hashtag>)} 
+      {CleanHashtags(props.hashtags).map((hashtag, key) => 
+        <Hashtag color={props.fontColor} containerColor={props.containerColor} font={props.font} key={key}> #{hashtag} </Hashtag>
+        )} 
     </HashtagsContainer>
   );
 };
