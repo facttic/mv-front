@@ -101,6 +101,7 @@ class App extends Component {
   componentDidMount() {
     document.addEventListener("keydown", this.keyPressed);
     let uri = window.location.href;
+    //let uri = process.env.REACT_APP_LOCAL_URL || window.location.href
     // extract domain
     uri = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1]
     this.container = React.createRef();
@@ -324,7 +325,8 @@ class App extends Component {
                 
                 /*STYLES*/ 
                 backgroundColor={this.state.manifestation.styles.colors.background || manifestationTemplate.styles.colors.background }
-      
+                backgroundImage={this.state.manifestation.images.background.src || manifestationTemplate.images.background.src}
+
                 titleColor={this.state.manifestation.styles.text.title.color || manifestationTemplate.styles.text.title.color }
                 titleFont={this.state.manifestation.styles.text.title.font || manifestationTemplate.styles.text.title.font}
                 
