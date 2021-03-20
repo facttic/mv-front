@@ -12,6 +12,15 @@ const Grid = styled.div`
   gap: ${columnsGap}px;
   margin: 30px 0;
   transform: rotate3d(0deg, 0deg, 0deg);
+  
+  @media (max-width: ${(props) => props.theme.pageWidth.l}px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  @media (max-width: ${(props) => props.theme.pageWidth.m}px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+    
 `;
 
 

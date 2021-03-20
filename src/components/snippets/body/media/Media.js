@@ -66,6 +66,7 @@ const Image = styled.img`
   :hover {
     filter: none;
   }
+    
 `;
 
 const Media = (props) => {
