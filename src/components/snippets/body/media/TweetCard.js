@@ -29,11 +29,13 @@ export default function TweetCard({
 }) {
     let containerRect = container.current.getBoundingClientRect();
     let elemRect = currentTweet.el.getBoundingClientRect();
+    
     let x =
         elemRect.left -
         containerRect.left +
         (elemRect.right - elemRect.left) / 2 -
         160;
+
     let y = elemRect.top - containerRect.top - 30;
 
     if (x + 320 > containerRect.right - containerRect.left + 15)
@@ -42,16 +44,17 @@ export default function TweetCard({
     if (y < -25) y = -25;
 
     return (
-        <Modal style={{ top: y, left: x }}>
-            <Overlay onTouchStart={closeCard} />
-            <Card
-                show={isAuthenticated}
-                tweet={currentTweet.tweet}
-                close={closeCard}
-                delete={deleteTweet}
-                block={banUser}
-            />
-        </Modal>
+        <Overlay onTouchStart={closeCard} >
+            <Modal style={{ top: y, left: x }}>
+                <Card
+                    show={isAuthenticated}
+                    tweet={currentTweet.tweet}
+                    close={closeCard}
+                    delete={deleteTweet}
+                    block={banUser}
+                />
+            </Modal>
+        </Overlay >
     )
 }
 
