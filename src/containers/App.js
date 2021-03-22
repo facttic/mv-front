@@ -292,7 +292,7 @@ class App extends Component {
             content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
           />
           <meta property="og:image"
-            content={this.state.manifestation.images.og.facebook || manifestationTemplate.images.og.facebook}
+            content={this.state.manifestation.images.og.facebook.src || manifestationTemplate.images.og.facebook.src}
           />
 
           {/* <!-- Twitter Meta Tags --> */}
@@ -304,7 +304,7 @@ class App extends Component {
             content={this.state.manifestation.metadata.description || manifestationTemplate.metadata.description}
           />
           <meta name="twitter:image"
-            content={this.state.manifestation.images.og.twitter || manifestationTemplate.images.og.twitter}
+            content={this.state.manifestation.images.og.twitter.src || manifestationTemplate.images.og.twitter.src}
           />
         </Helmet>
 
