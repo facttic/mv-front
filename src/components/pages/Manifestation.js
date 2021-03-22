@@ -70,7 +70,7 @@ const Manifestation = (props) => {
           titleColor={props.titleColor}
           titleFont={props.titleFont}
           subtitleColor={props.subtitleColor}
-          subtitleFont={props.subtitleColor}
+          subtitleFont={props.subtitleFont}
           textColor={props.textColor}
           textFont={props.textFont}
           hashtagFontColor={props.hashtagFontColor}
