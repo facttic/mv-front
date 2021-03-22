@@ -21,14 +21,15 @@ const TitleStyles = styled.h1`
   
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
     font-size: 1.75em;
+    width: 100%;
   }
   
   @media (max-width: ${props => props.theme.pageWidth.s}px) {
-    font-size: 1.5em;
+    font-size: 2.2em;
   }
 
   @media (max-width: ${props => props.theme.pageWidth.xs}px) {
-    font-size: 1.2em;
+    font-size: 1.7em;
   }
 `;
 

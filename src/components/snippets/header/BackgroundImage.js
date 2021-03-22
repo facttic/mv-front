@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const ImageWrapper = styled.div`
 background-image: url(${props =>props.background});
 background-size: cover;
+background-repeat: no-repeat;
 background-position:bottom;
 position: absolute;
 z-index:1;

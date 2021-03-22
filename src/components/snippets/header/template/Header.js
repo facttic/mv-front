@@ -15,22 +15,22 @@ const Wrapper = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  padding-top: 5%;
+  //padding-top: 5%;
   position: relative;
   z-index: 2;
   text-align: center;
   color:#FFFFFF;
 
   @media (max-width: ${props => props.theme.pageWidth.l}px) {
-    padding-top: 25%;
+   // padding-top: 25%;
   }
 
   @media (max-width: ${props => props.theme.pageWidth.s}px) {
-    padding-top: 35%;
+    //padding-top: 35%;
   }
 
   @media (max-width: ${props => props.theme.pageWidth.xs}px) {
-    padding-top: 37%;
+    //padding-top: 37%;
   }
 
 `;

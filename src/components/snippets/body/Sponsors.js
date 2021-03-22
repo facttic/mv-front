@@ -12,35 +12,38 @@ const Link = styled.a`
 `;
 
 const SponsorsContainer = styled.div`
-display: flex;
-justify-content: center;
-margin-top: 40px;
-margin-bottom: 70px;
+// display: flex;
+// justify-content: center;
+// margin-top: 40px;
+// margin-bottom: 70px;
 `;
 
 const TextContainer = styled.p`
 font-family: ${props => props.font || props.theme.styles.text.body.font};
-color: ${props => props.color || props.theme.styles.colors.accent};
+// color: ${props => props.color || props.theme.styles.colors.accent};
+color: #222222;
+text-align: center;
 justify-content: center;
 display: flex;
 text-shadow:#818181 0px 0px 1px;
-font-size:1.25em;
+font-size:.9em;
 `;
 
 const ImagesContainer = styled.div`
 justify-content: center;
-display: flex;
+display: block;
 margin-top: 24px;
+text-align:center;
 `;
 
-const Image = styled.img`
-max-height: 100px;
+const Image = styled.img`   
+    max-height: 100px;
 `;
 
 const Sponsors = (props) => {
     return (
         <SponsorsContainer>
-            <div>
+{/*             <div>
                 <TextContainer color={props.sponsorsColor} font={props.sponsorsFont}> Nos acompañan en esta marcha </TextContainer>
                 <ImagesContainer>
                     {props.sponsors.map((sponsor, key) => <Link
@@ -51,7 +54,14 @@ const Sponsors = (props) => {
                         <Image alt={sponsor.name} src={sponsor.logoUri || sponsorsIconTemplate}></Image>
                     </Link>)}
                 </ImagesContainer>
-            </div>
+            </div> */}
+            
+            <ImagesContainer>
+                <Image src={require('../../../assets/imgs/isologotipoPlantamosMemoria.png')}></Image>
+            </ImagesContainer>
+                
+            <TextContainer color={props.sponsorsColor} font={props.sponsorsFont}> Campaña oficial de los Organismos de Derechos Humanos de la República Argentina</TextContainer>
+
         </SponsorsContainer>
     );
 };

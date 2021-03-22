@@ -25,6 +25,7 @@ const Container = styled.div`
   position: relative;
   margin: 0 auto;
   width: 100%;
+  
   @media (min-width: ${props => props.theme.pageWidth.s}px) {
     max-width: ${props => props.theme.pageWidth.s}px;
   }
@@ -55,6 +56,12 @@ const Manifestation = (props) => {
       backgroundImage={props.backgroundImage}
       onScroll={props.onScroll}>
       <Container>   
+      <Sponsors 
+          sponsors={props.sponsors}
+          sponsorsColor={props.sponsorsColor}
+          sponsorsFont={props.sponsorsFont}
+          ></Sponsors>
+
         <Header
           title={props.title}
           subtitle={props.subtitle}
@@ -81,12 +88,6 @@ const Manifestation = (props) => {
           leadClosingColor={props.leadClosingColor}
           leadClosingFont={props.leadClosingFont}
         ></Header>
-
-        <Sponsors 
-          sponsors={props.sponsors}
-          sponsorsColor={props.sponsorsColor}
-          sponsorsFont={props.sponsorsFont}
-          ></Sponsors>
 
         <FeedGrid 
           columns={props.columns} 
