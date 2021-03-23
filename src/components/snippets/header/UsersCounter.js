@@ -60,7 +60,7 @@ const UsersCounter = (props) => {
                   imgHeight={props.countImgHeight}
                   imgWidth={props.countImgWidth}
                 />
-                Somos más de <Count color={props.color}>{(Math.floor(props.count/100)*100).toLocaleString("es")}</Count> personas marchando
+                Somos más de <Count color={props.color}>{(Math.floor(props.count/100)*100).toLocaleString("es-ar")}</Count> personas marchando
                 <CounterIcon 
                   imgSrc={props.imgSrc}
                   imgAlt={props.countImgAlt}
