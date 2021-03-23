@@ -14,6 +14,10 @@ const TextStyles = styled.p`
   @media (max-width: ${props => props.theme.pageWidth.m}px) {
     font-size: 1.25em;
   }
+
+  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
+    font-size: 1em;
+  }
 `;
 
 const Text = (props) => {

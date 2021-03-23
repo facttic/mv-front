@@ -32,10 +32,8 @@ const Text = styled.p`
     font-size:1.25em;
   }
 
-  @media (min-width: 340px) and (max-width: 380px) {
-    max-width: 315px;
-    margin-left: auto;
-    margin-right: auto;
+  @media (max-width: ${(props) => props.theme.pageWidth.s}px) {
+    font-size:1em;
   }
 `;
 
@@ -62,7 +60,7 @@ const UsersCounter = (props) => {
                   imgHeight={props.countImgHeight}
                   imgWidth={props.countImgWidth}
                 />
-                Somos más de <Count color={props.color}>{props.count}</Count> personas marchando
+                Somos <Count color={props.color}>{props.count}</Count> personas marchando
                 <CounterIcon 
                   imgSrc={props.imgSrc}
                   imgAlt={props.countImgAlt}

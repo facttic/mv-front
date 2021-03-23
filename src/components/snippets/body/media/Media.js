@@ -36,22 +36,6 @@ const ImageWrapper = styled.div`
       width: 100%;
     }
   }
-
-  @media (max-width: ${(props) => props.theme.pageWidth.xl}px) {
-    max-height: 65px;
-  }
-
-  @media (max-width: ${(props) => props.theme.pageWidth.l}px) {
-    max-height: 75px;
-  }
-
-  @media (max-width: ${(props) => props.theme.pageWidth.m}px) {
-    max-height: 80px;
-  }
-
-  @media (max-width: ${(props) => props.theme.pageWidth.s}px) {
-    max-height: 65px;
-  }
 `;
 
 const Image = styled.img`
@@ -59,8 +43,6 @@ const Image = styled.img`
   margin: 0;
   width: ${props=> props.mediaWidth}px;
   height: ${props=> props.mediaWidth}px;
-  max-width: 100%;
-  height: auto;
   filter: grayscale(80%) contrast(120%);
 
   :hover {

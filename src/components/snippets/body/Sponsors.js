@@ -16,6 +16,8 @@ const SponsorsContainer = styled.div`
 // justify-content: center;
 // margin-top: 40px;
 // margin-bottom: 70px;
+    width:80%;
+    margin: 0 auto;
 `;
 
 const TextContainer = styled.p`

@@ -21,7 +21,7 @@ const Background = styled.div`
   background-size: auto 100%;
 `;
 
-const Container = styled.div`
+const GridContainer = styled.div`
   position: relative;
   margin: 0 auto;
   width: 100%;
@@ -55,7 +55,7 @@ const Manifestation = (props) => {
       backgroundColor={props.backgroundColor}
       backgroundImage={props.backgroundImage}
       onScroll={props.onScroll}>
-      <Container>   
+  
       <Sponsors 
           sponsors={props.sponsors}
           sponsorsColor={props.sponsorsColor}
@@ -89,26 +89,27 @@ const Manifestation = (props) => {
           leadClosingFont={props.leadClosingFont}
         ></Header>
 
-        <FeedGrid 
-          columns={props.columns} 
-          posts={props.posts}
-          mouseClickHandler={props.mouseClickHandler}
-          mouseEnterHandler={props.mouseEnterHandler}
-          mouseLeaveHandler={props.mouseLeaveHandler}
-          >
+        <GridContainer> 
+          <FeedGrid 
+            columns={props.columns} 
+            posts={props.posts}
+            mouseClickHandler={props.mouseClickHandler}
+            mouseEnterHandler={props.mouseEnterHandler}
+            mouseLeaveHandler={props.mouseLeaveHandler}
+            >
 
-        </FeedGrid>
+          </FeedGrid>
 
-        {props.loading && <Preloader />}
-        
-        {props.currentTweet && <TweetCard
-          isAuthenticated={props.isAuthenticated}
-          currentTweet={props.currentTweet}
-          container={props.container}
-          closeCard={props.closeCard}
-          deleteTweet={props.deleteTweet}
-          banUser={props.banUser} />}
-      </Container>
+          {props.loading && <Preloader />}
+          
+          {props.currentTweet && <TweetCard
+            isAuthenticated={props.isAuthenticated}
+            currentTweet={props.currentTweet}
+            container={props.container}
+            closeCard={props.closeCard}
+            deleteTweet={props.deleteTweet}
+            banUser={props.banUser} />}
+      </GridContainer>
 
       <Footer footerText={props.footerText}></Footer>
     

@@ -11,7 +11,15 @@ const Wrapper = styled.div`
   position: relative;
   text-align: center;
   color:#FFFFFF;
-  padding-bottom: 250px;
+  padding-bottom: 15%;
+
+  @media (max-width: ${props => props.theme.pageWidth.l}px) {
+    padding-bottom: 30%;
+  }
+
+  @media (max-width: ${props => props.theme.pageWidth.m}px) {
+    padding-bottom: 40%;
+  }
 `;
 
 const TextWrapper = styled.div`
@@ -19,21 +27,24 @@ const TextWrapper = styled.div`
   position: relative;
   z-index: 2;
   text-align: center;
-  color:#FFFFFF;
+  margin: 0 auto;
+  width: 90%;
 
-  @media (max-width: ${props => props.theme.pageWidth.l}px) {
-   // padding-top: 25%;
+    
+  @media (min-width: ${props => props.theme.pageWidth.s}px) {
+    max-width: ${props => props.theme.pageWidth.s}px;
   }
-
-  @media (max-width: ${props => props.theme.pageWidth.s}px) {
-    //padding-top: 35%;
+  @media (min-width: ${props => props.theme.pageWidth.m}px) {
+    max-width: ${props => props.theme.pageWidth.m}px;
   }
-
-  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
-    //padding-top: 37%;
+  @media (min-width: ${props => props.theme.pageWidth.l}px) {
+    max-width: ${props => props.theme.pageWidth.l}px;
   }
-
+  @media (min-width: ${props => props.theme.pageWidth.xl}px) {
+    max-width: ${props => props.theme.pageWidth.xl}px;
+  }
 `;
+
 const LeadClosing = styled.span`
   font-family: ${props => props.font};
   color: ${props => props.color};
@@ -41,6 +52,10 @@ const LeadClosing = styled.span`
   text-shadow:#818181 0px 0px 1px;
   margin-top: 20px;
   font-size:1.25em;
+
+  @media (max-width: ${(props) => props.theme.pageWidth.s}px) {
+    font-size:1em;
+  }
 `
 
 const Header = (props) => {
@@ -48,8 +63,7 @@ const Header = (props) => {
   return (
     <Wrapper className="Header">
       <BackgroundImage background={props.background} />
-      <TextWrapper>
-        
+      <TextWrapper>  
         <Title 
           title={props.title} 
           color= {props.titleColor}

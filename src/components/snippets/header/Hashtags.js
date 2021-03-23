@@ -18,8 +18,10 @@ const Hashtag = styled.h3`
   border-radius:70px;
   font-weight: 200;
   text-transform: uppercase;
-  @media (max-width: ${(props) => props.theme.pageWidth.m}px) {
-    margin-top: 10px;
+  margin-top: 10px;
+
+  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
+    font-size: .9em;
   }
 `
 

@@ -18,6 +18,10 @@ const SubtitleStyles = styled.p`
   @media (max-width: ${props => props.theme.pageWidth.s}px) {
     font-size: 1.5em;
   }
+
+  @media (max-width: ${props => props.theme.pageWidth.xs}px) {
+    font-size: 1.2em;
+  }
 `;
 
 const Subtitle = (props) => {

@@ -33,8 +33,17 @@ const FeedGrid = (props) => {
 
   const setColumns = (columns, ref) => {  
     let containerWidth = ref.current.offsetWidth
+
+    if(containerWidth < props.theme.pageWidth.l){
+      columns=7;
+    }
+    if(containerWidth < props.theme.pageWidth.m){
+      columns=5;
+    }
+
     let columnWidth = (containerWidth-(columnsGap*columns))/columns 
     setThumbnailsWidth(columnWidth) 
+
   }  
 
   useEffect(() => {
