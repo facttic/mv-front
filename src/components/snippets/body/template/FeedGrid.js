@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState} from 'react';
 import styled, {withTheme} from "styled-components";
 import Media from '../media/Media'
 
-const columnsGap = 15
+const columnsGap = 10
 
 const Grid = styled.div`
   position: relative;
