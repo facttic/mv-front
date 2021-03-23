@@ -3,7 +3,7 @@ import styled, { withTheme } from 'styled-components';
 
 const Options = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-colum-gap: 5px;
 `;
 
@@ -100,7 +100,7 @@ class CardModeration extends Component {
     return (
       <div className="CardModeration">
         <Options className="CardModeration">
-          <Button onClick={this.clickDeleteHandler}><span role="img" aria-label="">🗑️</span> Eliminar tweet</Button>
+          {/* <Button onClick={this.clickDeleteHandler}><span role="img" aria-label="">🗑️</span> Eliminar tweet</Button> */}
           <Button onClick={this.clickBlockHandler}><span role="img" aria-label="">🚫</span> Bloquear usuario</Button>
         </Options>
         {confirm}
