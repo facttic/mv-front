@@ -40,7 +40,7 @@ const Hashtags = (props) => {
 
   return (
     <HashtagsContainer>
-      {CleanHashtags(props.hashtags).map((hashtag, key) => 
+      {CleanHashtags(props.hashtags.slice(0,3)).map((hashtag, key) => 
         <Hashtag color={props.fontColor} containerColor={props.containerColor} font={props.font} key={key}> #{hashtag} </Hashtag>
         )} 
     </HashtagsContainer>
