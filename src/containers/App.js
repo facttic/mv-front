@@ -103,7 +103,8 @@ class App extends Component {
     let uri = window.location.href;
     //let uri = process.env.REACT_APP_LOCAL_URL || window.location.href
     // extract domain
-    uri = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1]
+    // uri = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1]
+    uri = "plantamosmemoria.com.ar";
     this.container = React.createRef();
     this.timer = null;
     const endpointpost = "posts";
