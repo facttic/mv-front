@@ -100,6 +100,8 @@ class App extends Component {
 
   componentDidMount() {
     document.addEventListener("keydown", this.keyPressed);
+    //TODO: Arreglar problema con URI
+
     //let uri = window.location.href;
     //let uri = process.env.REACT_APP_LOCAL_URL || window.location.href
     // extract domain
