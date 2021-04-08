@@ -100,11 +100,11 @@ class App extends Component {
 
   componentDidMount() {
     document.addEventListener("keydown", this.keyPressed);
-    let uri = window.location.href;
+    //let uri = window.location.href;
     //let uri = process.env.REACT_APP_LOCAL_URL || window.location.href
     // extract domain
     // uri = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1]
-    uri = "plantamosmemoria.com.ar";
+    let uri = "localhost:3001";
     this.container = React.createRef();
     this.timer = null;
     const endpointpost = "posts";
@@ -112,6 +112,8 @@ class App extends Component {
     const urlPosts = `${API_URL}/${endpointpost}`;
     const urlManifestation = `${API_URL}/${endpointManifestation}?uri=${uri}`;
     this.fetchManifestationData(urlManifestation, urlPosts);
+
+    console.log(uri)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -312,6 +314,7 @@ class App extends Component {
         <Container ref={this.container} className="App">
           <ThemeProvider theme={theme}>
             <Route exact path="/">
+
               <Manifestation
 
                 /*HEADER CONTENT*/ 
@@ -347,7 +350,7 @@ class App extends Component {
                 leadClosingColor={this.state.manifestation.styles.text.subtitle.color || manifestationTemplate.styles.text.subtitle.color}
                 leadClosingFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
 
-                sponsors={this.state.manifestation.sponsors || manifestationTemplate.sponsors}
+                sponsors={this.state.manifestation.sponsors.length > 0 ? this.state.manifestation.sponsors : manifestationTemplate.sponsors}
                 sponsorsColor={this.state.manifestation.styles.colors.accent || manifestationTemplate.styles.colors.accent}
                 sponsorsFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
       
