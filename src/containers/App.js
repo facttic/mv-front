@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
@@ -319,26 +318,26 @@ class App extends Component {
 
               <Manifestation
 
-                /*HEADER CONTENT*/ 
-                title={this.state.manifestation.title || manifestationTemplate.title }
-                subtitle={this.state.manifestation.subtitle  || manifestationTemplate.subtitle }
-                background={this.state.manifestation.images.header.src  ||  manifestationTemplate.images.header.src }
+                /*HEADER CONTENT*/
+                title={this.state.manifestation.title || manifestationTemplate.title}
+                subtitle={this.state.manifestation.subtitle || manifestationTemplate.subtitle}
+                background={this.state.manifestation.images.header.src || manifestationTemplate.images.header.src}
                 logoImgAlt={this.state.manifestation.name || manifestationTemplate.name}
                 count={this.state.manifestation.people || manifestationTemplate.people}
                 countImgSrc=""
-                text={this.state.manifestation.description || manifestationTemplate.description }
-                hashtags={this.state.manifestation.hashtags != "" ? this.state.manifestation.hashtags : manifestationTemplate.hashtags }
-                
-                /*STYLES*/ 
-                backgroundColor={this.state.manifestation.styles.colors.background || manifestationTemplate.styles.colors.background }
+                text={this.state.manifestation.description || manifestationTemplate.description}
+                hashtags={this.state.manifestation.hashtags != "" ? this.state.manifestation.hashtags : manifestationTemplate.hashtags}
+
+                /*STYLES*/
+                backgroundColor={this.state.manifestation.styles.colors.background || manifestationTemplate.styles.colors.background}
                 backgroundImage={this.state.manifestation.images.background.src || manifestationTemplate.images.background.src}
 
-                titleColor={this.state.manifestation.styles.text.title.color || manifestationTemplate.styles.text.title.color }
+                titleColor={this.state.manifestation.styles.text.title.color || manifestationTemplate.styles.text.title.color}
                 titleFont={this.state.manifestation.styles.text.title.font || manifestationTemplate.styles.text.title.font}
-                
-                subtitleColor={this.state.manifestation.styles.text.subtitle.color || manifestationTemplate.styles.text.subtitle.color }
+
+                subtitleColor={this.state.manifestation.styles.text.subtitle.color || manifestationTemplate.styles.text.subtitle.color}
                 subtitleFont={this.state.manifestation.styles.text.subtitle.font}
-                
+
                 textColor={this.state.manifestation.styles.text.subtitle.color || manifestationTemplate.styles.text.subtitle.color}
                 textFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
 
@@ -355,9 +354,9 @@ class App extends Component {
                 sponsors={this.state.manifestation.sponsors.length > 0 ? this.state.manifestation.sponsors : manifestationTemplate.sponsors}
                 sponsorsColor={this.state.manifestation.styles.colors.accent || manifestationTemplate.styles.colors.accent}
                 sponsorsFont={this.state.manifestation.styles.text.subtitle.font || manifestationTemplate.styles.text.subtitle.font}
-      
+
                 columns={this.state.manifestation.styles.thumbnails.columns || manifestationTemplate.styles.thumbnails.columns}
-                
+
                 /*POSTS*/
                 loadingManifestation={this.state.loadingManifestation}
                 onScroll={this.handleScroll}
@@ -374,9 +373,9 @@ class App extends Component {
                 container={this.container}
                 closeCard={this.closeCard}
                 deleteTweet={this.deleteTweet}
-                banUser={this.banUser} 
-          
-                footerText={this.state.manifestation.footer || manifestationTemplate.footer }>
+                banUser={this.banUser}
+
+                footerText={this.state.manifestation.footer || manifestationTemplate.footer}>
 
               </Manifestation>
             </Route>
