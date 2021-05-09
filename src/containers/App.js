@@ -96,97 +96,79 @@ class App extends Component {
     manifestationFonts: [],
   };
 
+  async componentDidMount() {
+    try {
+      document.addEventListener("keydown", this.keyPressed);
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.keyPressed);
-    //TODO: Arreglar problema con URI
+      this.container = React.createRef();
+      this.timer = null;
 
-    //let uri = window.location.href;
-    //let uri = process.env.REACT_APP_LOCAL_URL || window.location.href
-    // extract domain
-    // uri = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i)[1]
-    let uri = "localhost:3001";
-    this.container = React.createRef();
-    this.timer = null;
-    const endpointpost = "posts";
-    const endpointManifestation = "manifestations/getOne/byQuery";
-    const urlPosts = `${API_URL}/${endpointpost}`;
-    const urlManifestation = `${API_URL}/${endpointManifestation}?uri=${uri}`;
-    this.fetchManifestationData(urlManifestation, urlPosts);
+      const uri = window.location.href;
+      const parts = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i);
 
-    console.log(uri)
+      console.log(uri, API_URL);
+      const { data } = await axios.get(`${API_URL}/manifestations/getSetup?uri=${parts.join(",")}&page=1&perPage=${Constants.perPage}`);
+
+      if (data.error) {
+        this.setState({ loadingManifestation: false });
+        console.error(data.error);
+        return this.props.history.push("/notFound");
+      }
+
+      const { manifestation, posts } = data;
+      const { id: manifestationId, styles, people: usersCount } = manifestation;
+      const manifestationFonts = [styles.text.title.font, styles.text.subtitle.font, styles.text.body.font];
+
+      this.setState({
+        manifestation,
+        usersCount,
+        urlPost: `${API_URL}/posts?manifestationId=${manifestationId}`,
+        manifestationFonts,
+        loadingManifestation: false,
+      });
+
+      this.setTweetsState(posts);
+
+      webFont.load({
+        google: {
+          families: manifestationFonts
+        }
+      });
+    } catch (err) {
+      this.setState({ loadingManifestation: false });
+      console.error(err);
+      return this.props.history.push("/notFound");
+    }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(_nextProps) {
     const {
       location: { state: { isAuthenticated = false } = {} },
     } = this.props.history;
     this.setState({ isAuthenticated });
   }
 
-  async fetchManifestationData(url, urlPosts) {
-    await axios
-      .get(url)
-      .then((res) => {
-        if (res.data.length === 0) {
-          //redirect
-          this.setState({ loadingManifestation: false })
-          this.props.history.push("/notFound");
-        } else {
-          this.setState({
-            manifestation: res.data[0],
-            usersCount: res.data[0].people,
-            urlPost: urlPosts + `?manifestationId=${res.data[0].id}`,
-            manifestationFonts: [res.data[0].styles.text.title.font, res.data[0].styles.text.subtitle.font, res.data[0].styles.text.body.font],
-            loadingManifestation: false,
-          });
-          const { currentPage: _currentPage, perPage } = this.state;
-          const params = `&page=${_currentPage}&perPage=${perPage}`;
-          this.fetchTweets(this.state.urlPost + params);
-
-          webFont.load({
-            google: {
-              families: this.state.manifestationFonts
-            }
-          })
-
-        }
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  }
-
-  fetchTweets(url) {
+  async fetchTweets(url) {
     if (!this.state.loading) {
-      const { currentPage: _currentPage, tweets: _tweets } = this.state;
       this.setState({ loading: true });
-      axios.get(url).then((res) => {
-        const { list: newTweets, total } = res.data;
-        const currentPage = _currentPage + 1;
-        const tweets = new Set(_tweets.concat(newTweets));
-
-        this.setState({
-          tweets: Array.from(tweets),
-          currentPage,
-          total,
-          loading: false,
-        });
-
-      });
+      const response = await axios.get(url);
+      this.setTweetsState(response);
     }
   }
 
-  fetchUsersCount = () => {
-    Api.users.usersCount().then((res) => {
-      const { status } = res;
-      if (status === 200) {
-        this.setState({
-          usersCount: res.data.count,
-        });
-      }
+  setTweetsState ({ list: newTweets, total }) {
+    const { currentPage: _currentPage, tweets: _tweets } = this.state;
+
+    const currentPage = _currentPage + 1;
+    const tweets = Array.from(new Set(_tweets.concat(newTweets)));
+
+    this.setState({
+      tweets,
+      currentPage,
+      total,
+      loading: false,
     });
-  };
+  }
 
   onEndReached() {
     const { perPage, tweets } = this.state;
@@ -203,14 +185,14 @@ class App extends Component {
     window.removeEventListener("scroll", this.handleScroll);
   }
 
-  isBottom(element) {
+  isBottom(_element) {
     return (
       document.getElementById("root").getBoundingClientRect().bottom <=
       window.innerHeight
     );
   }
 
-  handleScroll = (e) => {
+  handleScroll = (_e) => {
     const { total, tweets } = this.state;
     const shouldFetchMore = total > tweets.length;
     if (shouldFetchMore && this.isBottom()) {
@@ -326,7 +308,7 @@ class App extends Component {
                 count={this.state.manifestation.people || manifestationTemplate.people}
                 countImgSrc=""
                 text={this.state.manifestation.description || manifestationTemplate.description}
-                hashtags={this.state.manifestation.hashtags != "" ? this.state.manifestation.hashtags : manifestationTemplate.hashtags}
+                hashtags={this.state.manifestation.hashtags !== "" ? this.state.manifestation.hashtags : manifestationTemplate.hashtags}
 
                 /*STYLES*/
                 backgroundColor={this.state.manifestation.styles.colors.background || manifestationTemplate.styles.colors.background}
