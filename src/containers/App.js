@@ -106,7 +106,7 @@ class App extends Component {
       const uri = window.location.href;
       const parts = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i);
 
-      const { data } = await axios.get(`${API_URL}/manifestations/getSetup?uri=${parts.join(",")}&page=1&perPage=${Constants.perPage}`);
+      const { data } = await axios.get(`${API_URL}/manifestations/getSetup?uri=${parts.join(",")}&page=1&perPage=${Constants.initialAmount}`);
 
       if (data.error) {
         this.setState({ loadingManifestation: false });
@@ -125,8 +125,6 @@ class App extends Component {
         manifestationFonts,
         loadingManifestation: false,
       });
-
-      console.log(this.state);
 
       this.setTweetsState(posts);
 
@@ -150,11 +148,9 @@ class App extends Component {
   }
 
   async fetchTweets(url) {
-    if (!this.state.loading) {
-      this.setState({ loading: true });
-      const { data } = await axios.get(url);
-      this.setTweetsState(data);
-    }
+    this.setState({ loading: true });
+    const { data } = await axios.get(url);
+    this.setTweetsState(data);
   }
 
   setTweetsState({ list: newTweets, total }) {
@@ -174,8 +170,8 @@ class App extends Component {
   onEndReached() {
     const { perPage, tweets } = this.state;
     const _perPage = Constants.perPage;
-    const page = Math.round(tweets.length / _perPage) + 1;
-    const params = `&page=${page}&perPage=${perPage}`;
+    const page = Math.round(tweets.length / perPage) + 1;
+    const params = `&page=${page}&perPage=${_perPage}`;
 
     this.setState({ currentPage: page, perPage: _perPage });
     this.fetchTweets(this.state.urlPost + `${params}`);
@@ -187,16 +183,13 @@ class App extends Component {
   }
 
   isBottom(_element) {
-    return (
-      document.getElementById("root").getBoundingClientRect().bottom <=
-      window.innerHeight
-    );
+    return document.getElementsByClassName("grid-container")[0].getBoundingClientRect().bottom <= window.innerHeight;
   }
 
   handleScroll = (_e) => {
     const { total, tweets } = this.state;
     const shouldFetchMore = total > tweets.length;
-    if (shouldFetchMore && this.isBottom()) {
+    if (shouldFetchMore && this.isBottom() && !this.state.loading) {
       this.onEndReached();
     }
   };

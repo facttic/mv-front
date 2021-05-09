@@ -1,5 +1,5 @@
 const {
-  REACT_APP_INITIAL_AMOUNT: initialAmount = 24,
+  REACT_APP_INITIAL_AMOUNT: initialAmount = 28,
   REACT_APP_PER_PAGE: perPage = 480,
   REACT_APP_MIN_USERS_COUNT: minUsersCount = 1
 } = process.env;

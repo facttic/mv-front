@@ -90,7 +90,7 @@ const Manifestation = (props) => {
           sponsorsFont={props.sponsorsFont}
           ></Sponsors>
 
-        <GridContainer> 
+        <GridContainer className="grid-container"> 
           <FeedGrid 
             columns={props.columns} 
             posts={props.posts}
