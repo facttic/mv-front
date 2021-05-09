@@ -59,7 +59,7 @@ const Manifestation = (props) => {
         <Header
           title={props.title}
           subtitle={props.subtitle}
-          background={props.background != "" ? props.background : headerBackgroundTemplate }
+          background={props.background !== "" ? props.background : headerBackgroundTemplate }
           logoImgAlt={props.logoImgAlt}
           count={props.count}
           countImgSrc=""
