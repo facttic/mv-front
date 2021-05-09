@@ -106,7 +106,6 @@ class App extends Component {
       const uri = window.location.href;
       const parts = uri.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i);
 
-      console.log(uri, API_URL);
       const { data } = await axios.get(`${API_URL}/manifestations/getSetup?uri=${parts.join(",")}&page=1&perPage=${Constants.perPage}`);
 
       if (data.error) {
@@ -116,7 +115,7 @@ class App extends Component {
       }
 
       const { manifestation, posts } = data;
-      const { id: manifestationId, styles, people: usersCount } = manifestation;
+      const { _id: manifestationId, styles, people: usersCount } = manifestation;
       const manifestationFonts = [styles.text.title.font, styles.text.subtitle.font, styles.text.body.font];
 
       this.setState({
@@ -126,6 +125,8 @@ class App extends Component {
         manifestationFonts,
         loadingManifestation: false,
       });
+
+      console.log(this.state);
 
       this.setTweetsState(posts);
 
@@ -151,12 +152,12 @@ class App extends Component {
   async fetchTweets(url) {
     if (!this.state.loading) {
       this.setState({ loading: true });
-      const response = await axios.get(url);
-      this.setTweetsState(response);
+      const { data } = await axios.get(url);
+      this.setTweetsState(data);
     }
   }
 
-  setTweetsState ({ list: newTweets, total }) {
+  setTweetsState({ list: newTweets, total }) {
     const { currentPage: _currentPage, tweets: _tweets } = this.state;
 
     const currentPage = _currentPage + 1;
