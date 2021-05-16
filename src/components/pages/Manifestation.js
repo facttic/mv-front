@@ -55,6 +55,12 @@ const Manifestation = (props) => {
       backgroundColor={props.backgroundColor}
       backgroundImage={props.backgroundImage}
       onScroll={props.onScroll}>
+  
+      <Sponsors 
+          sponsors={props.sponsors}
+          sponsorsColor={props.sponsorsColor}
+          sponsorsFont={props.sponsorsFont}
+          ></Sponsors>
 
         <Header
           title={props.title}
@@ -82,13 +88,6 @@ const Manifestation = (props) => {
           leadClosingColor={props.leadClosingColor}
           leadClosingFont={props.leadClosingFont}
         ></Header>
-
-          
-      <Sponsors 
-          sponsors={props.sponsors}
-          sponsorsColor={props.sponsorsColor}
-          sponsorsFont={props.sponsorsFont}
-          ></Sponsors>
 
         <GridContainer className="grid-container"> 
           <FeedGrid 
